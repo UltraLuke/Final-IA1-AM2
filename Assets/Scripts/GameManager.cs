@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IAController : Controller
+public class GameManager : MonoBehaviour
 {
-    [SerializeField] int team;
+    
 }
