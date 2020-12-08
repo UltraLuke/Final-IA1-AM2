@@ -1,0 +1,1109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e7a71eb7957be24a841631389495763, type: 3}
+  m_Name: wpinfo
+  m_EditorClassIdentifier: 
+  displayConnectionLines: 1
+  radiusDistanceConnection: 15
+  waypointsData:
+  - id: 0
+    position: {x: -108.57143, y: 5, z: -108.57143}
+    connectedNodesID: 0100000014000000
+  - id: 1
+    position: {x: -97.14285, y: 5, z: -108.57143}
+    connectedNodesID: 000000001500000002000000
+  - id: 2
+    position: {x: -85.71429, y: 5, z: -108.57143}
+    connectedNodesID: 010000000300000016000000
+  - id: 3
+    position: {x: -74.28571, y: 5, z: -108.57143}
+    connectedNodesID: 040000001700000002000000
+  - id: 4
+    position: {x: -62.85714, y: 5, z: -108.57143}
+    connectedNodesID: 030000001800000005000000
+  - id: 5
+    position: {x: -51.42857, y: 5, z: -108.57143}
+    connectedNodesID: 040000000600000019000000
+  - id: 6
+    position: {x: -40, y: 5, z: -108.57143}
+    connectedNodesID: 050000001a00000007000000
+  - id: 7
+    position: {x: -28.571426, y: 5, z: -108.57143}
+    connectedNodesID: 06000000080000001b000000
+  - id: 8
+    position: {x: -17.142855, y: 5, z: -108.57143}
+    connectedNodesID: 090000001c00000007000000
+  - id: 9
+    position: {x: -5.714283, y: 5, z: -108.57143}
+    connectedNodesID: 080000001d0000000a000000
+  - id: 10
+    position: {x: 5.7142887, y: 5, z: -108.57143}
+    connectedNodesID: 090000000b0000001e000000
+  - id: 11
+    position: {x: 17.14286, y: 5, z: -108.57143}
+    connectedNodesID: 0a0000001f0000000c000000
+  - id: 12
+    position: {x: 28.571432, y: 5, z: -108.57143}
+    connectedNodesID: 0b0000000d00000020000000
+  - id: 13
+    position: {x: 40.000004, y: 5, z: -108.57143}
+    connectedNodesID: 0e000000210000000c000000
+  - id: 14
+    position: {x: 51.428574, y: 5, z: -108.57143}
+    connectedNodesID: 0d000000220000000f000000
+  - id: 15
+    position: {x: 62.857147, y: 5, z: -108.57143}
+    connectedNodesID: 0e0000001000000023000000
+  - id: 16
+    position: {x: 74.28572, y: 5, z: -108.57143}
+    connectedNodesID: 0f0000002400000011000000
+  - id: 17
+    position: {x: 85.714294, y: 5, z: -108.57143}
+    connectedNodesID: 100000001200000025000000
+  - id: 18
+    position: {x: 97.14286, y: 5, z: -108.57143}
+    connectedNodesID: 130000002600000011000000
+  - id: 19
+    position: {x: 108.571434, y: 5, z: -108.57143}
+    connectedNodesID: 1200000027000000
+  - id: 20
+    position: {x: -108.57143, y: 5, z: -97.14285}
+    connectedNodesID: 000000001500000028000000
+  - id: 21
+    position: {x: -97.14285, y: 5, z: -97.14285}
+    connectedNodesID: 01000000140000001600000029000000
+  - id: 22
+    position: {x: -85.71429, y: 5, z: -97.14285}
+    connectedNodesID: 1500000017000000020000002a000000
+  - id: 23
+    position: {x: -74.28571, y: 5, z: -97.14285}
+    connectedNodesID: 0300000018000000160000002b000000
+  - id: 24
+    position: {x: -62.85714, y: 5, z: -97.14285}
+    connectedNodesID: 04000000170000002c00000019000000
+  - id: 25
+    position: {x: -51.42857, y: 5, z: -97.14285}
+    connectedNodesID: 18000000050000001a0000002d000000
+  - id: 26
+    position: {x: -40, y: 5, z: -97.14285}
+    connectedNodesID: 06000000190000001b0000002e000000
+  - id: 27
+    position: {x: -28.571426, y: 5, z: -97.14285}
+    connectedNodesID: 1a0000001c000000070000002f000000
+  - id: 28
+    position: {x: -17.142855, y: 5, z: -97.14285}
+    connectedNodesID: 080000001d0000001b00000030000000
+  - id: 29
+    position: {x: -5.714283, y: 5, z: -97.14285}
+    connectedNodesID: 090000001c000000310000001e000000
+  - id: 30
+    position: {x: 5.7142887, y: 5, z: -97.14285}
+    connectedNodesID: 1d0000000a0000001f00000032000000
+  - id: 31
+    position: {x: 17.14286, y: 5, z: -97.14285}
+    connectedNodesID: 0b0000001e0000002000000033000000
+  - id: 32
+    position: {x: 28.571432, y: 5, z: -97.14285}
+    connectedNodesID: 1f000000210000000c00000034000000
+  - id: 33
+    position: {x: 40.000004, y: 5, z: -97.14285}
+    connectedNodesID: 0d000000220000002000000035000000
+  - id: 34
+    position: {x: 51.428574, y: 5, z: -97.14285}
+    connectedNodesID: 0e000000210000003600000023000000
+  - id: 35
+    position: {x: 62.857147, y: 5, z: -97.14285}
+    connectedNodesID: 220000000f0000002400000037000000
+  - id: 36
+    position: {x: 74.28572, y: 5, z: -97.14285}
+    connectedNodesID: 10000000230000002500000038000000
+  - id: 37
+    position: {x: 85.714294, y: 5, z: -97.14285}
+    connectedNodesID: 24000000260000001100000039000000
+  - id: 38
+    position: {x: 97.14286, y: 5, z: -97.14285}
+    connectedNodesID: 1200000027000000250000003a000000
+  - id: 39
+    position: {x: 108.571434, y: 5, z: -97.14285}
+    connectedNodesID: 13000000260000003b000000
+  - id: 40
+    position: {x: -108.57143, y: 5, z: -85.71429}
+    connectedNodesID: 140000003c00000029000000
+  - id: 41
+    position: {x: -97.14285, y: 5, z: -85.71429}
+    connectedNodesID: 150000003d000000280000002a000000
+  - id: 42
+    position: {x: -85.71429, y: 5, z: -85.71429}
+    connectedNodesID: 16000000290000002b0000003e000000
+  - id: 43
+    position: {x: -74.28571, y: 5, z: -85.71429}
+    connectedNodesID: 170000002a0000002c000000
+  - id: 44
+    position: {x: -62.85714, y: 5, z: -85.71429}
+    connectedNodesID: 180000002b0000002d000000
+  - id: 45
+    position: {x: -51.42857, y: 5, z: -85.71429}
+    connectedNodesID: 2c000000190000002e000000
+  - id: 46
+    position: {x: -40, y: 5, z: -85.71429}
+    connectedNodesID: 1a0000002d0000002f000000
+  - id: 47
+    position: {x: -28.571426, y: 5, z: -85.71429}
+    connectedNodesID: 1b0000002e000000300000003f000000
+  - id: 48
+    position: {x: -17.142855, y: 5, z: -85.71429}
+    connectedNodesID: 1c000000400000002f00000031000000
+  - id: 49
+    position: {x: -5.714283, y: 5, z: -85.71429}
+    connectedNodesID: 1d000000410000003000000032000000
+  - id: 50
+    position: {x: 5.7142887, y: 5, z: -85.71429}
+    connectedNodesID: 310000001e0000004200000033000000
+  - id: 51
+    position: {x: 17.14286, y: 5, z: -85.71429}
+    connectedNodesID: 1f000000430000003200000034000000
+  - id: 52
+    position: {x: 28.571432, y: 5, z: -85.71429}
+    connectedNodesID: 20000000330000003500000044000000
+  - id: 53
+    position: {x: 40.000004, y: 5, z: -85.71429}
+    connectedNodesID: 210000003400000036000000
+  - id: 54
+    position: {x: 51.428574, y: 5, z: -85.71429}
+    connectedNodesID: 220000003500000037000000
+  - id: 55
+    position: {x: 62.857147, y: 5, z: -85.71429}
+    connectedNodesID: 360000002300000038000000
+  - id: 56
+    position: {x: 74.28572, y: 5, z: -85.71429}
+    connectedNodesID: 240000003700000039000000
+  - id: 57
+    position: {x: 85.714294, y: 5, z: -85.71429}
+    connectedNodesID: 25000000380000003a00000045000000
+  - id: 58
+    position: {x: 97.14286, y: 5, z: -85.71429}
+    connectedNodesID: 2600000046000000390000003b000000
+  - id: 59
+    position: {x: 108.571434, y: 5, z: -85.71429}
+    connectedNodesID: 27000000470000003a000000
+  - id: 60
+    position: {x: -108.57143, y: 5, z: -74.28571}
+    connectedNodesID: 3d0000004800000028000000
+  - id: 61
+    position: {x: -97.14285, y: 5, z: -74.28571}
+    connectedNodesID: 3c00000049000000290000003e000000
+  - id: 62
+    position: {x: -85.71429, y: 5, z: -74.28571}
+    connectedNodesID: 3d0000002a0000004a000000
+  - id: 63
+    position: {x: -28.571426, y: 5, z: -74.28571}
+    connectedNodesID: 400000002f0000004f000000
+  - id: 64
+    position: {x: -17.142855, y: 5, z: -74.28571}
+    connectedNodesID: 4100000050000000300000003f000000
+  - id: 65
+    position: {x: -5.714283, y: 5, z: -74.28571}
+    connectedNodesID: 40000000510000003100000042000000
+  - id: 66
+    position: {x: 5.7142887, y: 5, z: -74.28571}
+    connectedNodesID: 41000000430000005200000032000000
+  - id: 67
+    position: {x: 17.14286, y: 5, z: -74.28571}
+    connectedNodesID: 42000000530000003300000044000000
+  - id: 68
+    position: {x: 28.571432, y: 5, z: -74.28571}
+    connectedNodesID: 430000003400000054000000
+  - id: 69
+    position: {x: 85.714294, y: 5, z: -74.28571}
+    connectedNodesID: 460000003900000059000000
+  - id: 70
+    position: {x: 97.14286, y: 5, z: -74.28571}
+    connectedNodesID: 470000005a0000003a00000045000000
+  - id: 71
+    position: {x: 108.571434, y: 5, z: -74.28571}
+    connectedNodesID: 460000005b0000003b000000
+  - id: 72
+    position: {x: -108.57143, y: 5, z: -62.85714}
+    connectedNodesID: 3c000000490000005c000000
+  - id: 73
+    position: {x: -97.14285, y: 5, z: -62.85714}
+    connectedNodesID: 3d000000480000004a0000005d000000
+  - id: 74
+    position: {x: -85.71429, y: 5, z: -62.85714}
+    connectedNodesID: 490000004b0000003e0000005e000000
+  - id: 75
+    position: {x: -74.28571, y: 5, z: -62.85714}
+    connectedNodesID: 4c0000004a0000005f000000
+  - id: 76
+    position: {x: -62.85714, y: 5, z: -62.85714}
+    connectedNodesID: 4b0000004d00000060000000
+  - id: 77
+    position: {x: -51.42857, y: 5, z: -62.85714}
+    connectedNodesID: 4c0000004e00000061000000
+  - id: 78
+    position: {x: -40, y: 5, z: -62.85714}
+    connectedNodesID: 4d0000004f00000062000000
+  - id: 79
+    position: {x: -28.571426, y: 5, z: -62.85714}
+    connectedNodesID: 4e000000500000003f00000063000000
+  - id: 80
+    position: {x: -17.142855, y: 5, z: -62.85714}
+    connectedNodesID: 40000000510000004f00000064000000
+  - id: 81
+    position: {x: -5.714283, y: 5, z: -62.85714}
+    connectedNodesID: 41000000500000006500000052000000
+  - id: 82
+    position: {x: 5.7142887, y: 5, z: -62.85714}
+    connectedNodesID: 51000000420000005300000066000000
+  - id: 83
+    position: {x: 17.14286, y: 5, z: -62.85714}
+    connectedNodesID: 43000000520000005400000067000000
+  - id: 84
+    position: {x: 28.571432, y: 5, z: -62.85714}
+    connectedNodesID: 53000000550000004400000068000000
+  - id: 85
+    position: {x: 40.000004, y: 5, z: -62.85714}
+    connectedNodesID: 560000005400000069000000
+  - id: 86
+    position: {x: 51.428574, y: 5, z: -62.85714}
+    connectedNodesID: 55000000570000006a000000
+  - id: 87
+    position: {x: 62.857147, y: 5, z: -62.85714}
+    connectedNodesID: 56000000580000006b000000
+  - id: 88
+    position: {x: 74.28572, y: 5, z: -62.85714}
+    connectedNodesID: 57000000590000006c000000
+  - id: 89
+    position: {x: 85.714294, y: 5, z: -62.85714}
+    connectedNodesID: 580000005a000000450000006d000000
+  - id: 90
+    position: {x: 97.14286, y: 5, z: -62.85714}
+    connectedNodesID: 460000005b000000590000006e000000
+  - id: 91
+    position: {x: 108.571434, y: 5, z: -62.85714}
+    connectedNodesID: 470000005a0000006f000000
+  - id: 92
+    position: {x: -108.57143, y: 5, z: -51.42857}
+    connectedNodesID: 480000005d00000070000000
+  - id: 93
+    position: {x: -97.14285, y: 5, z: -51.42857}
+    connectedNodesID: 490000005c000000710000005e000000
+  - id: 94
+    position: {x: -85.71429, y: 5, z: -51.42857}
+    connectedNodesID: 4a0000005d0000005f00000072000000
+  - id: 95
+    position: {x: -74.28571, y: 5, z: -51.42857}
+    connectedNodesID: 4b00000060000000730000005e000000
+  - id: 96
+    position: {x: -62.85714, y: 5, z: -51.42857}
+    connectedNodesID: 4c0000005f0000007400000061000000
+  - id: 97
+    position: {x: -51.42857, y: 5, z: -51.42857}
+    connectedNodesID: 4d000000600000006200000075000000
+  - id: 98
+    position: {x: -40, y: 5, z: -51.42857}
+    connectedNodesID: 4e000000610000007600000063000000
+  - id: 99
+    position: {x: -28.571426, y: 5, z: -51.42857}
+    connectedNodesID: 4f000000620000006400000077000000
+  - id: 100
+    position: {x: -17.142855, y: 5, z: -51.42857}
+    connectedNodesID: 500000006500000063000000
+  - id: 101
+    position: {x: -5.714283, y: 5, z: -51.42857}
+    connectedNodesID: 510000006400000066000000
+  - id: 102
+    position: {x: 5.7142887, y: 5, z: -51.42857}
+    connectedNodesID: 650000005200000067000000
+  - id: 103
+    position: {x: 17.14286, y: 5, z: -51.42857}
+    connectedNodesID: 530000006600000068000000
+  - id: 104
+    position: {x: 28.571432, y: 5, z: -51.42857}
+    connectedNodesID: 54000000670000006900000078000000
+  - id: 105
+    position: {x: 40.000004, y: 5, z: -51.42857}
+    connectedNodesID: 550000006a0000007900000068000000
+  - id: 106
+    position: {x: 51.428574, y: 5, z: -51.42857}
+    connectedNodesID: 56000000690000007a0000006b000000
+  - id: 107
+    position: {x: 62.857147, y: 5, z: -51.42857}
+    connectedNodesID: 570000006a0000006c0000007b000000
+  - id: 108
+    position: {x: 74.28572, y: 5, z: -51.42857}
+    connectedNodesID: 580000006b0000007c0000006d000000
+  - id: 109
+    position: {x: 85.714294, y: 5, z: -51.42857}
+    connectedNodesID: 590000006c0000006e0000007d000000
+  - id: 110
+    position: {x: 97.14286, y: 5, z: -51.42857}
+    connectedNodesID: 5a0000006f0000007e0000006d000000
+  - id: 111
+    position: {x: 108.571434, y: 5, z: -51.42857}
+    connectedNodesID: 5b0000006e0000007f000000
+  - id: 112
+    position: {x: -108.57143, y: 5, z: -40}
+    connectedNodesID: 5c0000007100000080000000
+  - id: 113
+    position: {x: -97.14285, y: 5, z: -40}
+    connectedNodesID: 5d000000700000007200000081000000
+  - id: 114
+    position: {x: -85.71429, y: 5, z: -40}
+    connectedNodesID: 71000000730000005e00000082000000
+  - id: 115
+    position: {x: -74.28571, y: 5, z: -40}
+    connectedNodesID: 5f000000740000007200000083000000
+  - id: 116
+    position: {x: -62.85714, y: 5, z: -40}
+    connectedNodesID: 60000000730000008400000075000000
+  - id: 117
+    position: {x: -51.42857, y: 5, z: -40}
+    connectedNodesID: 74000000610000007600000085000000
+  - id: 118
+    position: {x: -40, y: 5, z: -40}
+    connectedNodesID: 62000000750000007700000086000000
+  - id: 119
+    position: {x: -28.571426, y: 5, z: -40}
+    connectedNodesID: 760000006300000087000000
+  - id: 120
+    position: {x: 28.571432, y: 5, z: -40}
+    connectedNodesID: 79000000680000008c000000
+  - id: 121
+    position: {x: 40.000004, y: 5, z: -40}
+    connectedNodesID: 690000007a000000780000008d000000
+  - id: 122
+    position: {x: 51.428574, y: 5, z: -40}
+    connectedNodesID: 6a000000790000008e0000007b000000
+  - id: 123
+    position: {x: 62.857147, y: 5, z: -40}
+    connectedNodesID: 7a0000006b0000007c0000008f000000
+  - id: 124
+    position: {x: 74.28572, y: 5, z: -40}
+    connectedNodesID: 6c0000007b0000007d00000090000000
+  - id: 125
+    position: {x: 85.714294, y: 5, z: -40}
+    connectedNodesID: 7c0000007e0000006d00000091000000
+  - id: 126
+    position: {x: 97.14286, y: 5, z: -40}
+    connectedNodesID: 6e0000007f0000007d00000092000000
+  - id: 127
+    position: {x: 108.571434, y: 5, z: -40}
+    connectedNodesID: 6f0000007e00000093000000
+  - id: 128
+    position: {x: -108.57143, y: 5, z: -28.571426}
+    connectedNodesID: 700000009400000081000000
+  - id: 129
+    position: {x: -97.14285, y: 5, z: -28.571426}
+    connectedNodesID: 71000000950000008000000082000000
+  - id: 130
+    position: {x: -85.71429, y: 5, z: -28.571426}
+    connectedNodesID: 72000000810000008300000096000000
+  - id: 131
+    position: {x: -74.28571, y: 5, z: -28.571426}
+    connectedNodesID: 73000000970000008200000084000000
+  - id: 132
+    position: {x: -62.85714, y: 5, z: -28.571426}
+    connectedNodesID: 74000000980000008300000085000000
+  - id: 133
+    position: {x: -51.42857, y: 5, z: -28.571426}
+    connectedNodesID: 84000000750000009900000086000000
+  - id: 134
+    position: {x: -40, y: 5, z: -28.571426}
+    connectedNodesID: 760000009a0000008500000087000000
+  - id: 135
+    position: {x: -28.571426, y: 5, z: -28.571426}
+    connectedNodesID: 7700000086000000880000009b000000
+  - id: 136
+    position: {x: -17.142855, y: 5, z: -28.571426}
+    connectedNodesID: 9c0000008700000089000000
+  - id: 137
+    position: {x: -5.714283, y: 5, z: -28.571426}
+    connectedNodesID: 9d000000880000008a000000
+  - id: 138
+    position: {x: 5.7142887, y: 5, z: -28.571426}
+    connectedNodesID: 890000009e0000008b000000
+  - id: 139
+    position: {x: 17.14286, y: 5, z: -28.571426}
+    connectedNodesID: 9f0000008a0000008c000000
+  - id: 140
+    position: {x: 28.571432, y: 5, z: -28.571426}
+    connectedNodesID: 780000008b0000008d000000a0000000
+  - id: 141
+    position: {x: 40.000004, y: 5, z: -28.571426}
+    connectedNodesID: 79000000a10000008c0000008e000000
+  - id: 142
+    position: {x: 51.428574, y: 5, z: -28.571426}
+    connectedNodesID: 7a000000a20000008d0000008f000000
+  - id: 143
+    position: {x: 62.857147, y: 5, z: -28.571426}
+    connectedNodesID: 8e0000007b000000a300000090000000
+  - id: 144
+    position: {x: 74.28572, y: 5, z: -28.571426}
+    connectedNodesID: 7c000000a40000008f00000091000000
+  - id: 145
+    position: {x: 85.714294, y: 5, z: -28.571426}
+    connectedNodesID: 7d0000009000000092000000a5000000
+  - id: 146
+    position: {x: 97.14286, y: 5, z: -28.571426}
+    connectedNodesID: 7e000000a60000009100000093000000
+  - id: 147
+    position: {x: 108.571434, y: 5, z: -28.571426}
+    connectedNodesID: 7f000000a700000092000000
+  - id: 148
+    position: {x: -108.57143, y: 5, z: -17.142855}
+    connectedNodesID: 9500000080000000
+  - id: 149
+    position: {x: -97.14285, y: 5, z: -17.142855}
+    connectedNodesID: 940000008100000096000000
+  - id: 150
+    position: {x: -85.71429, y: 5, z: -17.142855}
+    connectedNodesID: 950000009700000082000000
+  - id: 151
+    position: {x: -74.28571, y: 5, z: -17.142855}
+    connectedNodesID: 98000000a80000008300000096000000
+  - id: 152
+    position: {x: -62.85714, y: 5, z: -17.142855}
+    connectedNodesID: 97000000a90000008400000099000000
+  - id: 153
+    position: {x: -51.42857, y: 5, z: -17.142855}
+    connectedNodesID: 980000009a000000aa00000085000000
+  - id: 154
+    position: {x: -40, y: 5, z: -17.142855}
+    connectedNodesID: 99000000ab000000860000009b000000
+  - id: 155
+    position: {x: -28.571426, y: 5, z: -17.142855}
+    connectedNodesID: 9a0000009c00000087000000ac000000
+  - id: 156
+    position: {x: -17.142855, y: 5, z: -17.142855}
+    connectedNodesID: 9d000000ad000000880000009b000000
+  - id: 157
+    position: {x: -5.714283, y: 5, z: -17.142855}
+    connectedNodesID: 9c000000ae000000890000009e000000
+  - id: 158
+    position: {x: 5.7142887, y: 5, z: -17.142855}
+    connectedNodesID: 9d0000009f000000af0000008a000000
+  - id: 159
+    position: {x: 17.14286, y: 5, z: -17.142855}
+    connectedNodesID: 9e000000b00000008b000000a0000000
+  - id: 160
+    position: {x: 28.571432, y: 5, z: -17.142855}
+    connectedNodesID: 9f000000a10000008c000000b1000000
+  - id: 161
+    position: {x: 40.000004, y: 5, z: -17.142855}
+    connectedNodesID: a2000000b20000008d000000a0000000
+  - id: 162
+    position: {x: 51.428574, y: 5, z: -17.142855}
+    connectedNodesID: a1000000b30000008e000000a3000000
+  - id: 163
+    position: {x: 62.857147, y: 5, z: -17.142855}
+    connectedNodesID: a2000000a4000000b40000008f000000
+  - id: 164
+    position: {x: 74.28572, y: 5, z: -17.142855}
+    connectedNodesID: a3000000b500000090000000a5000000
+  - id: 165
+    position: {x: 85.714294, y: 5, z: -17.142855}
+    connectedNodesID: a4000000a600000091000000
+  - id: 166
+    position: {x: 97.14286, y: 5, z: -17.142855}
+    connectedNodesID: a700000092000000a5000000
+  - id: 167
+    position: {x: 108.571434, y: 5, z: -17.142855}
+    connectedNodesID: a600000093000000
+  - id: 168
+    position: {x: -74.28571, y: 5, z: -5.714283}
+    connectedNodesID: 97000000a9000000b6000000
+  - id: 169
+    position: {x: -62.85714, y: 5, z: -5.714283}
+    connectedNodesID: 98000000a8000000aa000000b7000000
+  - id: 170
+    position: {x: -51.42857, y: 5, z: -5.714283}
+    connectedNodesID: a900000099000000ab000000b8000000
+  - id: 171
+    position: {x: -40, y: 5, z: -5.714283}
+    connectedNodesID: 9a000000aa000000ac000000b9000000
+  - id: 172
+    position: {x: -28.571426, y: 5, z: -5.714283}
+    connectedNodesID: ab000000ad0000009b000000ba000000
+  - id: 173
+    position: {x: -17.142855, y: 5, z: -5.714283}
+    connectedNodesID: 9c000000ae000000ac000000bb000000
+  - id: 174
+    position: {x: -5.714283, y: 5, z: -5.714283}
+    connectedNodesID: 9d000000ad000000af000000bc000000
+  - id: 175
+    position: {x: 5.7142887, y: 5, z: -5.714283}
+    connectedNodesID: ae0000009e000000b0000000bd000000
+  - id: 176
+    position: {x: 17.14286, y: 5, z: -5.714283}
+    connectedNodesID: 9f000000af000000b1000000be000000
+  - id: 177
+    position: {x: 28.571432, y: 5, z: -5.714283}
+    connectedNodesID: b0000000b2000000a0000000bf000000
+  - id: 178
+    position: {x: 40.000004, y: 5, z: -5.714283}
+    connectedNodesID: a1000000b3000000b1000000c0000000
+  - id: 179
+    position: {x: 51.428574, y: 5, z: -5.714283}
+    connectedNodesID: a2000000b2000000b4000000c1000000
+  - id: 180
+    position: {x: 62.857147, y: 5, z: -5.714283}
+    connectedNodesID: b3000000a3000000b5000000c2000000
+  - id: 181
+    position: {x: 74.28572, y: 5, z: -5.714283}
+    connectedNodesID: a4000000b4000000c3000000
+  - id: 182
+    position: {x: -74.28571, y: 5, z: 5.7142887}
+    connectedNodesID: a8000000b7000000c7000000
+  - id: 183
+    position: {x: -62.85714, y: 5, z: 5.7142887}
+    connectedNodesID: a9000000b6000000c8000000b8000000
+  - id: 184
+    position: {x: -51.42857, y: 5, z: 5.7142887}
+    connectedNodesID: aa000000b7000000b9000000c9000000
+  - id: 185
+    position: {x: -40, y: 5, z: 5.7142887}
+    connectedNodesID: ab000000b8000000ca000000ba000000
+  - id: 186
+    position: {x: -28.571426, y: 5, z: 5.7142887}
+    connectedNodesID: ac000000b9000000bb000000cb000000
+  - id: 187
+    position: {x: -17.142855, y: 5, z: 5.7142887}
+    connectedNodesID: ad000000bc000000cc000000ba000000
+  - id: 188
+    position: {x: -5.714283, y: 5, z: 5.7142887}
+    connectedNodesID: ae000000bb000000cd000000bd000000
+  - id: 189
+    position: {x: 5.7142887, y: 5, z: 5.7142887}
+    connectedNodesID: af000000bc000000be000000ce000000
+  - id: 190
+    position: {x: 17.14286, y: 5, z: 5.7142887}
+    connectedNodesID: b0000000bd000000cf000000bf000000
+  - id: 191
+    position: {x: 28.571432, y: 5, z: 5.7142887}
+    connectedNodesID: b1000000be000000c0000000d0000000
+  - id: 192
+    position: {x: 40.000004, y: 5, z: 5.7142887}
+    connectedNodesID: b2000000c1000000d1000000bf000000
+  - id: 193
+    position: {x: 51.428574, y: 5, z: 5.7142887}
+    connectedNodesID: b3000000c0000000d2000000c2000000
+  - id: 194
+    position: {x: 62.857147, y: 5, z: 5.7142887}
+    connectedNodesID: b4000000c1000000c3000000d3000000
+  - id: 195
+    position: {x: 74.28572, y: 5, z: 5.7142887}
+    connectedNodesID: b5000000c2000000d4000000
+  - id: 196
+    position: {x: -108.57143, y: 5, z: 17.14286}
+    connectedNodesID: c5000000d8000000
+  - id: 197
+    position: {x: -97.14285, y: 5, z: 17.14286}
+    connectedNodesID: c4000000c6000000d9000000
+  - id: 198
+    position: {x: -85.71429, y: 5, z: 17.14286}
+    connectedNodesID: c5000000c7000000da000000
+  - id: 199
+    position: {x: -74.28571, y: 5, z: 17.14286}
+    connectedNodesID: b6000000c8000000c6000000db000000
+  - id: 200
+    position: {x: -62.85714, y: 5, z: 17.14286}
+    connectedNodesID: b7000000c7000000dc000000c9000000
+  - id: 201
+    position: {x: -51.42857, y: 5, z: 17.14286}
+    connectedNodesID: c8000000b8000000ca000000dd000000
+  - id: 202
+    position: {x: -40, y: 5, z: 17.14286}
+    connectedNodesID: b9000000c9000000cb000000de000000
+  - id: 203
+    position: {x: -28.571426, y: 5, z: 17.14286}
+    connectedNodesID: ca000000cc000000ba000000df000000
+  - id: 204
+    position: {x: -17.142855, y: 5, z: 17.14286}
+    connectedNodesID: bb000000cd000000cb000000e0000000
+  - id: 205
+    position: {x: -5.714283, y: 5, z: 17.14286}
+    connectedNodesID: bc000000cc000000e1000000ce000000
+  - id: 206
+    position: {x: 5.7142887, y: 5, z: 17.14286}
+    connectedNodesID: cd000000bd000000cf000000e2000000
+  - id: 207
+    position: {x: 17.14286, y: 5, z: 17.14286}
+    connectedNodesID: be000000ce000000d0000000e3000000
+  - id: 208
+    position: {x: 28.571432, y: 5, z: 17.14286}
+    connectedNodesID: cf000000d1000000bf000000e4000000
+  - id: 209
+    position: {x: 40.000004, y: 5, z: 17.14286}
+    connectedNodesID: c0000000d2000000d0000000e5000000
+  - id: 210
+    position: {x: 51.428574, y: 5, z: 17.14286}
+    connectedNodesID: c1000000d1000000e6000000d3000000
+  - id: 211
+    position: {x: 62.857147, y: 5, z: 17.14286}
+    connectedNodesID: d2000000c2000000d4000000e7000000
+  - id: 212
+    position: {x: 74.28572, y: 5, z: 17.14286}
+    connectedNodesID: c3000000d3000000d5000000e8000000
+  - id: 213
+    position: {x: 85.714294, y: 5, z: 17.14286}
+    connectedNodesID: d4000000d6000000e9000000
+  - id: 214
+    position: {x: 97.14286, y: 5, z: 17.14286}
+    connectedNodesID: d7000000d5000000ea000000
+  - id: 215
+    position: {x: 108.571434, y: 5, z: 17.14286}
+    connectedNodesID: d6000000eb000000
+  - id: 216
+    position: {x: -108.57143, y: 5, z: 28.571432}
+    connectedNodesID: c4000000ec000000d9000000
+  - id: 217
+    position: {x: -97.14285, y: 5, z: 28.571432}
+    connectedNodesID: c5000000ed000000d8000000da000000
+  - id: 218
+    position: {x: -85.71429, y: 5, z: 28.571432}
+    connectedNodesID: c6000000d9000000db000000ee000000
+  - id: 219
+    position: {x: -74.28571, y: 5, z: 28.571432}
+    connectedNodesID: c7000000ef000000da000000dc000000
+  - id: 220
+    position: {x: -62.85714, y: 5, z: 28.571432}
+    connectedNodesID: c8000000f0000000db000000dd000000
+  - id: 221
+    position: {x: -51.42857, y: 5, z: 28.571432}
+    connectedNodesID: dc000000c9000000f1000000de000000
+  - id: 222
+    position: {x: -40, y: 5, z: 28.571432}
+    connectedNodesID: ca000000f2000000dd000000df000000
+  - id: 223
+    position: {x: -28.571426, y: 5, z: 28.571432}
+    connectedNodesID: cb000000de000000e0000000f3000000
+  - id: 224
+    position: {x: -17.142855, y: 5, z: 28.571432}
+    connectedNodesID: cc000000df000000e1000000
+  - id: 225
+    position: {x: -5.714283, y: 5, z: 28.571432}
+    connectedNodesID: cd000000e0000000e2000000
+  - id: 226
+    position: {x: 5.7142887, y: 5, z: 28.571432}
+    connectedNodesID: e1000000ce000000e3000000
+  - id: 227
+    position: {x: 17.14286, y: 5, z: 28.571432}
+    connectedNodesID: cf000000e2000000e4000000
+  - id: 228
+    position: {x: 28.571432, y: 5, z: 28.571432}
+    connectedNodesID: d0000000e3000000e5000000f4000000
+  - id: 229
+    position: {x: 40.000004, y: 5, z: 28.571432}
+    connectedNodesID: d1000000f5000000e4000000e6000000
+  - id: 230
+    position: {x: 51.428574, y: 5, z: 28.571432}
+    connectedNodesID: d2000000f6000000e5000000e7000000
+  - id: 231
+    position: {x: 62.857147, y: 5, z: 28.571432}
+    connectedNodesID: e6000000d3000000f7000000e8000000
+  - id: 232
+    position: {x: 74.28572, y: 5, z: 28.571432}
+    connectedNodesID: d4000000f8000000e7000000e9000000
+  - id: 233
+    position: {x: 85.714294, y: 5, z: 28.571432}
+    connectedNodesID: d5000000e8000000ea000000f9000000
+  - id: 234
+    position: {x: 97.14286, y: 5, z: 28.571432}
+    connectedNodesID: d6000000fa000000e9000000eb000000
+  - id: 235
+    position: {x: 108.571434, y: 5, z: 28.571432}
+    connectedNodesID: d7000000fb000000ea000000
+  - id: 236
+    position: {x: -108.57143, y: 5, z: 40.000004}
+    connectedNodesID: ed000000fc000000d8000000
+  - id: 237
+    position: {x: -97.14285, y: 5, z: 40.000004}
+    connectedNodesID: ec000000fd000000d9000000ee000000
+  - id: 238
+    position: {x: -85.71429, y: 5, z: 40.000004}
+    connectedNodesID: ed000000ef000000da000000fe000000
+  - id: 239
+    position: {x: -74.28571, y: 5, z: 40.000004}
+    connectedNodesID: f0000000ff000000db000000ee000000
+  - id: 240
+    position: {x: -62.85714, y: 5, z: 40.000004}
+    connectedNodesID: ef00000000010000dc000000f1000000
+  - id: 241
+    position: {x: -51.42857, y: 5, z: 40.000004}
+    connectedNodesID: f0000000f200000001010000dd000000
+  - id: 242
+    position: {x: -40, y: 5, z: 40.000004}
+    connectedNodesID: f100000002010000de000000f3000000
+  - id: 243
+    position: {x: -28.571426, y: 5, z: 40.000004}
+    connectedNodesID: f2000000df00000003010000
+  - id: 244
+    position: {x: 28.571432, y: 5, z: 40.000004}
+    connectedNodesID: f5000000e400000008010000
+  - id: 245
+    position: {x: 40.000004, y: 5, z: 40.000004}
+    connectedNodesID: f600000009010000e5000000f4000000
+  - id: 246
+    position: {x: 51.428574, y: 5, z: 40.000004}
+    connectedNodesID: f50000000a010000e6000000f7000000
+  - id: 247
+    position: {x: 62.857147, y: 5, z: 40.000004}
+    connectedNodesID: f6000000f80000000b010000e7000000
+  - id: 248
+    position: {x: 74.28572, y: 5, z: 40.000004}
+    connectedNodesID: f70000000c010000e8000000f9000000
+  - id: 249
+    position: {x: 85.714294, y: 5, z: 40.000004}
+    connectedNodesID: f8000000fa000000e90000000d010000
+  - id: 250
+    position: {x: 97.14286, y: 5, z: 40.000004}
+    connectedNodesID: fb0000000e010000ea000000f9000000
+  - id: 251
+    position: {x: 108.571434, y: 5, z: 40.000004}
+    connectedNodesID: fa0000000f010000eb000000
+  - id: 252
+    position: {x: -108.57143, y: 5, z: 51.428574}
+    connectedNodesID: ec000000fd00000010010000
+  - id: 253
+    position: {x: -97.14285, y: 5, z: 51.428574}
+    connectedNodesID: ed000000fc000000fe00000011010000
+  - id: 254
+    position: {x: -85.71429, y: 5, z: 51.428574}
+    connectedNodesID: fd000000ff000000ee00000012010000
+  - id: 255
+    position: {x: -74.28571, y: 5, z: 51.428574}
+    connectedNodesID: ef00000000010000fe00000013010000
+  - id: 256
+    position: {x: -62.85714, y: 5, z: 51.428574}
+    connectedNodesID: f0000000ff0000000101000014010000
+  - id: 257
+    position: {x: -51.42857, y: 5, z: 51.428574}
+    connectedNodesID: 00010000f10000000201000015010000
+  - id: 258
+    position: {x: -40, y: 5, z: 51.428574}
+    connectedNodesID: f2000000010100000301000016010000
+  - id: 259
+    position: {x: -28.571426, y: 5, z: 51.428574}
+    connectedNodesID: 0201000004010000f300000017010000
+  - id: 260
+    position: {x: -17.142855, y: 5, z: 51.428574}
+    connectedNodesID: 050100000301000018010000
+  - id: 261
+    position: {x: -5.714283, y: 5, z: 51.428574}
+    connectedNodesID: 040100001901000006010000
+  - id: 262
+    position: {x: 5.7142887, y: 5, z: 51.428574}
+    connectedNodesID: 05010000070100001a010000
+  - id: 263
+    position: {x: 17.14286, y: 5, z: 51.428574}
+    connectedNodesID: 06010000080100001b010000
+  - id: 264
+    position: {x: 28.571432, y: 5, z: 51.428574}
+    connectedNodesID: 0701000009010000f40000001c010000
+  - id: 265
+    position: {x: 40.000004, y: 5, z: 51.428574}
+    connectedNodesID: f50000000a010000080100001d010000
+  - id: 266
+    position: {x: 51.428574, y: 5, z: 51.428574}
+    connectedNodesID: f6000000090100000b0100001e010000
+  - id: 267
+    position: {x: 62.857147, y: 5, z: 51.428574}
+    connectedNodesID: 0a010000f70000000c0100001f010000
+  - id: 268
+    position: {x: 74.28572, y: 5, z: 51.428574}
+    connectedNodesID: f80000000b0100000d01000020010000
+  - id: 269
+    position: {x: 85.714294, y: 5, z: 51.428574}
+    connectedNodesID: 0c0100000e010000f900000021010000
+  - id: 270
+    position: {x: 97.14286, y: 5, z: 51.428574}
+    connectedNodesID: fa0000000f0100000d01000022010000
+  - id: 271
+    position: {x: 108.571434, y: 5, z: 51.428574}
+    connectedNodesID: fb0000000e01000023010000
+  - id: 272
+    position: {x: -108.57143, y: 5, z: 62.857147}
+    connectedNodesID: fc0000001101000024010000
+  - id: 273
+    position: {x: -97.14285, y: 5, z: 62.857147}
+    connectedNodesID: fd000000100100002501000012010000
+  - id: 274
+    position: {x: -85.71429, y: 5, z: 62.857147}
+    connectedNodesID: fe000000110100001301000026010000
+  - id: 275
+    position: {x: -74.28571, y: 5, z: 62.857147}
+    connectedNodesID: ff0000001401000012010000
+  - id: 276
+    position: {x: -62.85714, y: 5, z: 62.857147}
+    connectedNodesID: 000100001301000015010000
+  - id: 277
+    position: {x: -51.42857, y: 5, z: 62.857147}
+    connectedNodesID: 010100001401000016010000
+  - id: 278
+    position: {x: -40, y: 5, z: 62.857147}
+    connectedNodesID: 020100001501000017010000
+  - id: 279
+    position: {x: -28.571426, y: 5, z: 62.857147}
+    connectedNodesID: 03010000160100001801000027010000
+  - id: 280
+    position: {x: -17.142855, y: 5, z: 62.857147}
+    connectedNodesID: 04010000190100002801000017010000
+  - id: 281
+    position: {x: -5.714283, y: 5, z: 62.857147}
+    connectedNodesID: 0501000018010000290100001a010000
+  - id: 282
+    position: {x: 5.7142887, y: 5, z: 62.857147}
+    connectedNodesID: 19010000060100001b0100002a010000
+  - id: 283
+    position: {x: 17.14286, y: 5, z: 62.857147}
+    connectedNodesID: 070100001a0100002b0100001c010000
+  - id: 284
+    position: {x: 28.571432, y: 5, z: 62.857147}
+    connectedNodesID: 080100001b0100001d0100002c010000
+  - id: 285
+    position: {x: 40.000004, y: 5, z: 62.857147}
+    connectedNodesID: 090100001e0100001c010000
+  - id: 286
+    position: {x: 51.428574, y: 5, z: 62.857147}
+    connectedNodesID: 0a0100001d0100001f010000
+  - id: 287
+    position: {x: 62.857147, y: 5, z: 62.857147}
+    connectedNodesID: 0b0100001e01000020010000
+  - id: 288
+    position: {x: 74.28572, y: 5, z: 62.857147}
+    connectedNodesID: 0c0100001f01000021010000
+  - id: 289
+    position: {x: 85.714294, y: 5, z: 62.857147}
+    connectedNodesID: 0d01000020010000220100002d010000
+  - id: 290
+    position: {x: 97.14286, y: 5, z: 62.857147}
+    connectedNodesID: 0e010000230100002e01000021010000
+  - id: 291
+    position: {x: 108.571434, y: 5, z: 62.857147}
+    connectedNodesID: 0f010000220100002f010000
+  - id: 292
+    position: {x: -108.57143, y: 5, z: 74.28572}
+    connectedNodesID: 100100002501000030010000
+  - id: 293
+    position: {x: -97.14285, y: 5, z: 74.28572}
+    connectedNodesID: 11010000240100002601000031010000
+  - id: 294
+    position: {x: -85.71429, y: 5, z: 74.28572}
+    connectedNodesID: 250100001201000032010000
+  - id: 295
+    position: {x: -28.571426, y: 5, z: 74.28572}
+    connectedNodesID: 280100001701000037010000
+  - id: 296
+    position: {x: -17.142855, y: 5, z: 74.28572}
+    connectedNodesID: 18010000290100002701000038010000
+  - id: 297
+    position: {x: -5.714283, y: 5, z: 74.28572}
+    connectedNodesID: 1901000028010000390100002a010000
+  - id: 298
+    position: {x: 5.7142887, y: 5, z: 74.28572}
+    connectedNodesID: 290100001a0100002b0100003a010000
+  - id: 299
+    position: {x: 17.14286, y: 5, z: 74.28572}
+    connectedNodesID: 1b0100002a0100002c0100003b010000
+  - id: 300
+    position: {x: 28.571432, y: 5, z: 74.28572}
+    connectedNodesID: 2b0100001c0100003c010000
+  - id: 301
+    position: {x: 85.714294, y: 5, z: 74.28572}
+    connectedNodesID: 2e0100002101000041010000
+  - id: 302
+    position: {x: 97.14286, y: 5, z: 74.28572}
+    connectedNodesID: 220100002f0100002d01000042010000
+  - id: 303
+    position: {x: 108.571434, y: 5, z: 74.28572}
+    connectedNodesID: 230100002e01000043010000
+  - id: 304
+    position: {x: -108.57143, y: 5, z: 85.714294}
+    connectedNodesID: 240100004401000031010000
+  - id: 305
+    position: {x: -97.14285, y: 5, z: 85.714294}
+    connectedNodesID: 25010000450100003001000032010000
+  - id: 306
+    position: {x: -85.71429, y: 5, z: 85.714294}
+    connectedNodesID: 26010000310100003301000046010000
+  - id: 307
+    position: {x: -74.28571, y: 5, z: 85.714294}
+    connectedNodesID: 470100003201000034010000
+  - id: 308
+    position: {x: -62.85714, y: 5, z: 85.714294}
+    connectedNodesID: 480100003301000035010000
+  - id: 309
+    position: {x: -51.42857, y: 5, z: 85.714294}
+    connectedNodesID: 340100004901000036010000
+  - id: 310
+    position: {x: -40, y: 5, z: 85.714294}
+    connectedNodesID: 4a0100003501000037010000
+  - id: 311
+    position: {x: -28.571426, y: 5, z: 85.714294}
+    connectedNodesID: 2701000036010000380100004b010000
+  - id: 312
+    position: {x: -17.142855, y: 5, z: 85.714294}
+    connectedNodesID: 280100004c0100003701000039010000
+  - id: 313
+    position: {x: -5.714283, y: 5, z: 85.714294}
+    connectedNodesID: 290100004d010000380100003a010000
+  - id: 314
+    position: {x: 5.7142887, y: 5, z: 85.714294}
+    connectedNodesID: 390100002a0100004e0100003b010000
+  - id: 315
+    position: {x: 17.14286, y: 5, z: 85.714294}
+    connectedNodesID: 2b0100004f0100003a0100003c010000
+  - id: 316
+    position: {x: 28.571432, y: 5, z: 85.714294}
+    connectedNodesID: 2c0100003b0100003d01000050010000
+  - id: 317
+    position: {x: 40.000004, y: 5, z: 85.714294}
+    connectedNodesID: 510100003c0100003e010000
+  - id: 318
+    position: {x: 51.428574, y: 5, z: 85.714294}
+    connectedNodesID: 520100003d0100003f010000
+  - id: 319
+    position: {x: 62.857147, y: 5, z: 85.714294}
+    connectedNodesID: 3e0100005301000040010000
+  - id: 320
+    position: {x: 74.28572, y: 5, z: 85.714294}
+    connectedNodesID: 540100003f01000041010000
+  - id: 321
+    position: {x: 85.714294, y: 5, z: 85.714294}
+    connectedNodesID: 2d010000400100004201000055010000
+  - id: 322
+    position: {x: 97.14286, y: 5, z: 85.714294}
+    connectedNodesID: 2e010000560100004101000043010000
+  - id: 323
+    position: {x: 108.571434, y: 5, z: 85.714294}
+    connectedNodesID: 2f0100005701000042010000
+  - id: 324
+    position: {x: -108.57143, y: 5, z: 97.14286}
+    connectedNodesID: 450100005801000030010000
+  - id: 325
+    position: {x: -97.14285, y: 5, z: 97.14286}
+    connectedNodesID: 44010000590100003101000046010000
+  - id: 326
+    position: {x: -85.71429, y: 5, z: 97.14286}
+    connectedNodesID: 4501000047010000320100005a010000
+  - id: 327
+    position: {x: -74.28571, y: 5, z: 97.14286}
+    connectedNodesID: 480100005b0100003301000046010000
+  - id: 328
+    position: {x: -62.85714, y: 5, z: 97.14286}
+    connectedNodesID: 470100005c0100003401000049010000
+  - id: 329
+    position: {x: -51.42857, y: 5, z: 97.14286}
+    connectedNodesID: 480100004a0100005d01000035010000
+  - id: 330
+    position: {x: -40, y: 5, z: 97.14286}
+    connectedNodesID: 490100005e010000360100004b010000
+  - id: 331
+    position: {x: -28.571426, y: 5, z: 97.14286}
+    connectedNodesID: 4a0100004c010000370100005f010000
+  - id: 332
+    position: {x: -17.142855, y: 5, z: 97.14286}
+    connectedNodesID: 4d01000060010000380100004b010000
+  - id: 333
+    position: {x: -5.714283, y: 5, z: 97.14286}
+    connectedNodesID: 4c01000061010000390100004e010000
+  - id: 334
+    position: {x: 5.7142887, y: 5, z: 97.14286}
+    connectedNodesID: 4d0100004f010000620100003a010000
+  - id: 335
+    position: {x: 17.14286, y: 5, z: 97.14286}
+    connectedNodesID: 4e010000630100003b01000050010000
+  - id: 336
+    position: {x: 28.571432, y: 5, z: 97.14286}
+    connectedNodesID: 4f010000510100003c01000064010000
+  - id: 337
+    position: {x: 40.000004, y: 5, z: 97.14286}
+    connectedNodesID: 52010000650100003d01000050010000
+  - id: 338
+    position: {x: 51.428574, y: 5, z: 97.14286}
+    connectedNodesID: 51010000660100003e01000053010000
+  - id: 339
+    position: {x: 62.857147, y: 5, z: 97.14286}
+    connectedNodesID: 5201000054010000670100003f010000
+  - id: 340
+    position: {x: 74.28572, y: 5, z: 97.14286}
+    connectedNodesID: 53010000680100004001000055010000
+  - id: 341
+    position: {x: 85.714294, y: 5, z: 97.14286}
+    connectedNodesID: 54010000560100004101000069010000
+  - id: 342
+    position: {x: 97.14286, y: 5, z: 97.14286}
+    connectedNodesID: 6a010000570100004201000055010000
+  - id: 343
+    position: {x: 108.571434, y: 5, z: 97.14286}
+    connectedNodesID: 560100006b01000043010000
+  - id: 344
+    position: {x: -108.57143, y: 5, z: 108.571434}
+    connectedNodesID: 4401000059010000
+  - id: 345
+    position: {x: -97.14285, y: 5, z: 108.571434}
+    connectedNodesID: 45010000580100005a010000
+  - id: 346
+    position: {x: -85.71429, y: 5, z: 108.571434}
+    connectedNodesID: 590100005b01000046010000
+  - id: 347
+    position: {x: -74.28571, y: 5, z: 108.571434}
+    connectedNodesID: 470100005c0100005a010000
+  - id: 348
+    position: {x: -62.85714, y: 5, z: 108.571434}
+    connectedNodesID: 480100005b0100005d010000
+  - id: 349
+    position: {x: -51.42857, y: 5, z: 108.571434}
+    connectedNodesID: 5c010000490100005e010000
+  - id: 350
+    position: {x: -40, y: 5, z: 108.571434}
+    connectedNodesID: 4a0100005d0100005f010000
+  - id: 351
+    position: {x: -28.571426, y: 5, z: 108.571434}
+    connectedNodesID: 5e010000600100004b010000
+  - id: 352
+    position: {x: -17.142855, y: 5, z: 108.571434}
+    connectedNodesID: 4c010000610100005f010000
+  - id: 353
+    position: {x: -5.714283, y: 5, z: 108.571434}
+    connectedNodesID: 4d0100006001000062010000
+  - id: 354
+    position: {x: 5.7142887, y: 5, z: 108.571434}
+    connectedNodesID: 610100004e01000063010000
+  - id: 355
+    position: {x: 17.14286, y: 5, z: 108.571434}
+    connectedNodesID: 4f0100006201000064010000
+  - id: 356
+    position: {x: 28.571432, y: 5, z: 108.571434}
+    connectedNodesID: 630100006501000050010000
+  - id: 357
+    position: {x: 40.000004, y: 5, z: 108.571434}
+    connectedNodesID: 510100006601000064010000
+  - id: 358
+    position: {x: 51.428574, y: 5, z: 108.571434}
+    connectedNodesID: 520100006501000067010000
+  - id: 359
+    position: {x: 62.857147, y: 5, z: 108.571434}
+    connectedNodesID: 660100005301000068010000
+  - id: 360
+    position: {x: 74.28572, y: 5, z: 108.571434}
+    connectedNodesID: 540100006701000069010000
+  - id: 361
+    position: {x: 85.714294, y: 5, z: 108.571434}
+    connectedNodesID: 680100006a01000055010000
+  - id: 362
+    position: {x: 97.14286, y: 5, z: 108.571434}
+    connectedNodesID: 560100006b01000069010000
+  - id: 363
+    position: {x: 108.571434, y: 5, z: 108.571434}
+    connectedNodesID: 6a01000057010000
