@@ -44,11 +44,16 @@ public class NodeEditor : Editor
         {
             GUILayout.BeginHorizontal();
             GUI.color = currColor;
+            EditorGUI.BeginChangeCheck();
             _node.Neighbours[i] = (Node)EditorGUILayout.ObjectField(_node.Neighbours[i], typeof(Node), true);
             GUI.color = Color.red;
             if (GUILayout.Button("Delete"))
             {
                 _node.Neighbours.RemoveAt(i);
+            }
+            if (EditorGUI.EndChangeCheck())
+            {
+                PrefabUtility.RecordPrefabInstancePropertyModifications(_node);
             }
             GUILayout.EndHorizontal();
         }
@@ -60,6 +65,7 @@ public class NodeEditor : Editor
         if (GUILayout.Button("Add"))
         {
             _node.Neighbours.Add(null);
+            PrefabUtility.RecordPrefabInstancePropertyModifications(_node);
         }
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();

@@ -9,6 +9,10 @@ public class ObstacleAvoidance : ISteering
     LayerMask _mask;
     Transform _target;
     float _avoidWeight;
+
+    Vector3 _toPos;
+    bool vectorInsteadTransform;
+
     public ObstacleAvoidance(Transform from, Transform target, float radius, float avoidWeight, LayerMask mask)
     {
         _avoidWeight = avoidWeight;
@@ -16,10 +20,28 @@ public class ObstacleAvoidance : ISteering
         _radius = radius;
         _mask = mask;
         _from = from;
+
+        vectorInsteadTransform = false;
+    }
+    public ObstacleAvoidance(Transform from, Vector3 to, float radius, float avoidWeight, LayerMask mask)
+    {
+        _from = from;
+        _toPos = to;
+        _radius = radius;
+        _avoidWeight = avoidWeight;
+        _mask = mask;
+
+        vectorInsteadTransform = true;
     }
     public Vector3 GetDir()
     {
-        Vector3 dir = (_target.position - _from.position).normalized;
+        Vector3 target;
+        if (vectorInsteadTransform)
+            target = _toPos;
+        else
+            target = _target.position;
+
+        Vector3 dir = (target - _from.position).normalized;
         
         Collider[] obstacles = Physics.OverlapSphere(_from.position, _radius, _mask);
         if (obstacles.Length > 0)

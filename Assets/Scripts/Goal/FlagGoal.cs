@@ -26,7 +26,6 @@ public class FlagGoal : MonoBehaviour
                         dominanceState -= addingValue;
                 }
             }
-            Debug.Log(dominanceState);
             currTime = addingInterval;
         }
         else

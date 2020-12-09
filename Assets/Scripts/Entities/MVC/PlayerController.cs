@@ -12,6 +12,7 @@ public class PlayerController : Controller
     //Mouse fields
     [Header("Point and Click settings")]
     [SerializeField] LayerMask _obstacleLayer;
+    [SerializeField] float nextWaypointDistance = 0.2f;
     private List<Node> waypoints;
     Vector3 _finalPos;
     int _nextPoint = 0;
@@ -20,6 +21,7 @@ public class PlayerController : Controller
     ISteering _sb;
 
     [Header("Obstacle avoidance")]
+    [SerializeField] LayerMask _avoidLayer;
     [SerializeField] float obstacleDistance;
     [SerializeField] float avoidWeight;
 
@@ -37,8 +39,7 @@ public class PlayerController : Controller
 
     private void MouseUpdate()
     {
-        if (_readyToMove)
-            Run();
+        if (_readyToMove) Run();
     }
 
     private void KeyboardUpdate()
@@ -59,7 +60,7 @@ public class PlayerController : Controller
         var pos = waypoints[_nextPoint].transform.position;
         pos.y = transform.position.y;
 
-        _sb = new ObstacleAvoidance(transform, waypoints[_nextPoint].transform, obstacleDistance, avoidWeight, _obstacleLayer);
+        _sb = new ObstacleAvoidance(transform, waypoints[_nextPoint].transform, obstacleDistance, avoidWeight, _avoidLayer);
 
         _finalPos = finalPos;
         _lastConnection = false;
@@ -77,20 +78,28 @@ public class PlayerController : Controller
         else
             dir = _finalPos - transform.position;
 
-        if (dir.magnitude < 0.2f)
+        if (dir.magnitude < nextWaypointDistance)
         {
             if (!_lastConnection)
             {
                 if (_nextPoint + 1 < waypoints.Count)
+                {
                     _nextPoint++;
+                    _sb = new ObstacleAvoidance(transform, waypoints[_nextPoint].transform, obstacleDistance, avoidWeight, _avoidLayer);
+                    Debug.Log("Cambio de indice");
+                }
 
-                if (_nextPoint + 1 >= waypoints.Count)
+                else if (_nextPoint + 1 >= waypoints.Count)
+                {
                     _lastConnection = true;
+                    _sb = new ObstacleAvoidance(transform, _finalPos, obstacleDistance, avoidWeight, _avoidLayer);
+                    Debug.Log("Voy al ultimo punto");
+                }
             }
-            _sb = new ObstacleAvoidance(transform, waypoints[_nextPoint].transform, obstacleDistance, avoidWeight, _obstacleLayer);
         }
 
-        _model.Move(dir.normalized);
+        
+        _model.Move(dir.normalized + _sb.GetDir());
     }
     #endregion
 }
