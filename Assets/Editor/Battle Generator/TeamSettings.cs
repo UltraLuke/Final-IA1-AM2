@@ -1,4 +1,5 @@
-﻿public struct TeamSettings
+﻿using UnityEngine;
+public struct TeamSettings
 {
     //Leader
     public float leaderHealth;
@@ -12,16 +13,30 @@
     public float leaderVisionDistance;
     public float leaderVisionRangeAngles;
 
-    //Flock
-    public int flockQuantity;
-    public float flockingHealth;
-    public float flockingSpeed;
-    public float flockingMeleeDamage;
-    public float flockingMeleeRate;
-    public float flockingMeleeDistance;
-    public float flockingShootDamage;
-    public float flockingShootRate;
-    public float flockingShootDistance;
-    public float flockingVisionDistance;
-    public float flockingVisionRangeAngles;
+    //Minions
+    public int minionsQuantity;
+    public float minionHealth;
+    public float minionSpeed;
+    public float minionMeleeDamage;
+    public float minionMeleeRate;
+    public float minionMeleeDistance;
+    public float minionShootDamage;
+    public float minionShootRate;
+    public float minionShootDistance;
+    public float minionVisionDistance;
+    public float minionVisionRangeAngles;
+
+    //Flocking
+    public float flockEntityRadius;
+    public LayerMask flockEntityMask;
+    public float flockLeaderBehaviourWeight;
+    public Transform flockLeaderBehaviourTarget;
+    public float flockLeaderBehaviourMinDistance;
+    public float flockAlineationBehaviourWeight;
+    public float flockSeparationBehaviourWeight;
+    public float flockSeparationBehaviourRange;
+    public float flockCohesionBehaviourWeight;
+    public float flockAvoidanceBehaviourWeight;
+    public LayerMask flockAvoidanceBehaviourMask;
+    public float flockAvoidanceBehaviourRange;
 }
