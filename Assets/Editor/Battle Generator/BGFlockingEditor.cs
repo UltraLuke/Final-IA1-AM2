@@ -18,6 +18,7 @@ public class BGFlockingEditor : EditorWindow
         {
             var ts = _bGMainWindow.TeamSettings[_index];
             EditorGUILayout.LabelField("Minion Settings");
+            ts.minionEntity = (GameObject)EditorGUILayout.ObjectField("Minion Prefab", ts.minionEntity, typeof(GameObject), false);
             ts.minionsQuantity = EditorGUILayout.IntField("Minions Quantity", ts.minionsQuantity);
             ts.minionHealth = EditorGUILayout.FloatField("Minion Health", ts.minionHealth);
             ts.minionSpeed = EditorGUILayout.FloatField("Minion Speed", ts.minionSpeed);
@@ -37,7 +38,7 @@ public class BGFlockingEditor : EditorWindow
             ts.flockEntityMask = InternalEditorUtility.ConcatenatedLayersMaskToLayerMask(tempMask);
 
             ts.flockLeaderBehaviourWeight = EditorGUILayout.FloatField("Flock LeaderBehaviourWeight", ts.flockLeaderBehaviourWeight);
-            ts.flockLeaderBehaviourTarget = (Transform)EditorGUILayout.ObjectField("Leader Target", ts.flockLeaderBehaviourTarget, typeof(Transform), true);
+            //ts.flockLeaderBehaviourTarget = (Transform)EditorGUILayout.ObjectField("Leader Target", ts.flockLeaderBehaviourTarget, typeof(Transform), true);
             ts.flockLeaderBehaviourMinDistance = EditorGUILayout.FloatField("Flock Leader Behaviour Min Distance", ts.flockLeaderBehaviourMinDistance);
             ts.flockAlineationBehaviourWeight = EditorGUILayout.FloatField("Flock Alineation Behaviour Weight", ts.flockAlineationBehaviourWeight);
             ts.flockSeparationBehaviourWeight = EditorGUILayout.FloatField("Flock Separation Behaviour Weight", ts.flockSeparationBehaviourWeight);

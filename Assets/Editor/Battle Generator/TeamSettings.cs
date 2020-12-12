@@ -2,6 +2,7 @@
 public struct TeamSettings
 {
     //Leader
+    public GameObject leaderEntity;
     public float leaderHealth;
     public float leaderSpeed;
     public float leaderMeleeDamage;
@@ -14,6 +15,7 @@ public struct TeamSettings
     public float leaderVisionRangeAngles;
 
     //Minions
+    public GameObject minionEntity;
     public int minionsQuantity;
     public float minionHealth;
     public float minionSpeed;
@@ -30,7 +32,7 @@ public struct TeamSettings
     public float flockEntityRadius;
     public LayerMask flockEntityMask;
     public float flockLeaderBehaviourWeight;
-    public Transform flockLeaderBehaviourTarget;
+    //public Transform flockLeaderBehaviourTarget;
     public float flockLeaderBehaviourMinDistance;
     public float flockAlineationBehaviourWeight;
     public float flockSeparationBehaviourWeight;

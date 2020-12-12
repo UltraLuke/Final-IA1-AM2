@@ -10,6 +10,9 @@ public class BGMain : EditorWindow
     GUIStyle _headerlv1;
     GUIStyle _headerlv2;
 
+    string _saveFolderPath = "Assets/battle_generator_saves";
+    string _savePresetName;
+
     PathFindingEditor _pathFindingEditorWindow;
     BGLeaderEditor _bGLeaderEditorWindow;
     BGFlockingEditor _bGFlockingEditorWindow;
@@ -29,6 +32,7 @@ public class BGMain : EditorWindow
 
     private void OnEnable()
     {
+        CreateDirectories();
         _tsIndex = -1;
 
         _title = new GUIStyle
@@ -50,21 +54,22 @@ public class BGMain : EditorWindow
     }
     private void OnDisable()
     {
+        CloseEditingSubwindows();
+
         if (_pathFindingEditorWindow != null)
             _pathFindingEditorWindow.Close();
-
-        if (_bGLeaderEditorWindow != null)
-            _bGLeaderEditorWindow.Close();
     }
+
     private void OnGUI()
     {
         EditorGUILayout.LabelField("BATTLE GENERATOR", _title);
+
         var normalGUIColor = GUI.color;
         var backgroundColor = GUI.backgroundColor;
         var normalBGColor = backgroundColor;
         EditorGUILayout.BeginHorizontal();
         GUI.color = new Color(0, 0.82f, 0.93f);
-
+        EditorGUI.BeginChangeCheck();
         if (_pressedTeams[0] = GUILayout.Toggle(_pressedTeams[0], "Team 1", "Button"))
         {
             _pressedTeams[1] = false;
@@ -76,9 +81,12 @@ public class BGMain : EditorWindow
             _pressedTeams[0] = false;
             backgroundColor = new Color(0.92f, 0.69f, 0f);
         }
+        if (EditorGUI.EndChangeCheck())
+        {
+            CloseEditingSubwindows();
+        }
         GUI.color = normalGUIColor;
         GUI.backgroundColor = backgroundColor;
-
         _tsIndex = -1;
         for (int i = 0; i < _pressedTeams.Length; i++)
         {
@@ -92,15 +100,10 @@ public class BGMain : EditorWindow
 
 
         var rect = EditorGUILayout.GetControlRect(false, 1);
-        EditorGUI.DrawRect(rect, Color.gray);
-
-        if (_pressedTeams[0])
-            ShowTeamSettings(0);
-        else if (_pressedTeams[1])
-            ShowTeamSettings(1);
-
         if (_tsIndex >= 0)
         {
+            EditorGUI.DrawRect(rect, Color.gray);
+            EditorGUILayout.LabelField("Team Settings", _headerlv1);
             EditorGUILayout.BeginHorizontal();
             if (GUILayout.Button("Leader"))
             {
@@ -136,34 +139,51 @@ public class BGMain : EditorWindow
         }
     }
 
-    private void ShowTeamSettings(int v)
+    private void CreateDirectories()
     {
-        EditorGUILayout.LabelField("Team Settings", _headerlv1);
-        //EditorGUILayout.LabelField("Leader", _headerlv2);
-        //_teamSettings[v].leaderHealth = EditorGUILayout.FloatField("Leader Health", _teamSettings[v].leaderHealth);
-        //_teamSettings[v].leaderSpeed = EditorGUILayout.FloatField("Leader Speed", _teamSettings[v].leaderSpeed);
-        //_teamSettings[v].leaderMeleeDamage = EditorGUILayout.FloatField("Leader Melee Damage", _teamSettings[v].leaderMeleeDamage);
-        //_teamSettings[v].leaderMeleeRate = EditorGUILayout.FloatField("Leader Melee Rate", _teamSettings[v].leaderMeleeRate);
-        //_teamSettings[v].leaderMeleeDistance = EditorGUILayout.FloatField("Leader Melee Distance", _teamSettings[v].leaderMeleeDistance);
-        //_teamSettings[v].leaderShootDamage = EditorGUILayout.FloatField("Leader Shoot Damage", _teamSettings[v].leaderShootDamage);
-        //_teamSettings[v].leaderShootRate = EditorGUILayout.FloatField("Leader Shoot Rate", _teamSettings[v].leaderShootRate);
-        //_teamSettings[v].leaderShootDistance = EditorGUILayout.FloatField("Leader Shoot Distance", _teamSettings[v].leaderShootDistance);
-        //_teamSettings[v].leaderVisionDistance = EditorGUILayout.FloatField("Leader Vision Distance", _teamSettings[v].leaderVisionDistance);
-        //_teamSettings[v].leaderVisionRangeAngles = EditorGUILayout.FloatField("Leader Vision RangeAngles", _teamSettings[v].leaderVisionRangeAngles);
-
-        //EditorGUILayout.Space();
-
-        //EditorGUILayout.LabelField("Minions", _headerlv2);
-        //_teamSettings[v].minionsQuantity = EditorGUILayout.IntField("Minions quantity", _teamSettings[v].minionsQuantity);
-        //_teamSettings[v].minionHealth = EditorGUILayout.FloatField("Minion Health", _teamSettings[v].minionHealth);
-        //_teamSettings[v].minionSpeed = EditorGUILayout.FloatField("Minion Speed", _teamSettings[v].minionSpeed);
-        //_teamSettings[v].minionMeleeDamage = EditorGUILayout.FloatField("Minion Melee Damage", _teamSettings[v].minionMeleeDamage);
-        //_teamSettings[v].minionMeleeRate = EditorGUILayout.FloatField("Minion Melee Rate", _teamSettings[v].minionMeleeRate);
-        //_teamSettings[v].minionMeleeDistance = EditorGUILayout.FloatField("Minion Melee Distance", _teamSettings[v].minionMeleeDistance);
-        //_teamSettings[v].minionShootDamage = EditorGUILayout.FloatField("Minion Shoot Damage", _teamSettings[v].minionShootDamage);
-        //_teamSettings[v].minionShootRate = EditorGUILayout.FloatField("Minion Shoot Rate", _teamSettings[v].minionShootRate);
-        //_teamSettings[v].minionShootDistance = EditorGUILayout.FloatField("Minion Shoot Distance", _teamSettings[v].minionShootDistance);
-        //_teamSettings[v].minionVisionDistance = EditorGUILayout.FloatField("Minion Vision Distance", _teamSettings[v].minionVisionDistance);
-        //_teamSettings[v].minionVisionRangeAngles = EditorGUILayout.FloatField("Minion Vision Range Angles", _teamSettings[v].minionVisionRangeAngles);
+        if (!AssetDatabase.IsValidFolder(_saveFolderPath))
+        {
+            var splittedPath = _saveFolderPath.Split('/');
+            AssetDatabase.CreateFolder(splittedPath[0], splittedPath[1]);
+        }
     }
+
+    private void CloseEditingSubwindows()
+    {
+        if (_bGLeaderEditorWindow != null)
+            _bGLeaderEditorWindow.Close();
+
+        if (_bGFlockingEditorWindow != null)
+            _bGFlockingEditorWindow.Close();
+    }
+    //private void ShowTeamSettings(int v)
+    //{
+    //    EditorGUILayout.LabelField("Team Settings", _headerlv1);
+    //    EditorGUILayout.LabelField("Leader", _headerlv2);
+    //    _teamSettings[v].leaderHealth = EditorGUILayout.FloatField("Leader Health", _teamSettings[v].leaderHealth);
+    //    _teamSettings[v].leaderSpeed = EditorGUILayout.FloatField("Leader Speed", _teamSettings[v].leaderSpeed);
+    //    _teamSettings[v].leaderMeleeDamage = EditorGUILayout.FloatField("Leader Melee Damage", _teamSettings[v].leaderMeleeDamage);
+    //    _teamSettings[v].leaderMeleeRate = EditorGUILayout.FloatField("Leader Melee Rate", _teamSettings[v].leaderMeleeRate);
+    //    _teamSettings[v].leaderMeleeDistance = EditorGUILayout.FloatField("Leader Melee Distance", _teamSettings[v].leaderMeleeDistance);
+    //    _teamSettings[v].leaderShootDamage = EditorGUILayout.FloatField("Leader Shoot Damage", _teamSettings[v].leaderShootDamage);
+    //    _teamSettings[v].leaderShootRate = EditorGUILayout.FloatField("Leader Shoot Rate", _teamSettings[v].leaderShootRate);
+    //    _teamSettings[v].leaderShootDistance = EditorGUILayout.FloatField("Leader Shoot Distance", _teamSettings[v].leaderShootDistance);
+    //    _teamSettings[v].leaderVisionDistance = EditorGUILayout.FloatField("Leader Vision Distance", _teamSettings[v].leaderVisionDistance);
+    //    _teamSettings[v].leaderVisionRangeAngles = EditorGUILayout.FloatField("Leader Vision RangeAngles", _teamSettings[v].leaderVisionRangeAngles);
+
+    //    EditorGUILayout.Space();
+
+    //    EditorGUILayout.LabelField("Minions", _headerlv2);
+    //    _teamSettings[v].minionsQuantity = EditorGUILayout.IntField("Minions quantity", _teamSettings[v].minionsQuantity);
+    //    _teamSettings[v].minionHealth = EditorGUILayout.FloatField("Minion Health", _teamSettings[v].minionHealth);
+    //    _teamSettings[v].minionSpeed = EditorGUILayout.FloatField("Minion Speed", _teamSettings[v].minionSpeed);
+    //    _teamSettings[v].minionMeleeDamage = EditorGUILayout.FloatField("Minion Melee Damage", _teamSettings[v].minionMeleeDamage);
+    //    _teamSettings[v].minionMeleeRate = EditorGUILayout.FloatField("Minion Melee Rate", _teamSettings[v].minionMeleeRate);
+    //    _teamSettings[v].minionMeleeDistance = EditorGUILayout.FloatField("Minion Melee Distance", _teamSettings[v].minionMeleeDistance);
+    //    _teamSettings[v].minionShootDamage = EditorGUILayout.FloatField("Minion Shoot Damage", _teamSettings[v].minionShootDamage);
+    //    _teamSettings[v].minionShootRate = EditorGUILayout.FloatField("Minion Shoot Rate", _teamSettings[v].minionShootRate);
+    //    _teamSettings[v].minionShootDistance = EditorGUILayout.FloatField("Minion Shoot Distance", _teamSettings[v].minionShootDistance);
+    //    _teamSettings[v].minionVisionDistance = EditorGUILayout.FloatField("Minion Vision Distance", _teamSettings[v].minionVisionDistance);
+    //    _teamSettings[v].minionVisionRangeAngles = EditorGUILayout.FloatField("Minion Vision Range Angles", _teamSettings[v].minionVisionRangeAngles);
+    //}
 }

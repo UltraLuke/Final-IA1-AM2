@@ -6,6 +6,7 @@ using UnityEditor;
 public class BGLeaderEditor : EditorWindow
 {
     BGMain _bGMainWindow;
+    GameObject target;
     int _index;
     public BGMain BGMainWindow { set => _bGMainWindow = value; }
     public int Index { get => _index; set => _index = value; }
@@ -18,6 +19,7 @@ public class BGLeaderEditor : EditorWindow
             var ts = _bGMainWindow.TeamSettings[_index];
 
             EditorGUILayout.LabelField("Leader");
+            ts.leaderEntity = (GameObject)EditorGUILayout.ObjectField("Leader Target", ts.leaderEntity, typeof(GameObject), false);
             ts.leaderHealth = EditorGUILayout.FloatField("Leader Health", ts.leaderHealth);
             ts.leaderSpeed = EditorGUILayout.FloatField("Leader Speed", ts.leaderSpeed);
             ts.leaderMeleeDamage = EditorGUILayout.FloatField("Leader Melee Damage", ts.leaderMeleeDamage);
