@@ -11,9 +11,11 @@ public class BGFlockingEditor : EditorWindow
     private BGLoader _bgLoader;
     private BGMain _bGMainWindow;
 
-    private List<GameObject> _minionSceneIndicators = new List<GameObject>();
+    private List<GameObject> _minionSceneIndicators;
     private bool _objectChanged;
-    private bool _objectQtyChanged;
+    private bool _objectQtyPosChanged;
+    private bool _meetFlockingRequirements;
+    private bool _firstCodeRun = true;
 
     private int _index;
     private string _presetPath = "flocking_presets";
@@ -35,6 +37,8 @@ public class BGFlockingEditor : EditorWindow
         };
 
         SceneView.duringSceneGui += OnSceneGUI;
+
+        _firstCodeRun = true;
     }
     private void OnDisable()
     {
@@ -48,6 +52,14 @@ public class BGFlockingEditor : EditorWindow
         if (_bGMainWindow != null)
         {
             _ts = _bGMainWindow.TeamSettings[_index];
+            _minionSceneIndicators = _bGMainWindow.Minions[_index];
+            if (_firstCodeRun)
+            {
+                if (_ts.minionEntity != null)
+                    _meetFlockingRequirements = CheckIfMeetsFlockingRequirements(_ts.minionEntity);
+
+                _firstCodeRun = false;
+            }
             EditorGUILayout.LabelField("Minion Settings", _headerlv1);
             scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
             if(_ts.minionEntity == null)
@@ -73,17 +85,20 @@ public class BGFlockingEditor : EditorWindow
                                                                             "\n- IVision", "Aceptar");
                     _ts.minionEntity = null;
                 }
+
+                if (_ts.minionEntity != null)
+                    _meetFlockingRequirements = CheckIfMeetsFlockingRequirements(_ts.minionEntity);
             }
+            EditorGUI.BeginChangeCheck();
             _ts.minionSpawnAreaPosition = EditorGUILayout.Vector3Field("Minion Spawn Area Position", _ts.minionSpawnAreaPosition);
             Vector2 area = EditorGUILayout.Vector2Field("Minion Spawn Area", new Vector2(_ts.minionSpawnAreaWidth, _ts.minionSpawnAreaLength));
             _ts.minionSpawnAreaWidth = area.x.ClampMinValue(.1f);
             _ts.minionSpawnAreaLength = area.y.ClampMinValue(.1f);
-            EditorGUI.BeginChangeCheck();
             _ts.minionsQuantityRow = EditorGUILayout.IntField("Minions Quantity", _ts.minionsQuantityRow).ClampMinValue(0);
             _ts.minionsQuantityColumn = EditorGUILayout.IntField("Minions Quantity", _ts.minionsQuantityColumn).ClampMinValue(0);
             if (EditorGUI.EndChangeCheck())
             {
-                _objectQtyChanged = true;
+                _objectQtyPosChanged = true;
             }
             _ts.minionHealth = EditorGUILayout.FloatField("Minion Health", _ts.minionHealth).ClampMinValue(.1f);
             _ts.minionSpeed = EditorGUILayout.FloatField("Minion Speed", _ts.minionSpeed).ClampMinValue(.1f);
@@ -95,28 +110,42 @@ public class BGFlockingEditor : EditorWindow
             _ts.minionShootDistance = EditorGUILayout.FloatField("Minion Shoot Distance", _ts.minionShootDistance).ClampMinValue(.1f);
             _ts.minionVisionDistance = EditorGUILayout.FloatField("Minion Vision Distance", _ts.minionVisionDistance).ClampMinValue(.1f);
             _ts.minionVisionRangeAngles = EditorGUILayout.FloatField("Minion Vision Range Angles", _ts.minionVisionRangeAngles).ClampMinValue(.1f);
+
             EditorGUILayout.LabelField("Flocking Settings", _headerlv1);
-            _ts.flockEntityRadius = EditorGUILayout.FloatField("Flock Entity Radius", _ts.flockEntityRadius).ClampMinValue(.1f);
-            LayerMask tempMask = EditorGUILayout.MaskField("Flock Entity Mask", InternalEditorUtility.LayerMaskToConcatenatedLayersMask(_ts.flockEntityMask), InternalEditorUtility.layers);
-            _ts.flockEntityMask = InternalEditorUtility.ConcatenatedLayersMaskToLayerMask(tempMask);
-            _ts.flockLeaderBehaviourWeight = EditorGUILayout.FloatField("Flock Leader Behaviour Weight", _ts.flockLeaderBehaviourWeight).ClampMinValue(.1f);
-            _ts.flockLeaderBehaviourMinDistance = EditorGUILayout.FloatField("Flock Leader Behaviour Min Distance", _ts.flockLeaderBehaviourMinDistance).ClampMinValue(.1f);
-            _ts.flockAlineationBehaviourWeight = EditorGUILayout.FloatField("Flock Alineation Behaviour Weight", _ts.flockAlineationBehaviourWeight).ClampMinValue(.1f);
-            _ts.flockSeparationBehaviourWeight = EditorGUILayout.FloatField("Flock Separation Behaviour Weight", _ts.flockSeparationBehaviourWeight).ClampMinValue(.1f);
-            _ts.flockSeparationBehaviourRange = EditorGUILayout.FloatField("Flock Separation Behaviour Range", _ts.flockSeparationBehaviourRange).ClampMinValue(.1f);
-            _ts.flockCohesionBehaviourWeight = EditorGUILayout.FloatField("Flock Cohesion Behaviour Weight", _ts.flockCohesionBehaviourWeight).ClampMinValue(.1f);
-            _ts.flockAvoidanceBehaviourWeight = EditorGUILayout.FloatField("Flock Avoidance Behaviour Weight", _ts.flockAvoidanceBehaviourWeight).ClampMinValue(.1f);
-            LayerMask tempMask2 = EditorGUILayout.MaskField("Flock Avoidance Behaviour Mask", InternalEditorUtility.LayerMaskToConcatenatedLayersMask(_ts.flockAvoidanceBehaviourMask), InternalEditorUtility.layers);
-            _ts.flockAvoidanceBehaviourMask = InternalEditorUtility.ConcatenatedLayersMaskToLayerMask(tempMask2);
-            _ts.flockAvoidanceBehaviourRange = EditorGUILayout.FloatField("Flock Avoidance Behaviour Range", _ts.flockAvoidanceBehaviourRange).ClampMinValue(.1f);
+            //Debug.Log((_ts.minionEntity == null) + "|" + _meetFlockingRequirements);
+            if(_ts.minionEntity == null || !_meetFlockingRequirements)
+            {
+                EditorGUILayout.HelpBox("Para operar variables de flocking, el GameObject debe contener los siguientes componentes:" +
+                                        "\n-Flock Entity\n-Leader Behaviour\n-Alineation Behaviour\n-Separation Behaviour" +
+                                        "\n-Cohesion Behaviour\n-Avoidance Behaviour",MessageType.Info);
+            }
+            else
+            {
+                _ts.flockEntityRadius = EditorGUILayout.FloatField("Flock Entity Radius", _ts.flockEntityRadius).ClampMinValue(.1f);
+                LayerMask tempMask = EditorGUILayout.MaskField("Flock Entity Mask", InternalEditorUtility.LayerMaskToConcatenatedLayersMask(_ts.flockEntityMask), InternalEditorUtility.layers);
+                _ts.flockEntityMask = InternalEditorUtility.ConcatenatedLayersMaskToLayerMask(tempMask);
+                _ts.flockLeaderBehaviourWeight = EditorGUILayout.FloatField("Flock Leader Behaviour Weight", _ts.flockLeaderBehaviourWeight).ClampMinValue(.1f);
+                _ts.flockLeaderBehaviourMinDistance = EditorGUILayout.FloatField("Flock Leader Behaviour Min Distance", _ts.flockLeaderBehaviourMinDistance).ClampMinValue(.1f);
+                _ts.flockAlineationBehaviourWeight = EditorGUILayout.FloatField("Flock Alineation Behaviour Weight", _ts.flockAlineationBehaviourWeight).ClampMinValue(.1f);
+                _ts.flockSeparationBehaviourWeight = EditorGUILayout.FloatField("Flock Separation Behaviour Weight", _ts.flockSeparationBehaviourWeight).ClampMinValue(.1f);
+                _ts.flockSeparationBehaviourRange = EditorGUILayout.FloatField("Flock Separation Behaviour Range", _ts.flockSeparationBehaviourRange).ClampMinValue(.1f);
+                _ts.flockCohesionBehaviourWeight = EditorGUILayout.FloatField("Flock Cohesion Behaviour Weight", _ts.flockCohesionBehaviourWeight).ClampMinValue(.1f);
+                _ts.flockAvoidanceBehaviourWeight = EditorGUILayout.FloatField("Flock Avoidance Behaviour Weight", _ts.flockAvoidanceBehaviourWeight).ClampMinValue(.1f);
+                LayerMask tempMask2 = EditorGUILayout.MaskField("Flock Avoidance Behaviour Mask", InternalEditorUtility.LayerMaskToConcatenatedLayersMask(_ts.flockAvoidanceBehaviourMask), InternalEditorUtility.layers);
+                _ts.flockAvoidanceBehaviourMask = InternalEditorUtility.ConcatenatedLayersMaskToLayerMask(tempMask2);
+                _ts.flockAvoidanceBehaviourRange = EditorGUILayout.FloatField("Flock Avoidance Behaviour Range", _ts.flockAvoidanceBehaviourRange).ClampMinValue(.1f);
+            }
 
             _bGMainWindow.TeamSettings[_index] = _ts;
-
+            _bGMainWindow.Minions[_index] = _minionSceneIndicators;
+            
+            //Debug.Log(_minionSceneIndicators.Count);
             if(_minionSceneIndicators != null && _minionSceneIndicators.Count > 0)
             {
                 for (int i = 0; i < _minionSceneIndicators.Count; i++)
                 {
                     AssignValuesToEntity(_minionSceneIndicators[i]);
+                    AssingFlockingValuesToEntity(_minionSceneIndicators[i]);
                 }
             }
 
@@ -147,6 +176,16 @@ public class BGFlockingEditor : EditorWindow
         else if (minionEntity.GetComponent<IVision>() == null) return false;
         else return true;
     }
+    private bool CheckIfMeetsFlockingRequirements(GameObject minionEntity)
+    {
+        if (minionEntity.GetComponent<FlockEntity>() == null) return false;
+        else if (minionEntity.GetComponent<LeaderBehavior>() == null) return false;
+        else if (minionEntity.GetComponent<AlineationBehavior>() == null) return false;
+        else if (minionEntity.GetComponent<SeparationBehavior>() == null) return false;
+        else if (minionEntity.GetComponent<CohesionBehavior>() == null) return false;
+        else if (minionEntity.GetComponent<AvoidanceBehavior>() == null) return false;
+        else return true;
+    }
     private void AssignValuesToEntity(GameObject minionEntity)
     {
         HashSet<Component> components = new HashSet<Component>();
@@ -170,6 +209,35 @@ public class BGFlockingEditor : EditorWindow
                 PrefabUtility.RecordPrefabInstancePropertyModifications(componentList[i]);
             }
         }
+    }
+    private void AssingFlockingValuesToEntity(GameObject minionEntity)
+    {
+        var flockEntity = minionEntity.GetComponent<FlockEntity>();
+        var leaderBehaviour = minionEntity.GetComponent<LeaderBehavior>();
+        var alineationBehavior = minionEntity.GetComponent<AlineationBehavior>();
+        var separationBehavior = minionEntity.GetComponent<SeparationBehavior>();
+        var cohesionBehavior = minionEntity.GetComponent<CohesionBehavior>();
+        var avoidanceBehavior = minionEntity.GetComponent<AvoidanceBehavior>();
+
+        flockEntity.maskEntity = _ts.flockEntityMask;
+        flockEntity.radius = _ts.flockEntityRadius;
+        leaderBehaviour.leaderWeight = _ts.flockLeaderBehaviourWeight;
+        leaderBehaviour.target = _bGMainWindow.Leader[_index].transform;
+        leaderBehaviour.minDistance = _ts.flockLeaderBehaviourMinDistance;
+        alineationBehavior.alineationWeight = _ts.flockAlineationBehaviourWeight;
+        separationBehavior.separationWeight = _ts.flockSeparationBehaviourWeight;
+        separationBehavior.range = _ts.flockSeparationBehaviourRange;
+        cohesionBehavior.cohesionWeight = _ts.flockCohesionBehaviourWeight;
+        avoidanceBehavior.avoidanceWeight = _ts.flockAvoidanceBehaviourWeight;
+        avoidanceBehavior.mask = _ts.flockAvoidanceBehaviourMask;
+        avoidanceBehavior.range = _ts.flockAvoidanceBehaviourRange;
+
+        PrefabUtility.RecordPrefabInstancePropertyModifications(flockEntity);
+        PrefabUtility.RecordPrefabInstancePropertyModifications(leaderBehaviour);
+        PrefabUtility.RecordPrefabInstancePropertyModifications(alineationBehavior);
+        PrefabUtility.RecordPrefabInstancePropertyModifications(separationBehavior);
+        PrefabUtility.RecordPrefabInstancePropertyModifications(cohesionBehavior);
+        PrefabUtility.RecordPrefabInstancePropertyModifications(avoidanceBehavior);
     }
 
 
@@ -266,7 +334,11 @@ public class BGFlockingEditor : EditorWindow
         _ts.flockAvoidanceBehaviourRange = castedScriptable.flockAvoidanceBehaviourRange;
 
         _bGMainWindow.TeamSettings[_index] = _ts;
-        _objectChanged = _objectQtyChanged = true;
+        _objectChanged = _objectQtyPosChanged = true;
+
+        if (_ts.minionEntity != null)
+            _meetFlockingRequirements = CheckIfMeetsFlockingRequirements(_ts.minionEntity);
+
         Repaint();
         SceneView.RepaintAll();
     }
@@ -282,8 +354,16 @@ public class BGFlockingEditor : EditorWindow
         Handles.DrawDottedLine(MyPosForward, MyPosForward + Vector3.right * _ts.minionSpawnAreaWidth, 2);
         Handles.DrawDottedLine(MyPosRight, MyPosRight + Vector3.forward * _ts.minionSpawnAreaLength, 2);
 
-        if (_ts.minionEntity == null) return;
+        if (_ts.minionEntity == null)
+        {
+            if(_minionSceneIndicators != null || _minionSceneIndicators.Count != 0)
+            {
+                for (int i = 0; i < _minionSceneIndicators.Count; i++)
+                    Undo.DestroyObjectImmediate(_minionSceneIndicators[i]);
+            }
 
+            return;
+        }
         if (_objectChanged)
         {
             if (_minionSceneIndicators != null && _minionSceneIndicators.Count != 0)
@@ -291,12 +371,14 @@ public class BGFlockingEditor : EditorWindow
                 for (int i = 0; i < _minionSceneIndicators.Count; i++)
                 {
                     if (_minionSceneIndicators[i] != null)
-                        DestroyImmediate(_minionSceneIndicators[i]);
+                        Undo.DestroyObjectImmediate(_minionSceneIndicators[i]);
+
                     _minionSceneIndicators[i] = (GameObject)PrefabUtility.InstantiatePrefab(_ts.minionEntity);
+                    Undo.RegisterCreatedObjectUndo(_minionSceneIndicators[i], "Minion creado");
                 }
             }
         }
-        if (_objectQtyChanged)
+        if (_objectQtyPosChanged)
         {
             int totalQty = _ts.minionsQuantityRow * _ts.minionsQuantityColumn;
             int difference;
@@ -307,6 +389,7 @@ public class BGFlockingEditor : EditorWindow
                 for (int i = 0; i < difference; i++)
                 {
                     _minionSceneIndicators.Add((GameObject)PrefabUtility.InstantiatePrefab(_ts.minionEntity));
+                    Undo.RegisterCreatedObjectUndo(_minionSceneIndicators[_minionSceneIndicators.Count - 1], "Minion creado");
                 }
             }
             else if (_minionSceneIndicators.Count > totalQty)
@@ -318,7 +401,9 @@ public class BGFlockingEditor : EditorWindow
                     lastIndex = _minionSceneIndicators.Count - 1;
 
                     if (_minionSceneIndicators[lastIndex] != null)
-                        DestroyImmediate(_minionSceneIndicators[lastIndex]);
+                    {
+                        Undo.DestroyObjectImmediate(_minionSceneIndicators[lastIndex]);
+                    }
 
                     _minionSceneIndicators.RemoveAt(lastIndex);
                 }
@@ -327,12 +412,11 @@ public class BGFlockingEditor : EditorWindow
 
         if (_minionSceneIndicators == null && _minionSceneIndicators.Count == 0) return;
 
-        if (_objectChanged || _objectQtyChanged)
+        if (_objectChanged || _objectQtyPosChanged)
             CalculatePositions();
         
         _objectChanged = false;
-        _objectQtyChanged = false;
-
+        _objectQtyPosChanged = false;
     }
 
     private void CalculatePositions()

@@ -92,7 +92,7 @@ public class BGLeaderEditor : EditorWindow
 
             _bGMainWindow.TeamSettings[_index] = _ts;
 
-            if(_leaderSceneIndicator != null)
+            if (_leaderSceneIndicator != null)
                 AssignValuesToEntity();
 
             EditorGUILayout.Space();
@@ -215,6 +215,8 @@ public class BGLeaderEditor : EditorWindow
 
     private void OnSceneGUI(SceneView sceneView)
     {
+        _leaderSceneIndicator = _bGMainWindow.Leader[_index];
+
         if (_ts.leaderEntity == null)
         {
             if (_leaderSceneIndicator != null)
@@ -236,5 +238,7 @@ public class BGLeaderEditor : EditorWindow
         if (_leaderSceneIndicator == null) return;
 
         _leaderSceneIndicator.transform.position = _ts.leaderPosition;
+
+        _bGMainWindow.Leader[_index] = _leaderSceneIndicator;
     }
 }
