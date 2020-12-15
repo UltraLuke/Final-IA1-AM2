@@ -20,6 +20,7 @@ public class BGFlockingEditor : EditorWindow
     private string _presetName = "flocking_pr.asset";
 
     private TeamSettings _ts;
+    private Vector2 scrollPosition;
 
     public BGMain BGMainWindow { set => _bGMainWindow = value; }
     public int Index { get => _index; set => _index = value; }
@@ -48,11 +49,30 @@ public class BGFlockingEditor : EditorWindow
         {
             _ts = _bGMainWindow.TeamSettings[_index];
             EditorGUILayout.LabelField("Minion Settings", _headerlv1);
+            scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
+            if(_ts.minionEntity == null)
+            {
+                EditorGUILayout.HelpBox("El Gameobject debe contener componentes que apliquen las siguientes interfaces: " +
+                                        "\n- IHealth\n- ISpeed\n- IMelee\n- IShoot\n- IVision", MessageType.Info);
+            }
             EditorGUI.BeginChangeCheck();
             _ts.minionEntity = (GameObject)EditorGUILayout.ObjectField("Minion Prefab", _ts.minionEntity, typeof(GameObject), false);
             if (EditorGUI.EndChangeCheck())
             {
-                _objectChanged = true;
+                if (_ts.minionEntity == null || CheckIfMeetsRequirements(_ts.minionEntity))
+                {
+                    _objectChanged = true;
+                }
+                else
+                {
+                    EditorUtility.DisplayDialog("Gameobject no compatible", "El Gameobject debe contener componentes que apliquen las siguientes interfaces:" +
+                                                                            "\n- IHealth" +
+                                                                            "\n- ISpeed" +
+                                                                            "\n- IMelee" +
+                                                                            "\n- IShoot" +
+                                                                            "\n- IVision", "Aceptar");
+                    _ts.minionEntity = null;
+                }
             }
             _ts.minionSpawnAreaPosition = EditorGUILayout.Vector3Field("Minion Spawn Area Position", _ts.minionSpawnAreaPosition);
             Vector2 area = EditorGUILayout.Vector2Field("Minion Spawn Area", new Vector2(_ts.minionSpawnAreaWidth, _ts.minionSpawnAreaLength));
@@ -75,13 +95,10 @@ public class BGFlockingEditor : EditorWindow
             _ts.minionShootDistance = EditorGUILayout.FloatField("Minion Shoot Distance", _ts.minionShootDistance).ClampMinValue(.1f);
             _ts.minionVisionDistance = EditorGUILayout.FloatField("Minion Vision Distance", _ts.minionVisionDistance).ClampMinValue(.1f);
             _ts.minionVisionRangeAngles = EditorGUILayout.FloatField("Minion Vision Range Angles", _ts.minionVisionRangeAngles).ClampMinValue(.1f);
-
             EditorGUILayout.LabelField("Flocking Settings", _headerlv1);
             _ts.flockEntityRadius = EditorGUILayout.FloatField("Flock Entity Radius", _ts.flockEntityRadius).ClampMinValue(.1f);
-
             LayerMask tempMask = EditorGUILayout.MaskField("Flock Entity Mask", InternalEditorUtility.LayerMaskToConcatenatedLayersMask(_ts.flockEntityMask), InternalEditorUtility.layers);
             _ts.flockEntityMask = InternalEditorUtility.ConcatenatedLayersMaskToLayerMask(tempMask);
-
             _ts.flockLeaderBehaviourWeight = EditorGUILayout.FloatField("Flock Leader Behaviour Weight", _ts.flockLeaderBehaviourWeight).ClampMinValue(.1f);
             _ts.flockLeaderBehaviourMinDistance = EditorGUILayout.FloatField("Flock Leader Behaviour Min Distance", _ts.flockLeaderBehaviourMinDistance).ClampMinValue(.1f);
             _ts.flockAlineationBehaviourWeight = EditorGUILayout.FloatField("Flock Alineation Behaviour Weight", _ts.flockAlineationBehaviourWeight).ClampMinValue(.1f);
@@ -89,13 +106,19 @@ public class BGFlockingEditor : EditorWindow
             _ts.flockSeparationBehaviourRange = EditorGUILayout.FloatField("Flock Separation Behaviour Range", _ts.flockSeparationBehaviourRange).ClampMinValue(.1f);
             _ts.flockCohesionBehaviourWeight = EditorGUILayout.FloatField("Flock Cohesion Behaviour Weight", _ts.flockCohesionBehaviourWeight).ClampMinValue(.1f);
             _ts.flockAvoidanceBehaviourWeight = EditorGUILayout.FloatField("Flock Avoidance Behaviour Weight", _ts.flockAvoidanceBehaviourWeight).ClampMinValue(.1f);
-
             LayerMask tempMask2 = EditorGUILayout.MaskField("Flock Avoidance Behaviour Mask", InternalEditorUtility.LayerMaskToConcatenatedLayersMask(_ts.flockAvoidanceBehaviourMask), InternalEditorUtility.layers);
             _ts.flockAvoidanceBehaviourMask = InternalEditorUtility.ConcatenatedLayersMaskToLayerMask(tempMask2);
-
             _ts.flockAvoidanceBehaviourRange = EditorGUILayout.FloatField("Flock Avoidance Behaviour Range", _ts.flockAvoidanceBehaviourRange).ClampMinValue(.1f);
 
             _bGMainWindow.TeamSettings[_index] = _ts;
+
+            if(_minionSceneIndicators != null && _minionSceneIndicators.Count > 0)
+            {
+                for (int i = 0; i < _minionSceneIndicators.Count; i++)
+                {
+                    AssignValuesToEntity(_minionSceneIndicators[i]);
+                }
+            }
 
             EditorGUILayout.Space();
 
@@ -111,8 +134,44 @@ public class BGFlockingEditor : EditorWindow
                 OpenLoader();
             }
             EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndScrollView();
         }
     }
+
+    private bool CheckIfMeetsRequirements(GameObject minionEntity)
+    {
+        if (minionEntity.GetComponent<IHealth>() == null) return false;
+        else if (minionEntity.GetComponent<ISpeed>() == null) return false;
+        else if (minionEntity.GetComponent<IMelee>() == null) return false;
+        else if (minionEntity.GetComponent<IShooter>() == null) return false;
+        else if (minionEntity.GetComponent<IVision>() == null) return false;
+        else return true;
+    }
+    private void AssignValuesToEntity(GameObject minionEntity)
+    {
+        HashSet<Component> components = new HashSet<Component>();
+        List<Component> componentList = new List<Component>();
+
+        componentList.Add(minionEntity.GetComponent<IHealth>().HealthSettings(_ts.minionHealth));
+        componentList.Add(minionEntity.GetComponent<ISpeed>().SpeedSettings(_ts.minionSpeed));
+        componentList.Add(minionEntity.GetComponent<IMelee>().MeleeSettings(_ts.minionMeleeDamage, _ts.minionMeleeRate, _ts.minionMeleeDistance));
+        componentList.Add(minionEntity.GetComponent<IShooter>().ShootSettings(_ts.minionShootDamage, _ts.minionShootRate, _ts.minionShootDistance));
+        componentList.Add(minionEntity.GetComponent<IVision>().VisionSettings(_ts.minionVisionDistance, _ts.minionVisionRangeAngles));
+
+        for (int i = 0; i < componentList.Count; i++)
+        {
+            if (!components.Add(componentList[i]))
+            {
+                componentList.RemoveAt(i);
+                i--;
+            }
+            else
+            {
+                PrefabUtility.RecordPrefabInstancePropertyModifications(componentList[i]);
+            }
+        }
+    }
+
 
     #region Save and Load
     private void SavePreset()

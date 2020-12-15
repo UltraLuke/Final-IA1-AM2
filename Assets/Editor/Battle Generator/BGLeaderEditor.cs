@@ -54,8 +54,11 @@ public class BGLeaderEditor : EditorWindow
 
             EditorGUILayout.LabelField("Leader", _headerlv1);
             scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
-            EditorGUILayout.HelpBox("El Gameobject debe contener componentes que apliquen las siguientes interfaces: " +
-                                    "\n- IHealth\n- ISpeed\n- IMelee\n- IShoot\n- IVision", MessageType.Info);
+            if(_ts.leaderEntity == null)
+            {
+                EditorGUILayout.HelpBox("El Gameobject debe contener componentes que apliquen las siguientes interfaces: " +
+                                        "\n- IHealth\n- ISpeed\n- IMelee\n- IShoot\n- IVision", MessageType.Info);
+            }
             EditorGUI.BeginChangeCheck();
             _ts.leaderEntity = (GameObject)EditorGUILayout.ObjectField("Leader Target", _ts.leaderEntity, typeof(GameObject), false);
             if (EditorGUI.EndChangeCheck())
