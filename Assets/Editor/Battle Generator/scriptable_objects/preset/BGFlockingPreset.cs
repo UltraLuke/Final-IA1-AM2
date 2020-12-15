@@ -1,21 +1,11 @@
-﻿using UnityEngine;
-public struct TeamSettings
-{
-    //Leader
-    public GameObject leaderEntity;
-    public Vector3 leaderPosition;
-    public float leaderHealth;
-    public float leaderSpeed;
-    public float leaderMeleeDamage;
-    public float leaderMeleeRate;
-    public float leaderMeleeDistance;
-    public float leaderShootDamage;
-    public float leaderShootRate;
-    public float leaderShootDistance;
-    public float leaderVisionDistance;
-    public float leaderVisionRangeAngles;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-    //Minions
+[CreateAssetMenu(fileName = "BG FLocking Preset", menuName = "Battle Generator/Flocking Preset")]
+public class BGFlockingPreset : BGPreset
+{
+    [Header("Minions Settings")]
     public GameObject minionEntity;
     public Vector3 minionSpawnAreaPosition;
     public float minionSpawnAreaWidth;
@@ -33,7 +23,7 @@ public struct TeamSettings
     public float minionVisionDistance;
     public float minionVisionRangeAngles;
 
-    //Flocking
+    [Header("Flocking Settings")]
     public float flockEntityRadius;
     public LayerMask flockEntityMask;
     public float flockLeaderBehaviourWeight;

@@ -53,15 +53,6 @@ public class PathFindingEditor : EditorWindow
     bool _pendingConnections;
     bool _pendingStoreVariables;
 
-    [MenuItem("Tools/Pathfinding Editor")]
-    public static void OpenWindow()
-    {
-        var window = GetWindow<PathFindingEditor>();
-        window.wantsMouseMove = true;
-
-        window.Show();
-    }
-
     private void OnEnable()
     {
         _waypoint = Resources.Load("waypoint/waypoint", typeof(GameObject)) as GameObject;

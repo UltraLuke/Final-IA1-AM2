@@ -11,7 +11,7 @@ public class BGMain : EditorWindow
     GUIStyle _headerlv2;
 
     string _saveFolderPath = "Assets/battle_generator_saves";
-    string _savePresetName;
+    //string _savePresetName;
 
     PathFindingEditor _pathFindingEditorWindow;
     BGLeaderEditor _bGLeaderEditorWindow;
@@ -22,6 +22,7 @@ public class BGMain : EditorWindow
     TeamSettings[] _teamSettings = new TeamSettings[2];
 
     public TeamSettings[] TeamSettings { get => _teamSettings; set => _teamSettings = value; }
+    public string SaveFolderPath { get => _saveFolderPath; }
 
     [MenuItem("Tools/Battle Generator")]
     public static void OpenWindow()
@@ -51,6 +52,8 @@ public class BGMain : EditorWindow
         {
             fontStyle = FontStyle.Bold,
         };
+
+        SceneView.duringSceneGui += OnSceneGUI;
     }
     private void OnDisable()
     {
@@ -58,6 +61,8 @@ public class BGMain : EditorWindow
 
         if (_pathFindingEditorWindow != null)
             _pathFindingEditorWindow.Close();
+
+        SceneView.duringSceneGui -= OnSceneGUI;
     }
 
     private void OnGUI()
@@ -105,7 +110,7 @@ public class BGMain : EditorWindow
             EditorGUI.DrawRect(rect, Color.gray);
             EditorGUILayout.LabelField("Team Settings", _headerlv1);
             EditorGUILayout.BeginHorizontal();
-            if (GUILayout.Button("Leader"))
+            if (GUILayout.Button(new GUIContent("Leader", "Opciones relacionadas al Leader del equipo")))
             {
                 if(_bGLeaderEditorWindow == null)
                     _bGLeaderEditorWindow = GetWindow<BGLeaderEditor>();
@@ -114,7 +119,8 @@ public class BGMain : EditorWindow
                 _bGLeaderEditorWindow.Index = _tsIndex;
                 _bGLeaderEditorWindow.Show();
             }
-            else if (GUILayout.Button("Flocking"))
+            EditorGUI.BeginDisabledGroup(_teamSettings[_tsIndex].leaderEntity == null);
+            if(GUILayout.Button(new GUIContent("Flocking", "Opciones relacionadas a los minions del equipo.\nPara acceder debe haber un GameObject Leader asignado.")))
             {
                 if (_bGFlockingEditorWindow == null)
                     _bGFlockingEditorWindow = GetWindow<BGFlockingEditor>();
@@ -123,6 +129,7 @@ public class BGMain : EditorWindow
                 _bGFlockingEditorWindow.Index = _tsIndex;
                 _bGFlockingEditorWindow.Show();
             }
+            EditorGUI.EndDisabledGroup();
             EditorGUILayout.EndHorizontal();
         }
 
@@ -132,9 +139,10 @@ public class BGMain : EditorWindow
         GUI.backgroundColor = normalBGColor;
 
         EditorGUILayout.LabelField("Pathfinding", _headerlv1);
-        if (GUILayout.Button("Pathfinding Settings"))
+        if (GUILayout.Button(new GUIContent("Pathfinding Settings", "Herramienta de edicion de pathfinding")))
         {
             _pathFindingEditorWindow = GetWindow<PathFindingEditor>();
+            _pathFindingEditorWindow.wantsMouseMove = true;
             _pathFindingEditorWindow.Show();
         }
     }
@@ -155,6 +163,11 @@ public class BGMain : EditorWindow
 
         if (_bGFlockingEditorWindow != null)
             _bGFlockingEditorWindow.Close();
+    }
+
+    private void OnSceneGUI(SceneView sceneView)
+    {
+        HandleUtility.AddDefaultControl(GUIUtility.GetControlID(FocusType.Passive));
     }
     //private void ShowTeamSettings(int v)
     //{
