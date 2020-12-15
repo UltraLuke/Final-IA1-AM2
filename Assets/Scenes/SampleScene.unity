@@ -26578,8 +26578,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70585d40ceaeccf41a38d39e812a4835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
   speed: 16
   speedRot: 0.2
+  meleeDamage: 0
+  meleeRate: 0
+  meleeDistance: 0
+  shootDamage: 0
+  shootRate: 0
+  shootDistance: 0
+  visionDistance: 0
+  visionAngle: 0
 --- !u!136 &2017793326
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -26919,8 +26928,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70585d40ceaeccf41a38d39e812a4835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
   speed: 16
   speedRot: 0.2
+  meleeDamage: 0
+  meleeRate: 0
+  meleeDistance: 0
+  shootDamage: 0
+  shootRate: 0
+  shootDistance: 0
+  visionDistance: 0
+  visionAngle: 0
 --- !u!136 &2027384488
 CapsuleCollider:
   m_ObjectHideFlags: 0

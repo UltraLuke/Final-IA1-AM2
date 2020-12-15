@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEditor;
 using System;
+using System.Collections.Generic;
 
 public class BGLeaderEditor : EditorWindow
 {
@@ -9,15 +10,16 @@ public class BGLeaderEditor : EditorWindow
 
     private BGLoader _bgLoader;
     private BGMain _bGMainWindow;
-    
+
     private GameObject _leaderSceneIndicator;
     private bool _objectChanged;
-    
+
     private int _index;
     private string _presetPath = "leader_presets";
     private string _presetName = "leader_pr.asset";
-    
+
     private TeamSettings _ts;
+    private Vector2 scrollPosition;
 
     public BGMain BGMainWindow { set => _bGMainWindow = value; }
     public int Index { get => _index; set => _index = value; }
@@ -51,11 +53,27 @@ public class BGLeaderEditor : EditorWindow
             _ts = _bGMainWindow.TeamSettings[_index];
 
             EditorGUILayout.LabelField("Leader", _headerlv1);
+            scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
+            EditorGUILayout.HelpBox("El Gameobject debe contener componentes que apliquen las siguientes interfaces: " +
+                                    "\n- IHealth\n- ISpeed\n- IMelee\n- IShoot\n- IVision", MessageType.Info);
             EditorGUI.BeginChangeCheck();
             _ts.leaderEntity = (GameObject)EditorGUILayout.ObjectField("Leader Target", _ts.leaderEntity, typeof(GameObject), false);
             if (EditorGUI.EndChangeCheck())
             {
-                _objectChanged = true;
+                if (_ts.leaderEntity == null || CheckIfMeetsRequirements(_ts.leaderEntity))
+                {
+                    _objectChanged = true;
+                }
+                else
+                {
+                    EditorUtility.DisplayDialog("Gameobject no compatible", "El Gameobject debe contener componentes que apliquen las siguientes interfaces:" +
+                                                                            "\n- IHealth" +
+                                                                            "\n- ISpeed" +
+                                                                            "\n- IMelee" +
+                                                                            "\n- IShoot" +
+                                                                            "\n- IVision", "Aceptar");
+                    _ts.leaderEntity = null;
+                }
             }
             _ts.leaderPosition = EditorGUILayout.Vector3Field("Leader Position", _ts.leaderPosition);
             _ts.leaderHealth = EditorGUILayout.FloatField("Leader Health", _ts.leaderHealth);
@@ -71,6 +89,9 @@ public class BGLeaderEditor : EditorWindow
 
             _bGMainWindow.TeamSettings[_index] = _ts;
 
+            if(_leaderSceneIndicator != null)
+                AssignValuesToEntity();
+
             EditorGUILayout.Space();
 
             EditorGUILayout.BeginHorizontal();
@@ -85,6 +106,41 @@ public class BGLeaderEditor : EditorWindow
                 OpenLoader();
             }
             EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndScrollView();
+        }
+    }
+
+    private bool CheckIfMeetsRequirements(GameObject leaderEntity)
+    {
+        if (leaderEntity.GetComponent<IHealth>() == null) return false;
+        else if (leaderEntity.GetComponent<ISpeed>() == null) return false;
+        else if (leaderEntity.GetComponent<IMelee>() == null) return false;
+        else if (leaderEntity.GetComponent<IShooter>() == null) return false;
+        else if (leaderEntity.GetComponent<IVision>() == null) return false;
+        else return true;
+    }
+    private void AssignValuesToEntity()
+    {
+        HashSet<Component> components = new HashSet<Component>();
+        List<Component> componentList = new List<Component>();
+
+        componentList.Add(_leaderSceneIndicator.GetComponent<IHealth>().HealthSettings(_ts.leaderHealth));
+        componentList.Add(_leaderSceneIndicator.GetComponent<ISpeed>().SpeedSettings(_ts.leaderSpeed));
+        componentList.Add(_leaderSceneIndicator.GetComponent<IMelee>().MeleeSettings(_ts.leaderMeleeDamage, _ts.leaderMeleeRate, _ts.leaderMeleeDistance));
+        componentList.Add(_leaderSceneIndicator.GetComponent<IShooter>().ShootSettings(_ts.leaderShootDamage, _ts.leaderShootRate, _ts.leaderShootDistance));
+        componentList.Add(_leaderSceneIndicator.GetComponent<IVision>().VisionSettings(_ts.leaderVisionDistance, _ts.leaderVisionRangeAngles));
+
+        for (int i = 0; i < componentList.Count; i++)
+        {
+            if (!components.Add(componentList[i]))
+            {
+                componentList.RemoveAt(i);
+                i--;
+            }
+            else
+            {
+                PrefabUtility.RecordPrefabInstancePropertyModifications(componentList[i]);
+            }
         }
     }
 
@@ -156,14 +212,22 @@ public class BGLeaderEditor : EditorWindow
 
     private void OnSceneGUI(SceneView sceneView)
     {
-        if (_ts.leaderEntity == null) return;
+        if (_ts.leaderEntity == null)
+        {
+            if (_leaderSceneIndicator != null)
+                Undo.DestroyObjectImmediate(_leaderSceneIndicator);
+
+            return;
+        }
 
         if (_objectChanged)
         {
             if (_leaderSceneIndicator != null)
-                DestroyImmediate(_leaderSceneIndicator);
+                Undo.DestroyObjectImmediate(_leaderSceneIndicator);
             _leaderSceneIndicator = (GameObject)PrefabUtility.InstantiatePrefab(_ts.leaderEntity);
             _objectChanged = false;
+
+            Undo.RegisterCreatedObjectUndo(_leaderSceneIndicator, "Leader creado");
         }
 
         if (_leaderSceneIndicator == null) return;
