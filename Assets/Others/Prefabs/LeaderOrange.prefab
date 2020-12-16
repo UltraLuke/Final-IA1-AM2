@@ -136,7 +136,7 @@ MonoBehaviour:
   nextWaypointDistance: 0.8
   _avoidLayer:
     serializedVersion: 2
-    m_Bits: 12288
+    m_Bits: 8192
   obstacleDistance: 20
   avoidWeight: 10
 --- !u!114 &7125753328308916370
@@ -151,8 +151,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70585d40ceaeccf41a38d39e812a4835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
   speed: 16
   speedRot: 0.2
+  meleeDamage: 0
+  meleeRate: 0
+  meleeDistance: 0
+  shootDamage: 0
+  shootRate: 0
+  shootDistance: 0
+  visionDistance: 0
+  visionAngle: 0
 --- !u!114 &3832469501465634024
 MonoBehaviour:
   m_ObjectHideFlags: 0
