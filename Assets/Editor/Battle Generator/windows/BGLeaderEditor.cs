@@ -239,6 +239,6 @@ public class BGLeaderEditor : EditorWindow
 
         _leaderSceneIndicator.transform.position = _ts.leaderPosition;
 
-        _bGMainWindow.Leader[_index] = _bGMainWindow.Container.Leaders[_index] = _leaderSceneIndicator;
+        _bGMainWindow.Leader[_index] = _bGMainWindow.Container.leaders[_index] = _leaderSceneIndicator;
     }
 }

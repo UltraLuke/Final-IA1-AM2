@@ -138,10 +138,10 @@ public class BGFlockingEditor : EditorWindow
 
             _bGMainWindow.TeamSettings[_index] = _ts;
             _bGMainWindow.Minions[_index] = _bGMainWindow.Container.Minions[_index] = _minionSceneIndicators;
-            _bGMainWindow.Container.FlockingGroup[_index].areaPosition = _ts.minionSpawnAreaPosition;
-            _bGMainWindow.Container.FlockingGroup[_index].areaSize = new Vector3(_ts.minionSpawnAreaWidth, _ts.minionSpawnAreaLength);
-            _bGMainWindow.Container.FlockingGroup[_index].quantityRow = _ts.minionsQuantityRow;
-            _bGMainWindow.Container.FlockingGroup[_index].quantityColumn = _ts.minionsQuantityColumn;
+            _bGMainWindow.Container.flockingGroup[_index].areaPosition = _ts.minionSpawnAreaPosition;
+            _bGMainWindow.Container.flockingGroup[_index].areaSize = new Vector3(_ts.minionSpawnAreaWidth, _ts.minionSpawnAreaLength);
+            _bGMainWindow.Container.flockingGroup[_index].quantityRow = _ts.minionsQuantityRow;
+            _bGMainWindow.Container.flockingGroup[_index].quantityColumn = _ts.minionsQuantityColumn;
 
             //Debug.Log(_minionSceneIndicators.Count);
             if (_minionSceneIndicators != null && _minionSceneIndicators.Count > 0)

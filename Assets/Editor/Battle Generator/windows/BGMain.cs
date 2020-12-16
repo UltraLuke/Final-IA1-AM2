@@ -69,11 +69,11 @@ public class BGMain : EditorWindow
     {
         ts = new TeamSettings[2];
 
-        if(container.Leaders == null || container.Leaders.Count < 2)
-            container.Leaders = leaders = new List<GameObject>() { null, null };
+        if(container.leaders == null || container.leaders.Count < 2)
+            container.leaders = leaders = new List<GameObject>() { null, null };
         else
         {
-            leaders = container.Leaders;
+            leaders = container.leaders;
             for (int i = 0; i < ts.Length; i++)
             {
                 ts[i].leaderEntity = PrefabUtility.GetCorrespondingObjectFromSource(leaders[i]);
@@ -94,7 +94,7 @@ public class BGMain : EditorWindow
             for (int i = 0; i < ts.Length; i++)
             {
                 GameObject minionReference = minions[i][0];
-                FlockingGroup fg = container.FlockingGroup[i];
+                FlockingGroup fg = container.flockingGroup[i];
                 ts[i].minionEntity = PrefabUtility.GetCorrespondingObjectFromSource(minionReference);
                 ts[i].minionSpawnAreaPosition = fg.areaPosition;
                 ts[i].minionSpawnAreaWidth = fg.areaSize.x;

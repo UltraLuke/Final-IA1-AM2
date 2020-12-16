@@ -5,18 +5,14 @@ using UnityEngine;
 public class BGContainer : MonoBehaviour
 {
     [Header("Leaders")]
-    [SerializeField] List<GameObject> _leaders;
+    public List<GameObject> leaders;
     [Header("Minions")]
-    [SerializeField] List<MinionGroup> _minionGroups = new List<MinionGroup>() { new MinionGroup(), new MinionGroup() };
+    public List<MinionGroup> minionGroups = new List<MinionGroup>() { new MinionGroup(), new MinionGroup() };
 
     [Header("Flocking")]
-    [SerializeField] List<FlockingGroup> _flockingGroup = new List<FlockingGroup>() { new FlockingGroup() , new FlockingGroup() };
+    public List<FlockingGroup> flockingGroup = new List<FlockingGroup>() { new FlockingGroup() , new FlockingGroup() };
 
     List<List<GameObject>> _minions;
-    //Vector3[] _areaPosition;
-    //Vector3[] _areaSize;
-    //int[] _quantityRow;
-    //int[] _quantityColumn;
 
     public List<List<GameObject>> Minions
     {
@@ -25,62 +21,14 @@ public class BGContainer : MonoBehaviour
         {
             _minions = value;
 
-            for (int i = 0; i < _minionGroups.Count; i++)
+            for (int i = 0; i < minionGroups.Count; i++)
             {
-                _minionGroups[i].minions = _minions[i];
+                minionGroups[i].minions = _minions[i];
             }
         }
     }
-    public List<GameObject> Leaders { get => _leaders; set => _leaders = value; }
-    public List<FlockingGroup> FlockingGroup { get => _flockingGroup; set => _flockingGroup = value; }
-    //public Vector3[] AreaPosition
-    //{
-    //    get => _areaPosition;
-    //    set
-    //    {
-    //        _areaPosition = value;
-    //        for (int i = 0; i < _flockingGroup.Count; i++)
-    //        {
-    //            _flockingGroup[i].areaPosition = _areaPosition[i];
-    //        }
-    //    }
-    //}
-    //public Vector3[] AreaSize
-    //{
-    //    get => _areaSize;
-    //    set
-    //    {
-    //        _areaSize = value;
-    //        for (int i = 0; i < _flockingGroup.Count; i++)
-    //        {
-    //            _flockingGroup[i].areaSize = _areaSize[i];
-    //        }
-    //    }
-    //}
-    //public int[] QuantityRow
-    //{
-    //    get => _quantityRow;
-    //    set
-    //    {
-    //        _quantityRow = value;
-    //        for (int i = 0; i < _flockingGroup.Count; i++)
-    //        {
-    //            _flockingGroup[i].quantityRow = _quantityRow[i];
-    //        }
-    //    }
-    //}
-    //public int[] QuantityColumn
-    //{
-    //    get => _quantityColumn;
-    //    set
-    //    {
-    //        _quantityColumn = value;
-    //        for (int i = 0; i < _flockingGroup.Count; i++)
-    //        {
-    //            _flockingGroup[i].quantityColumn = _quantityColumn[i];
-    //        }
-    //    }
-    //}
+    //public List<GameObject> leaders { get => _leaders; set => _leaders = value; }
+    //public List<FlockingGroup> flockingGroup { get => _flockingGroup; set => _flockingGroup = value; }
 }
 
 [System.Serializable]
