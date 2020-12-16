@@ -16,6 +16,7 @@ public class BGMain : EditorWindow
     PathFindingEditor _pathFindingEditorWindow;
     BGLeaderEditor _bGLeaderEditorWindow;
     BGFlockingEditor _bGFlockingEditorWindow;
+    BGContainer _container;
 
     int _tsIndex;
     bool[] _pressedTeams = new bool[2];
@@ -27,6 +28,7 @@ public class BGMain : EditorWindow
     public string SaveFolderPath { get => _saveFolderPath; }
     public List<List<GameObject>> Minions { get => _minions; set => _minions = value; }
     public List<GameObject> Leader { get => _leaders; set => _leaders = value; }
+    public BGContainer Container { get => _container; set => _container = value; }
 
     [MenuItem("Tools/Battle Generator")]
     public static void OpenWindow()
@@ -38,6 +40,9 @@ public class BGMain : EditorWindow
     private void OnEnable()
     {
         CreateDirectories();
+        _container = GetContainer();
+        LoadContainerData(_container, out _leaders, out _minions, out _teamSettings);
+
         _tsIndex = -1;
 
         _title = new GUIStyle
@@ -57,11 +62,78 @@ public class BGMain : EditorWindow
             fontStyle = FontStyle.Bold,
         };
 
-        for (int i = 0; i < _minions.Count; i++)
-            _minions[i] = new List<GameObject>();
-
         SceneView.duringSceneGui += OnSceneGUI;
     }
+
+    private void LoadContainerData(BGContainer container, out List<GameObject> leaders, out List<List<GameObject>> minions, out TeamSettings[] ts)
+    {
+        ts = new TeamSettings[2];
+
+        if(container.Leaders == null || container.Leaders.Count < 2)
+            container.Leaders = leaders = new List<GameObject>() { null, null };
+        else
+        {
+            leaders = container.Leaders;
+            for (int i = 0; i < ts.Length; i++)
+            {
+                ts[i].leaderEntity = PrefabUtility.GetCorrespondingObjectFromSource(leaders[i]);
+                ts[i].leaderPosition = leaders[i].transform.position;
+                ts[i].leaderHealth = leaders[i].GetComponent<IHealth>().GetHealth();
+                ts[i].leaderSpeed = leaders[i].GetComponent<ISpeed>().GetSpeed();
+                leaders[i].GetComponent<IMelee>().GetMeleeData(out ts[i].leaderMeleeDamage, out ts[i].leaderMeleeRate, out ts[i].leaderMeleeDistance);
+                leaders[i].GetComponent<IShooter>().GetShootData(out ts[i].leaderShootDamage, out ts[i].leaderShootRate, out ts[i].leaderShootDistance);
+                leaders[i].GetComponent<IVision>().GetVisionData(out ts[i].leaderVisionDistance, out ts[i].leaderVisionRangeAngles);
+            }
+        }
+
+        if (container.Minions == null || container.Minions.Count < 2)
+            container.Minions = minions = new List<List<GameObject>>() { new List<GameObject>(), new List<GameObject>() };
+        else
+        {
+            minions = container.Minions;
+            for (int i = 0; i < ts.Length; i++)
+            {
+                GameObject minionReference = minions[i][0];
+                FlockingGroup fg = container.FlockingGroup[i];
+                ts[i].minionEntity = PrefabUtility.GetCorrespondingObjectFromSource(minionReference);
+                ts[i].minionSpawnAreaPosition = fg.areaPosition;
+                ts[i].minionSpawnAreaWidth = fg.areaSize.x;
+                ts[i].minionSpawnAreaLength = fg.areaSize.y;
+                ts[i].minionsQuantityRow = fg.quantityRow;
+                ts[i].minionsQuantityColumn = fg.quantityColumn;
+                ts[i].minionHealth = minionReference.GetComponent<IHealth>().GetHealth();
+                ts[i].minionSpeed = minionReference.GetComponent<ISpeed>().GetSpeed();
+                minionReference.GetComponent<IMelee>().GetMeleeData(out ts[i].minionMeleeDamage, out ts[i].minionMeleeRate, out ts[i].minionMeleeDistance);
+                minionReference.GetComponent<IShooter>().GetShootData(out ts[i].minionShootDamage, out ts[i].minionShootRate, out ts[i].minionShootDistance);
+                minionReference.GetComponent<IVision>().GetVisionData(out ts[i].minionVisionDistance, out ts[i].minionVisionRangeAngles);
+
+                ts[i].flockEntityRadius = minionReference.GetComponent<FlockEntity>().radius;
+                ts[i].flockEntityMask = minionReference.GetComponent<FlockEntity>().maskEntity;
+                ts[i].flockLeaderBehaviourWeight = minionReference.GetComponent<LeaderBehavior>().leaderWeight;
+                ts[i].flockLeaderBehaviourMinDistance = minionReference.GetComponent<LeaderBehavior>().minDistance;
+                ts[i].flockAlineationBehaviourWeight = minionReference.GetComponent<AlineationBehavior>().alineationWeight;
+                ts[i].flockSeparationBehaviourWeight = minionReference.GetComponent<SeparationBehavior>().separationWeight;
+                ts[i].flockSeparationBehaviourRange = minionReference.GetComponent<SeparationBehavior>().range;
+                ts[i].flockCohesionBehaviourWeight = minionReference.GetComponent<CohesionBehavior>().cohesionWeight;
+                ts[i].flockAvoidanceBehaviourWeight = minionReference.GetComponent<AvoidanceBehavior>().avoidanceWeight;
+                ts[i].flockAvoidanceBehaviourMask = minionReference.GetComponent<AvoidanceBehavior>().mask;
+                ts[i].flockAvoidanceBehaviourRange = minionReference.GetComponent<AvoidanceBehavior>().range;
+            }
+        }
+
+    }
+
+    private BGContainer GetContainer()
+    {
+        var container = FindObjectOfType<BGContainer>();
+        if(container == null)
+        {
+            container = new GameObject("BC_container").AddComponent<BGContainer>();
+            container.transform.position = Vector3.zero;
+        }
+        return container;
+    }
+
     private void OnDisable()
     {
         CloseEditingSubwindows();
@@ -71,7 +143,6 @@ public class BGMain : EditorWindow
 
         SceneView.duringSceneGui -= OnSceneGUI;
     }
-
     private void OnGUI()
     {
         EditorGUILayout.LabelField("BATTLE GENERATOR", _title);

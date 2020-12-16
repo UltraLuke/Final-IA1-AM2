@@ -137,10 +137,14 @@ public class BGFlockingEditor : EditorWindow
             }
 
             _bGMainWindow.TeamSettings[_index] = _ts;
-            _bGMainWindow.Minions[_index] = _minionSceneIndicators;
-            
+            _bGMainWindow.Minions[_index] = _bGMainWindow.Container.Minions[_index] = _minionSceneIndicators;
+            _bGMainWindow.Container.FlockingGroup[_index].areaPosition = _ts.minionSpawnAreaPosition;
+            _bGMainWindow.Container.FlockingGroup[_index].areaSize = new Vector3(_ts.minionSpawnAreaWidth, _ts.minionSpawnAreaLength);
+            _bGMainWindow.Container.FlockingGroup[_index].quantityRow = _ts.minionsQuantityRow;
+            _bGMainWindow.Container.FlockingGroup[_index].quantityColumn = _ts.minionsQuantityColumn;
+
             //Debug.Log(_minionSceneIndicators.Count);
-            if(_minionSceneIndicators != null && _minionSceneIndicators.Count > 0)
+            if (_minionSceneIndicators != null && _minionSceneIndicators.Count > 0)
             {
                 for (int i = 0; i < _minionSceneIndicators.Count; i++)
                 {
@@ -373,7 +377,7 @@ public class BGFlockingEditor : EditorWindow
                     if (_minionSceneIndicators[i] != null)
                         Undo.DestroyObjectImmediate(_minionSceneIndicators[i]);
 
-                    _minionSceneIndicators[i] = (GameObject)PrefabUtility.InstantiatePrefab(_ts.minionEntity);
+                    _minionSceneIndicators[i] = (GameObject)PrefabUtility.InstantiatePrefab(_ts.minionEntity, _bGMainWindow.Container.transform);
                     Undo.RegisterCreatedObjectUndo(_minionSceneIndicators[i], "Minion creado");
                 }
             }
@@ -388,7 +392,7 @@ public class BGFlockingEditor : EditorWindow
                 difference = totalQty - _minionSceneIndicators.Count;
                 for (int i = 0; i < difference; i++)
                 {
-                    _minionSceneIndicators.Add((GameObject)PrefabUtility.InstantiatePrefab(_ts.minionEntity));
+                    _minionSceneIndicators.Add((GameObject)PrefabUtility.InstantiatePrefab(_ts.minionEntity, _bGMainWindow.Container.transform));
                     Undo.RegisterCreatedObjectUndo(_minionSceneIndicators[_minionSceneIndicators.Count - 1], "Minion creado");
                 }
             }

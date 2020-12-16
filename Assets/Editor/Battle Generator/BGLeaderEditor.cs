@@ -229,7 +229,7 @@ public class BGLeaderEditor : EditorWindow
         {
             if (_leaderSceneIndicator != null)
                 Undo.DestroyObjectImmediate(_leaderSceneIndicator);
-            _leaderSceneIndicator = (GameObject)PrefabUtility.InstantiatePrefab(_ts.leaderEntity);
+            _leaderSceneIndicator = (GameObject)PrefabUtility.InstantiatePrefab(_ts.leaderEntity, _bGMainWindow.Container.transform);
             _objectChanged = false;
 
             Undo.RegisterCreatedObjectUndo(_leaderSceneIndicator, "Leader creado");
@@ -239,6 +239,6 @@ public class BGLeaderEditor : EditorWindow
 
         _leaderSceneIndicator.transform.position = _ts.leaderPosition;
 
-        _bGMainWindow.Leader[_index] = _leaderSceneIndicator;
+        _bGMainWindow.Leader[_index] = _bGMainWindow.Container.Leaders[_index] = _leaderSceneIndicator;
     }
 }

@@ -31,7 +31,7 @@ public class LeaderModel : Model, IHealth, ISpeed, IMelee, IShooter, IVision
         transform.forward = Vector3.Lerp(transform.forward, dir, speedRot);
     }
 
-    #region Interface Setters
+    #region Interface methods
     public Component HealthSettings(float health)
     {
         this.health = health;
@@ -61,6 +61,25 @@ public class LeaderModel : Model, IHealth, ISpeed, IMelee, IShooter, IVision
         visionDistance = distance;
         visionAngle = angle;
         return this;
+    }
+    public float GetHealth() => health;
+    public float GetSpeed() => speed;
+    public void GetMeleeData(out float meleeDamage, out float meleeRate, out float meleeDistance)
+    {
+        meleeDamage = this.meleeDamage;
+        meleeRate = this.meleeRate;
+        meleeDistance = this.meleeDistance;
+    }
+    public void GetShootData(out float shootDamage, out float shootRate, out float shootDistance)
+    {
+        shootDamage = this.shootDamage;
+        shootRate = this.shootRate;
+        shootDistance = this.shootDistance;
+    }
+    public void GetVisionData(out float visionDistance, out float visionRangeAngles)
+    {
+        visionDistance = this.visionDistance;
+        visionRangeAngles = this.visionAngle;
     }
     #endregion
 }
