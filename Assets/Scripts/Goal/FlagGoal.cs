@@ -15,6 +15,7 @@ public class FlagGoal : MonoBehaviour
     public float dominanceValue = 0;
     public float currTime = 0;
 
+    //Dictionary<GameObject, int> entities = new Dictionary<GameObject, int>();
     Dictionary<ITeam, int> entities = new Dictionary<ITeam, int>();
 
     private void Update()
@@ -23,12 +24,14 @@ public class FlagGoal : MonoBehaviour
         {
             if (entities.Count > 0)
             {
+                int iteracion = 0;
                 foreach (var entity in entities)
                 {
                     if (entity.Value == 0)
                         dominanceValue += addingValue;
                     else if(entity.Value == 1)
                         dominanceValue -= addingValue;
+                    iteracion++;
                 }
             }
             currTime = addingInterval;
@@ -39,17 +42,28 @@ public class FlagGoal : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.TryGetComponent<ITeam>(out var entity))
+        if (other.TryGetComponent<ITeam>(out var entity))
         {
             int team = entity.GetTeamNumber();
             entities[entity] = team;
         }
+
+        //if (entitiesTeam1.Contains(other.gameObject))
+        //{
+        //    entities[other.gameObject] = 0;
+        //    Debug.Log("entity team 1 asignado");
+        //}
+        //else if (entitiesTeam1.Contains(other.gameObject))
+        //{
+        //    entities[other.gameObject] = 1;
+        //    Debug.Log("entity team 2 asignado");
+        //}
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.TryGetComponent<ITeam>(out var entity))
         {
-            if(entities.ContainsKey(entity))
+            if (entities.ContainsKey(entity))
                 entities.Remove(entity);
         }
     }

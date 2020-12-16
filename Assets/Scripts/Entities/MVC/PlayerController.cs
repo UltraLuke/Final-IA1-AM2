@@ -86,7 +86,6 @@ public class PlayerController : Controller
                 {
                     _nextPoint++;
                     _sb = new ObstacleAvoidance(transform, waypoints[_nextPoint].transform, obstacleDistance, avoidWeight, _avoidLayer);
-                    Debug.Log("Cambio de indice");
                 }
 
                 else if (_nextPoint + 1 >= waypoints.Count)
