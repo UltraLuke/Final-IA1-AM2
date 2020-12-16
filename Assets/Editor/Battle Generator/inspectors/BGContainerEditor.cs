@@ -11,6 +11,7 @@ public class BGContainerEditor : Editor
     GUIStyle _headerlv2;
 
     BGContainer _bGContainer;
+    BGLoader _bGLoader;
 
     bool minionfoldedOut1;
     bool minionfoldedOut2;
@@ -45,9 +46,12 @@ public class BGContainerEditor : Editor
         EditorGUILayout.LabelField("Battle Generator Container", _title);
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Leaders", _headerlv1);
-        for (int i = 0; i < _bGContainer.leaders.Count; i++)
+        if (_bGContainer.leaders != null && _bGContainer.leaders.Count > 0)
         {
-            _bGContainer.leaders[i] = (GameObject)EditorGUILayout.ObjectField("Leader " + i, _bGContainer.leaders[i], typeof(GameObject), false);
+            for (int i = 0; i < _bGContainer.leaders.Count; i++)
+            {
+                _bGContainer.leaders[i] = (GameObject)EditorGUILayout.ObjectField("Leader " + i, _bGContainer.leaders[i], typeof(GameObject), false);
+            }
         }
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Minions", _headerlv1);
@@ -107,6 +111,13 @@ public class BGContainerEditor : Editor
             EditorGUILayout.EndHorizontal();
         }
 
+
+        EditorGUILayout.BeginHorizontal();
+        GUI.color = Color.yellow;
+        if (GUILayout.Button("Load Container"))
+        {
+            OpenLoader();
+        }
         GUI.color = Color.green;
         if (GUILayout.Button("Save container"))
         {
@@ -192,6 +203,92 @@ public class BGContainerEditor : Editor
             var path = _folderPath + "/" + _fileName;
             path = AssetDatabase.GenerateUniqueAssetPath(path);
             AssetDatabase.CreateAsset(scriptable, path);
+        }
+        EditorGUILayout.EndHorizontal();
+    }
+
+    private void OpenLoader()
+    {
+        _bGLoader = EditorWindow.GetWindow<BGLoader>();
+        _bGLoader.bgLoader += LoadFromScriptable;
+        _bGLoader.AssetType = "BGContainerSave";
+        _bGLoader.FolderPath = _folderPath;
+        _bGLoader.Show();
+    }
+
+    void LoadFromScriptable(BGPreset scriptable)
+    {
+        if (scriptable.GetType() != typeof(BGContainerSave)) return;
+        var castedScriptable = (BGContainerSave)scriptable;
+
+        //ELIMINO LOS LEADERS QUE ESTABAN ANTES, SI ES QUE HAY
+        if (_bGContainer.leaders != null)
+        {
+            for (int i = 0; i < _bGContainer.leaders.Count; i++)
+            {
+                if (_bGContainer.leaders[i] != null)
+                    Undo.DestroyObjectImmediate(_bGContainer.leaders[i]);
+            }
+        }
+        _bGContainer.leaders = new List<GameObject>();
+        //CARGO LOS NUEVOS LEADERS
+        for (int i = 0; i < castedScriptable.leaders.Count; i++)
+        {
+            var currLeader = (GameObject)PrefabUtility.InstantiatePrefab(castedScriptable.leaders[i], _bGContainer.transform);
+            currLeader.transform.position = castedScriptable.ts[i].leaderPosition;
+            _ = currLeader.GetComponent<IHealth>().HealthSettings(castedScriptable.ts[i].leaderHealth);
+            _ = currLeader.GetComponent<ISpeed>().SpeedSettings(castedScriptable.ts[i].leaderSpeed);
+            _ = currLeader.GetComponent<IMelee>().MeleeSettings(castedScriptable.ts[i].leaderMeleeDamage, castedScriptable.ts[i].leaderMeleeRate, castedScriptable.ts[i].leaderMeleeDistance);
+            _ = currLeader.GetComponent<IShooter>().ShootSettings(castedScriptable.ts[i].leaderShootDamage, castedScriptable.ts[i].leaderShootRate, castedScriptable.ts[i].leaderShootDistance);
+            _ = currLeader.GetComponent<IVision>().VisionSettings(castedScriptable.ts[i].leaderVisionDistance, castedScriptable.ts[i].leaderVisionRangeAngles);
+            _bGContainer.leaders.Add(currLeader);
+        }
+        //ELIMINO LOS MINIONS QUE ESTABAN ANTES
+        for (int i = 0; i < _bGContainer.minionGroups.Count; i++)
+        {
+            var minionGroup = _bGContainer.minionGroups[i];
+            if (minionGroup != null && minionGroup.minions != null && minionGroup.minions.Count > 0)
+            {
+                for (int j = 0; j < minionGroup.minions.Count; j++)
+                {
+                    if (minionGroup.minions[j] != null)
+                        Undo.DestroyObjectImmediate(minionGroup.minions[j]);
+                }
+            }
+        }
+        _bGContainer.minionGroups = new List<MinionGroup>() { new MinionGroup(), new MinionGroup() };
+        //CARGO LOS NUEVOS MINIONS
+        for (int i = 0; i < castedScriptable.minions.Count; i++)
+        {
+            var minionDatas = castedScriptable.minions[i];
+            _bGContainer.minionGroups[i].minions = new List<GameObject>();
+            for (int j = 0; j < minionDatas.Count; j++)
+            {
+                var currMinion = (GameObject)PrefabUtility.InstantiatePrefab(minionDatas[j].minion, _bGContainer.transform);
+                currMinion.transform.position = minionDatas[j].position;
+                _ = currMinion.GetComponent<IHealth>().HealthSettings(castedScriptable.ts[i].minionHealth);
+                _ = currMinion.GetComponent<ISpeed>().SpeedSettings(castedScriptable.ts[i].minionSpeed);
+                _ = currMinion.GetComponent<IMelee>().MeleeSettings(castedScriptable.ts[i].minionMeleeDamage, castedScriptable.ts[i].minionMeleeRate, castedScriptable.ts[i].minionMeleeDistance);
+                _ = currMinion.GetComponent<IShooter>().ShootSettings(castedScriptable.ts[i].minionShootDamage, castedScriptable.ts[i].minionShootRate, castedScriptable.ts[i].minionShootDistance);
+                _ = currMinion.GetComponent<IVision>().VisionSettings(castedScriptable.ts[i].minionVisionDistance, castedScriptable.ts[i].minionVisionRangeAngles);
+                currMinion.GetComponent<FlockEntity>().radius = castedScriptable.ts[i].flockEntityRadius;
+                currMinion.GetComponent<FlockEntity>().maskEntity = castedScriptable.ts[i].flockEntityMask;
+                currMinion.GetComponent<LeaderBehavior>().leaderWeight = castedScriptable.ts[i].flockLeaderBehaviourWeight;
+                currMinion.GetComponent<LeaderBehavior>().minDistance = castedScriptable.ts[i].flockLeaderBehaviourMinDistance;
+                currMinion.GetComponent<AlineationBehavior>().alineationWeight = castedScriptable.ts[i].flockAlineationBehaviourWeight;
+                currMinion.GetComponent<SeparationBehavior>().separationWeight = castedScriptable.ts[i].flockSeparationBehaviourWeight;
+                currMinion.GetComponent<SeparationBehavior>().range = castedScriptable.ts[i].flockSeparationBehaviourRange;
+                currMinion.GetComponent<CohesionBehavior>().cohesionWeight = castedScriptable.ts[i].flockCohesionBehaviourWeight;
+                currMinion.GetComponent<AvoidanceBehavior>().avoidanceWeight = castedScriptable.ts[i].flockAvoidanceBehaviourWeight;
+                currMinion.GetComponent<AvoidanceBehavior>().mask = castedScriptable.ts[i].flockAvoidanceBehaviourMask;
+                currMinion.GetComponent<AvoidanceBehavior>().range = castedScriptable.ts[i].flockAvoidanceBehaviourRange;
+                _bGContainer.minionGroups[i].minions.Add(currMinion);
+            }
+            _bGContainer.flockingGroup[i].areaPosition = castedScriptable.ts[i].minionSpawnAreaPosition;
+            _bGContainer.flockingGroup[i].areaSize = new Vector2(castedScriptable.ts[i].minionSpawnAreaWidth, castedScriptable.ts[i].minionSpawnAreaLength);
+            _bGContainer.flockingGroup[i].quantityRow = castedScriptable.ts[i].minionsQuantityRow;
+            _bGContainer.flockingGroup[i].quantityColumn = castedScriptable.ts[i].minionsQuantityColumn;
+
         }
     }
 }

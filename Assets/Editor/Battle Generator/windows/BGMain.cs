@@ -69,55 +69,64 @@ public class BGMain : EditorWindow
     {
         ts = new TeamSettings[2];
 
-        if(container.leaders == null || container.leaders.Count < 2)
+        if (container.leaders == null || container.leaders.Count < 2)
             container.leaders = leaders = new List<GameObject>() { null, null };
         else
         {
             leaders = container.leaders;
             for (int i = 0; i < ts.Length; i++)
             {
-                ts[i].leaderEntity = PrefabUtility.GetCorrespondingObjectFromSource(leaders[i]);
-                ts[i].leaderPosition = leaders[i].transform.position;
-                ts[i].leaderHealth = leaders[i].GetComponent<IHealth>().GetHealth();
-                ts[i].leaderSpeed = leaders[i].GetComponent<ISpeed>().GetSpeed();
-                leaders[i].GetComponent<IMelee>().GetMeleeData(out ts[i].leaderMeleeDamage, out ts[i].leaderMeleeRate, out ts[i].leaderMeleeDistance);
-                leaders[i].GetComponent<IShooter>().GetShootData(out ts[i].leaderShootDamage, out ts[i].leaderShootRate, out ts[i].leaderShootDistance);
-                leaders[i].GetComponent<IVision>().GetVisionData(out ts[i].leaderVisionDistance, out ts[i].leaderVisionRangeAngles);
+                if (leaders[i] != null)
+                {
+                    ts[i].leaderEntity = PrefabUtility.GetCorrespondingObjectFromSource(leaders[i]);
+                    ts[i].leaderPosition = leaders[i].transform.position;
+                    ts[i].leaderHealth = leaders[i].GetComponent<IHealth>().GetHealth();
+                    ts[i].leaderSpeed = leaders[i].GetComponent<ISpeed>().GetSpeed();
+                    leaders[i].GetComponent<IMelee>().GetMeleeData(out ts[i].leaderMeleeDamage, out ts[i].leaderMeleeRate, out ts[i].leaderMeleeDistance);
+                    leaders[i].GetComponent<IShooter>().GetShootData(out ts[i].leaderShootDamage, out ts[i].leaderShootRate, out ts[i].leaderShootDistance);
+                    leaders[i].GetComponent<IVision>().GetVisionData(out ts[i].leaderVisionDistance, out ts[i].leaderVisionRangeAngles);
+                }
             }
         }
 
         if (container.Minions == null || container.Minions.Count < 2)
+        {
+            if (container.Minions != null) Debug.Log(container.Minions.Count);
             container.Minions = minions = new List<List<GameObject>>() { new List<GameObject>(), new List<GameObject>() };
+        }
         else
         {
             minions = container.Minions;
             for (int i = 0; i < ts.Length; i++)
             {
-                GameObject minionReference = minions[i][0];
-                FlockingGroup fg = container.flockingGroup[i];
-                ts[i].minionEntity = PrefabUtility.GetCorrespondingObjectFromSource(minionReference);
-                ts[i].minionSpawnAreaPosition = fg.areaPosition;
-                ts[i].minionSpawnAreaWidth = fg.areaSize.x;
-                ts[i].minionSpawnAreaLength = fg.areaSize.y;
-                ts[i].minionsQuantityRow = fg.quantityRow;
-                ts[i].minionsQuantityColumn = fg.quantityColumn;
-                ts[i].minionHealth = minionReference.GetComponent<IHealth>().GetHealth();
-                ts[i].minionSpeed = minionReference.GetComponent<ISpeed>().GetSpeed();
-                minionReference.GetComponent<IMelee>().GetMeleeData(out ts[i].minionMeleeDamage, out ts[i].minionMeleeRate, out ts[i].minionMeleeDistance);
-                minionReference.GetComponent<IShooter>().GetShootData(out ts[i].minionShootDamage, out ts[i].minionShootRate, out ts[i].minionShootDistance);
-                minionReference.GetComponent<IVision>().GetVisionData(out ts[i].minionVisionDistance, out ts[i].minionVisionRangeAngles);
+                if(minions != null && minions.Count > 0 && minions[i].Count > 0)
+                {
+                    GameObject minionReference = minions[i][0];
+                    FlockingGroup fg = container.flockingGroup[i];
+                    ts[i].minionEntity = PrefabUtility.GetCorrespondingObjectFromSource(minionReference);
+                    ts[i].minionSpawnAreaPosition = fg.areaPosition;
+                    ts[i].minionSpawnAreaWidth = fg.areaSize.x;
+                    ts[i].minionSpawnAreaLength = fg.areaSize.y;
+                    ts[i].minionsQuantityRow = fg.quantityRow;
+                    ts[i].minionsQuantityColumn = fg.quantityColumn;
+                    ts[i].minionHealth = minionReference.GetComponent<IHealth>().GetHealth();
+                    ts[i].minionSpeed = minionReference.GetComponent<ISpeed>().GetSpeed();
+                    minionReference.GetComponent<IMelee>().GetMeleeData(out ts[i].minionMeleeDamage, out ts[i].minionMeleeRate, out ts[i].minionMeleeDistance);
+                    minionReference.GetComponent<IShooter>().GetShootData(out ts[i].minionShootDamage, out ts[i].minionShootRate, out ts[i].minionShootDistance);
+                    minionReference.GetComponent<IVision>().GetVisionData(out ts[i].minionVisionDistance, out ts[i].minionVisionRangeAngles);
 
-                ts[i].flockEntityRadius = minionReference.GetComponent<FlockEntity>().radius;
-                ts[i].flockEntityMask = minionReference.GetComponent<FlockEntity>().maskEntity;
-                ts[i].flockLeaderBehaviourWeight = minionReference.GetComponent<LeaderBehavior>().leaderWeight;
-                ts[i].flockLeaderBehaviourMinDistance = minionReference.GetComponent<LeaderBehavior>().minDistance;
-                ts[i].flockAlineationBehaviourWeight = minionReference.GetComponent<AlineationBehavior>().alineationWeight;
-                ts[i].flockSeparationBehaviourWeight = minionReference.GetComponent<SeparationBehavior>().separationWeight;
-                ts[i].flockSeparationBehaviourRange = minionReference.GetComponent<SeparationBehavior>().range;
-                ts[i].flockCohesionBehaviourWeight = minionReference.GetComponent<CohesionBehavior>().cohesionWeight;
-                ts[i].flockAvoidanceBehaviourWeight = minionReference.GetComponent<AvoidanceBehavior>().avoidanceWeight;
-                ts[i].flockAvoidanceBehaviourMask = minionReference.GetComponent<AvoidanceBehavior>().mask;
-                ts[i].flockAvoidanceBehaviourRange = minionReference.GetComponent<AvoidanceBehavior>().range;
+                    ts[i].flockEntityRadius = minionReference.GetComponent<FlockEntity>().radius;
+                    ts[i].flockEntityMask = minionReference.GetComponent<FlockEntity>().maskEntity;
+                    ts[i].flockLeaderBehaviourWeight = minionReference.GetComponent<LeaderBehavior>().leaderWeight;
+                    ts[i].flockLeaderBehaviourMinDistance = minionReference.GetComponent<LeaderBehavior>().minDistance;
+                    ts[i].flockAlineationBehaviourWeight = minionReference.GetComponent<AlineationBehavior>().alineationWeight;
+                    ts[i].flockSeparationBehaviourWeight = minionReference.GetComponent<SeparationBehavior>().separationWeight;
+                    ts[i].flockSeparationBehaviourRange = minionReference.GetComponent<SeparationBehavior>().range;
+                    ts[i].flockCohesionBehaviourWeight = minionReference.GetComponent<CohesionBehavior>().cohesionWeight;
+                    ts[i].flockAvoidanceBehaviourWeight = minionReference.GetComponent<AvoidanceBehavior>().avoidanceWeight;
+                    ts[i].flockAvoidanceBehaviourMask = minionReference.GetComponent<AvoidanceBehavior>().mask;
+                    ts[i].flockAvoidanceBehaviourRange = minionReference.GetComponent<AvoidanceBehavior>().range;
+                }
             }
         }
 
@@ -126,7 +135,7 @@ public class BGMain : EditorWindow
     private BGContainer GetContainer()
     {
         var container = FindObjectOfType<BGContainer>();
-        if(container == null)
+        if (container == null)
         {
             container = new GameObject("BC_container").AddComponent<BGContainer>();
             container.transform.position = Vector3.zero;
@@ -190,7 +199,7 @@ public class BGMain : EditorWindow
             EditorGUILayout.BeginHorizontal();
             if (GUILayout.Button(new GUIContent("Leader", "Opciones relacionadas al Leader del equipo")))
             {
-                if(_bGLeaderEditorWindow == null)
+                if (_bGLeaderEditorWindow == null)
                     _bGLeaderEditorWindow = GetWindow<BGLeaderEditor>();
 
                 _bGLeaderEditorWindow.BGMainWindow = this;
@@ -198,7 +207,7 @@ public class BGMain : EditorWindow
                 _bGLeaderEditorWindow.Show();
             }
             EditorGUI.BeginDisabledGroup(_teamSettings[_tsIndex].leaderEntity == null);
-            if(GUILayout.Button(new GUIContent("Flocking", "Opciones relacionadas a los minions del equipo.\nPara acceder debe haber un GameObject Leader asignado.")))
+            if (GUILayout.Button(new GUIContent("Flocking", "Opciones relacionadas a los minions del equipo.\nPara acceder debe haber un GameObject Leader asignado.")))
             {
                 if (_bGFlockingEditorWindow == null)
                     _bGFlockingEditorWindow = GetWindow<BGFlockingEditor>();
