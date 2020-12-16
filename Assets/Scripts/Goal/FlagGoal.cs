@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class FlagGoal : MonoBehaviour
 {
+    [SerializeField] List<GameObject> entitiesTeam1;
+    [SerializeField] List<GameObject> entitiesTeam2;
     [SerializeField] float addingValue;
     [SerializeField] float addingInterval;
-    float totalValue;
-    float dominanceState = 0;
-    float currTime = 0;
+
+    //NO EDITAR A MANO!!
+    public float leftValue;
+    public float rightValue;
+    public float dominanceValue = 0;
+    public float currTime = 0;
 
     Dictionary<ITeam, int> entities = new Dictionary<ITeam, int>();
 
@@ -21,9 +26,9 @@ public class FlagGoal : MonoBehaviour
                 foreach (var entity in entities)
                 {
                     if (entity.Value == 0)
-                        dominanceState += addingValue;
+                        dominanceValue += addingValue;
                     else if(entity.Value == 1)
-                        dominanceState -= addingValue;
+                        dominanceValue -= addingValue;
                 }
             }
             currTime = addingInterval;
