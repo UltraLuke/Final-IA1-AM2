@@ -203,6 +203,9 @@ public class BGContainerEditor : Editor
             var path = _folderPath + "/" + _fileName;
             path = AssetDatabase.GenerateUniqueAssetPath(path);
             AssetDatabase.CreateAsset(scriptable, path);
+            Undo.RecordObject(scriptable, "SO Container creado");
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
         }
         EditorGUILayout.EndHorizontal();
     }
@@ -288,7 +291,8 @@ public class BGContainerEditor : Editor
             _bGContainer.flockingGroup[i].areaSize = new Vector2(castedScriptable.ts[i].minionSpawnAreaWidth, castedScriptable.ts[i].minionSpawnAreaLength);
             _bGContainer.flockingGroup[i].quantityRow = castedScriptable.ts[i].minionsQuantityRow;
             _bGContainer.flockingGroup[i].quantityColumn = castedScriptable.ts[i].minionsQuantityColumn;
-
         }
+
+
     }
 }
