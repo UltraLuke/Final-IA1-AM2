@@ -288,7 +288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78283497140b62448be8f0eb43be5aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leaderWeight: 1
+  leaderWeight: 2
   target: {fileID: 0}
   minDistance: 15
 --- !u!114 &8901669675795659331

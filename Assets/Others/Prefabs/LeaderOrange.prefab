@@ -155,14 +155,17 @@ MonoBehaviour:
   health: 100
   speed: 16
   speedRot: 0.2
-  meleeDamage: 1
+  meleeDamage: 60
   meleeRate: 1
-  meleeDistance: 1
-  shootDamage: 1
+  meleeDistance: 5
+  shootDamage: 30
   shootRate: 1
-  shootDistance: 1
-  visionDistance: 1
-  visionAngle: 1
+  shootDistance: 30
+  visionDistance: 30
+  visionAngle: 90
+  visionMask:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!114 &3832469501465634024
 MonoBehaviour:
   m_ObjectHideFlags: 0

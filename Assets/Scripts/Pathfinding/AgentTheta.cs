@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 public class AgentTheta : MonoBehaviour
 {
+    
+    [SerializeField]
+    [Tooltip("La máscara correspondiente al obstáculo")] LayerMask mask;
+
     [Header("Gizmos settings")]
-    [SerializeField] LayerMask mask;
     [SerializeField] float radius;
     [SerializeField] Vector3 offset;
     //public float distanceMax;
@@ -29,33 +32,34 @@ public class AgentTheta : MonoBehaviour
     public void PathFindingTheta()
     {
         _list = _theta.Run(init, Satisfies, GetNeighbours, GetCost, Heuristic, InSight);
-
-        Vector3 dir;
-        //for (int i = 0; i < _list.Count; i++)
-        //while (_list.Count >= 2)
-        //{
-        //    dir = init.transform.position - transform.position;
-        //    Debug.DrawRay(transform.position, dir);
-        //    if (!Physics.Raycast(transform.position, dir.normalized, dir.magnitude, mask))
-        //    {
-        //        init = _list[1];
-        //        _list.RemoveAt(0);
-        //    }
-        //    else
-        //        break;
-        //}
-        for (int i = _list.Count - 2; i >= 0; i--)
-        {
-            dir = finPos - _list[i].transform.position;
-            if (!Physics.Raycast(_list[i].transform.position, dir.normalized, dir.magnitude, mask))
-                _list.RemoveAt(i + 1);
-            else
-                break;
-        }
+        _list = FilterStartAndEndPoints(_list, finPos);
         controller.SetWayPoints(_list, finPos);
     }
 
-
+    private List<Node> FilterStartAndEndPoints(List<Node> list, Vector3 finPos)
+    {
+        Vector3 dir;
+        while (list.Count > 2)
+        {
+            dir = list[1].transform.position - transform.position;
+            if (!Physics.Raycast(transform.position, dir.normalized, dir.magnitude, mask))
+            {
+                //init = _list[1];
+                list.RemoveAt(0);
+            }
+            else
+                break;
+        }
+        for (int i = list.Count - 2; i >= 0; i--)
+        {
+            dir = finPos - list[i].transform.position;
+            if (!Physics.Raycast(list[i].transform.position, dir.normalized, dir.magnitude, mask))
+                list.RemoveAt(i + 1);
+            else
+                break;
+        }
+        return list;
+    }
 
     bool InSight(Node gP, Node gC)
     {
