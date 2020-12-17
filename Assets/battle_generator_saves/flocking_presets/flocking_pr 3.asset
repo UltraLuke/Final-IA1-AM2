@@ -29,18 +29,18 @@ MonoBehaviour:
   minionShootDistance: 1
   minionVisionDistance: 1
   minionVisionRangeAngles: 1
-  flockEntityRadius: 1
+  flockEntityRadius: 10
   flockEntityMask:
     serializedVersion: 2
     m_Bits: 512
-  flockLeaderBehaviourWeight: 1
-  flockLeaderBehaviourMinDistance: 1
-  flockAlineationBehaviourWeight: 1
-  flockSeparationBehaviourWeight: 1
-  flockSeparationBehaviourRange: 1
+  flockLeaderBehaviourWeight: 2
+  flockLeaderBehaviourMinDistance: 15
+  flockAlineationBehaviourWeight: 7
+  flockSeparationBehaviourWeight: 8
+  flockSeparationBehaviourRange: 7
   flockCohesionBehaviourWeight: 1
-  flockAvoidanceBehaviourWeight: 1
+  flockAvoidanceBehaviourWeight: 40
   flockAvoidanceBehaviourMask:
     serializedVersion: 2
     m_Bits: 4096
-  flockAvoidanceBehaviourRange: 1
+  flockAvoidanceBehaviourRange: 10

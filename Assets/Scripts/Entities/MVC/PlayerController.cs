@@ -54,15 +54,16 @@ public class PlayerController : Controller
     #region Mouse methods
     public override void SetWayPoints(List<Node> newPoints, Vector3 finalPos)
     {
-        _nextPoint = 0;
         if (newPoints.Count == 0) return;
+
         waypoints = newPoints;
+        _finalPos = finalPos;
+        _nextPoint = 0;
         var pos = waypoints[_nextPoint].transform.position;
         pos.y = transform.position.y;
 
         _sb = new ObstacleAvoidance(transform, waypoints[_nextPoint].transform, obstacleDistance, avoidWeight, _avoidLayer);
 
-        _finalPos = finalPos;
         _lastConnection = false;
         _readyToMove = true;
     }
@@ -92,7 +93,6 @@ public class PlayerController : Controller
                 {
                     _lastConnection = true;
                     _sb = new ObstacleAvoidance(transform, _finalPos, obstacleDistance, avoidWeight, _avoidLayer);
-                    Debug.Log("Voy al ultimo punto");
                 }
             }
         }

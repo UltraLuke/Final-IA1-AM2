@@ -56,14 +56,17 @@ public class BGContainerEditor : Editor
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Minions", _headerlv1);
         minionfoldedOut1 = EditorGUILayout.Foldout(minionfoldedOut1, "Minion Group 1", true);
-        MinionGroup currMinionGroup;
+        //MinionGroup currMinionGroup;
+        List<GameObject> currMinionGroup;
         FlockingGroup currFlockingGroup;
         if (minionfoldedOut1)
         {
-            currMinionGroup = _bGContainer.minionGroups[0];
-            for (int j = 0; j < currMinionGroup.minions.Count; j++)
+            //currMinionGroup = _bGContainer.minionGroups[0];
+            currMinionGroup = _bGContainer.Minions[0];
+            //for (int j = 0; j < currMinionGroup.minions.Count; j++)
+            for(int j = 0; j < currMinionGroup.Count; j++)
             {
-                currMinionGroup.minions[j] = (GameObject)EditorGUILayout.ObjectField("Minion " + j, currMinionGroup.minions[j], typeof(GameObject), false);
+                currMinionGroup[j] = (GameObject)EditorGUILayout.ObjectField("Minion " + j, currMinionGroup[j], typeof(GameObject), false);
             }
             var rect = EditorGUILayout.GetControlRect(true, 1);
             EditorGUI.DrawRect(rect, Color.gray);
@@ -87,10 +90,12 @@ public class BGContainerEditor : Editor
         minionfoldedOut2 = EditorGUILayout.Foldout(minionfoldedOut2, "Minion Group 2", true);
         if (minionfoldedOut2)
         {
-            currMinionGroup = _bGContainer.minionGroups[1];
-            for (int j = 0; j < currMinionGroup.minions.Count; j++)
+            //currMinionGroup = _bGContainer.minionGroups[1];
+            currMinionGroup = _bGContainer.Minions[1];
+            //for (int j = 0; j < currMinionGroup.minions.Count; j++)
+            for (int j = 0; j < currMinionGroup.Count; j++)
             {
-                currMinionGroup.minions[j] = (GameObject)EditorGUILayout.ObjectField("Minion " + j, currMinionGroup.minions[j], typeof(GameObject), false);
+                currMinionGroup[j] = (GameObject)EditorGUILayout.ObjectField("Minion " + j, currMinionGroup[j], typeof(GameObject), false);
             }
             var rect = EditorGUILayout.GetControlRect(true, 1);
             EditorGUI.DrawRect(rect, Color.gray);
@@ -141,7 +146,8 @@ public class BGContainerEditor : Editor
 
                 tsso[i] = currTs;
             }
-            for (int i = 0; i < _bGContainer.minionGroups.Count; i++)
+            //for (int i = 0; i < _bGContainer.minionGroups.Count; i++)
+            for (int i = 0; i < _bGContainer.Minions.Count; i++)
             {
                 var minionGroup = _bGContainer.minionGroups[i];
                 var flockingGroup = _bGContainer.flockingGroup[i];

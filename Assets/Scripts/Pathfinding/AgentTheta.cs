@@ -29,8 +29,33 @@ public class AgentTheta : MonoBehaviour
     public void PathFindingTheta()
     {
         _list = _theta.Run(init, Satisfies, GetNeighbours, GetCost, Heuristic, InSight);
+
+        Vector3 dir;
+        //for (int i = 0; i < _list.Count; i++)
+        //while (_list.Count >= 2)
+        //{
+        //    dir = init.transform.position - transform.position;
+        //    Debug.DrawRay(transform.position, dir);
+        //    if (!Physics.Raycast(transform.position, dir.normalized, dir.magnitude, mask))
+        //    {
+        //        init = _list[1];
+        //        _list.RemoveAt(0);
+        //    }
+        //    else
+        //        break;
+        //}
+        for (int i = _list.Count - 2; i >= 0; i--)
+        {
+            dir = finPos - _list[i].transform.position;
+            if (!Physics.Raycast(_list[i].transform.position, dir.normalized, dir.magnitude, mask))
+                _list.RemoveAt(i + 1);
+            else
+                break;
+        }
         controller.SetWayPoints(_list, finPos);
     }
+
+
 
     bool InSight(Node gP, Node gC)
     {
@@ -41,7 +66,6 @@ public class AgentTheta : MonoBehaviour
         }
         return true;
     }
-
     float Heuristic(Node curr)
     {
         return Vector3.Distance(curr.transform.position, finPos);
@@ -50,7 +74,6 @@ public class AgentTheta : MonoBehaviour
     {
         return Vector3.Distance(from.transform.position, to.transform.position);
     }
-
     List<Node> GetNeighbours(Node curr)
     {
         return curr.Neighbours;

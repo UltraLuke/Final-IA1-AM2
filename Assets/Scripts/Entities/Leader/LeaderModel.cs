@@ -4,18 +4,25 @@ using UnityEngine;
 
 public class LeaderModel : Model, IHealth, ISpeed, IMelee, IShooter, IVision
 {
+    [Header("Basic")]
     public float health;
     public float speed;
     public float speedRot = 0.2f;
 
-    public float meleeDamage;
-    public float meleeRate;
-    public float meleeDistance;
+    //[Header("Melee")]
+    [HideInInspector] public float meleeDamage;
+    [HideInInspector] public float meleeRate;
+    [HideInInspector] public float meleeDistance;
+
+    [Header("Shoot")]
     public float shootDamage;
     public float shootRate;
     public float shootDistance;
+
+    [Header("Vision")]
     public float visionDistance;
     public float visionAngle;
+    public LayerMask visionMask;
 
     Rigidbody _rb;
 
@@ -29,6 +36,18 @@ public class LeaderModel : Model, IHealth, ISpeed, IMelee, IShooter, IVision
         dir.y = 0;
         _rb.velocity = dir * speed;
         transform.forward = Vector3.Lerp(transform.forward, dir, speedRot);
+    }
+    public override bool IsInSight(Transform target)
+    {
+        if (target == null) return false;
+        Vector3 diff = (target.position - transform.position);
+        //A--->B
+        //B-A
+        float distance = diff.magnitude;
+        if (distance > visionDistance) return false;
+        if (Vector3.Angle(transform.forward, diff) > visionAngle / 2) return false;
+        if (Physics.Raycast(transform.position, diff.normalized, distance, visionMask)) return false;
+        return true;
     }
 
     #region Interface methods
@@ -82,4 +101,13 @@ public class LeaderModel : Model, IHealth, ISpeed, IMelee, IShooter, IVision
         visionRangeAngles = this.visionAngle;
     }
     #endregion
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(transform.position, transform.forward * visionDistance);
+        Gizmos.DrawWireSphere(transform.position, visionDistance);
+        Gizmos.DrawRay(transform.position, Quaternion.Euler(0, visionAngle / 2, 0) * transform.forward * visionDistance);
+        Gizmos.DrawRay(transform.position, Quaternion.Euler(0, -visionAngle / 2, 0) * transform.forward * visionDistance);
+    }
 }
