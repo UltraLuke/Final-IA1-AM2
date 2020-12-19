@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 6508861125898087221}
   - component: {fileID: 1340476162386552372}
   - component: {fileID: 5383744572780361162}
-  - component: {fileID: 7369963866417318316}
-  - component: {fileID: 4915369040377653168}
+  - component: {fileID: 6279230715917337931}
   - component: {fileID: 3119580280790998224}
   - component: {fileID: 5127737937559542030}
+  - component: {fileID: 1443436999439631999}
   - component: {fileID: 30007947662406765}
   - component: {fileID: 107039773412077112}
   m_Layer: 8
@@ -100,24 +100,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7369963866417318316
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6143828930694095902}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78b0e5dca412dec4f82f060f10a30518, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _clickPlaneReference: {x: 0, y: 5, z: 0}
-  _areaDetection: 15
-  _layerToDetect:
-    serializedVersion: 2
-    m_Bits: 2048
---- !u!114 &4915369040377653168
+--- !u!114 &6279230715917337931
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,20 +109,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 6143828930694095902}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 935fd945662fe4340b3383b346bc3c53, type: 3}
+  m_Script: {fileID: 11500000, guid: e02c0238177eca14ba99327a4c9ff9e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   team: 0
-  useMouse: 0
-  _obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 4096
-  nextWaypointDistance: 0.8
-  _avoidLayer:
-    serializedVersion: 2
-    m_Bits: 8192
+  nextWaypointDistance: 1
   obstacleDistance: 10
   avoidWeight: 10
+  avoidLayer:
+    serializedVersion: 2
+    m_Bits: 8192
+  goal: {fileID: 0}
+  distToGoal: 10
+  secureZone: {fileID: 0}
+  criticalHealthAmount: 25
+  secureHealthAmount: 75
+  distToSecureZone: 10
+  shootCD: 1
 --- !u!114 &3119580280790998224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,8 +139,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  maxHealth: 100
   speed: 16
   speedRot: 0.2
+  bullet: {fileID: -7128304112814132093, guid: 3f5e65a2a0512d54b824ed4bb1830f11, type: 3}
+  cannon: {fileID: 823906607466965906}
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 768
   meleeDamage: 60
   meleeRate: 1
   meleeDistance: 5
@@ -178,6 +170,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26c5b4ad354600f4fb677ad2ff770571, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1443436999439631999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6143828930694095902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a22e0a48d590cac4d85e99c0812b508e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lowHealth: 0
+  enemyOnSight: 0
+  onDominatingZone: 0
+  closestEnemyOnSight: {fileID: 0}
 --- !u!114 &30007947662406765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,6 +201,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 4096
+  _distanceDetection: 15
   radius: 8
   offset: {x: 0, y: 0, z: 0}
 --- !u!54 &107039773412077112
@@ -224,7 +233,7 @@ GameObject:
   - component: {fileID: 4368593742089672225}
   - component: {fileID: 4558615908872232467}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Sunglasses
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

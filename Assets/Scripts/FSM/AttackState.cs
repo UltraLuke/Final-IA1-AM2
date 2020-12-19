@@ -2,7 +2,7 @@
 
 public class AttackState<T> : States<T>
 {
-    private LeaderModel _leader;
+    private Model _model;
     private LeaderState _state;
     private Transform _target;
     private float _shootCD;
@@ -12,9 +12,9 @@ public class AttackState<T> : States<T>
 
     private float _currentShootCD;
 
-    public AttackState(LeaderModel leader, LeaderState state, Transform target, float shootCD, int teamNumber, float critHealthAmount, INode node)
+    public AttackState(Model model, LeaderState state, Transform target, float shootCD, int teamNumber, float critHealthAmount, INode node)
     {
-        _leader = leader;
+        _model = model;
         _state = state;
         _target = target;
         _shootCD = shootCD;
@@ -29,7 +29,7 @@ public class AttackState<T> : States<T>
     public override void Execute()
     {
         //CHEQUEO SI TENGO POCA VIDA
-        if (_leader.GetHealth() <= _critHealthAmount)
+        if (_model.GetHealth() <= _critHealthAmount)
         {
             _state.lowHealth = true;
             //Cambio de estado
@@ -53,10 +53,10 @@ public class AttackState<T> : States<T>
 
     private void Shoot()
     {
-        var dir = (_target.position - _leader.transform.position).normalized;
-        dir = new Vector3(dir.x, _leader.transform.position.y, dir.z);
-        _leader.LookAtDir(dir);
-        _leader.Shoot(_target, _teamNumber);
+        var dir = (_target.position - _model.transform.position).normalized;
+        dir = new Vector3(dir.x, _model.transform.position.y, dir.z);
+        _model.LookAtDir(dir);
+        _model.Shoot(_target, _teamNumber);
 
         _currentShootCD = _shootCD;
     }

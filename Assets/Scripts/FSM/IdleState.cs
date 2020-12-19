@@ -2,19 +2,23 @@
 
 public class IdleState<T> : States<T>
 {
-    private LeaderModel _leader;
+    private Model _model;
     private LeaderState _state;
     private Transform _goal;
     private float _distToGoal;
     private float _critHealthAmount;
+    private int _team;
+    private INode _node;
 
-    public IdleState(LeaderModel leader, LeaderState state, Transform goal, float distToGoal, float critHealthAmount)
+    public IdleState(Model model, LeaderState state, Transform goal, float distToGoal, float critHealthAmount, int team, INode node)
     {
-        _leader = leader;
+        _model = model;
         _state = state;
         _goal = goal;
         _distToGoal = distToGoal;
         _critHealthAmount = critHealthAmount;
+        _team = team;
+        _node = node;
     }
 
     public override void Awake()
@@ -24,24 +28,22 @@ public class IdleState<T> : States<T>
     }
     public override void Execute()
     {
-        bool blocked = true;
-
         //CHEQUEO SI TENGO VIDA BAJA
-        if (_leader.GetHealth() <= _critHealthAmount)
+        if (_model.GetHealth() <= _critHealthAmount)
         {
             _state.lowHealth = true;
             //Cambio de estado
         }
 
         //CHEQUEO SI VEO UN ENEMIGO
-        if (!blocked)
+        if (_model.CheckAndGetClosestEnemyInSight(_team, out _state.closestEnemyOnSight))
         {
             _state.enemyOnSight = true;
             //Cambio de estado
         }
 
         //CHEQUEO SI ME ENCUENTRO AFUERA DEL PUNTO
-        var dir = _goal.position - _leader.transform.position;
+        var dir = _goal.position - _model.transform.position;
         if (dir.magnitude >= _distToGoal)
         {
             _state.onDominatingZone = false;

@@ -4,22 +4,25 @@ using UnityEngine;
 
 public class LeaderModel : Model
 {
-    [Header("Basic")]
-    public float health;
+    [Header("Health")]
+    [Tooltip("Vida actual")] public float health;
+    [Tooltip("Vida máxima")] public float maxHealth;
+
+    [Header("Speed")]
     public float speed;
     public float speedRot = 0.2f;
 
     [Header("Attack")]
     public Bullet bullet;
     public Transform cannon;
+    public LayerMask enemyLayers;
+
     [HideInInspector] public float meleeDamage;
     [HideInInspector] public float meleeRate;
     [HideInInspector] public float meleeDistance;
-
-    [Header("Shoot")]
-    public float shootDamage;
-    public float shootRate;
-    public float shootDistance;
+    [HideInInspector] public float shootDamage;
+    [HideInInspector] public float shootRate;
+    [HideInInspector] public float shootDistance;
 
     [Header("Vision")]
     public float visionDistance;
@@ -28,6 +31,10 @@ public class LeaderModel : Model
 
     Rigidbody _rb;
 
+    private void OnValidate()
+    {
+        health = Mathf.Clamp(health, 0, maxHealth);
+    }
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -51,6 +58,29 @@ public class LeaderModel : Model
         if (Vector3.Angle(transform.forward, diff) > visionAngle / 2) return false;
         if (Physics.Raycast(transform.position, diff.normalized, distance, visionMask)) return false;
         return true;
+    }
+    //Obtengo los enemigos (los que son de distinto equipo que el pasado por parámetro)
+    public override bool CheckAndGetClosestEnemyInSight(int team, out Transform enemy)
+    {
+        bool enemyInSight = false;
+        float distance = 0f;
+        ITeam teamComp;
+        enemy = null;
+        Collider[] colliders = Physics.OverlapSphere(transform.position, visionDistance, enemyLayers);
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            if(IsInSight(colliders[i].transform) && colliders[i].TryGetComponent(out teamComp) && teamComp.GetTeamNumber() != team)
+            {
+                float currDistance = (colliders[i].transform.position - transform.position).magnitude;
+                if (enemy == null || currDistance < distance)
+                {
+                    enemy = colliders[i].transform;
+                    distance = currDistance;
+                    enemyInSight = true;
+                }
+            }
+        }
+        return enemyInSight;
     }
     public override void Shoot(Transform target, int teamNumber)
     {

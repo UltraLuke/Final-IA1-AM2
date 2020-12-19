@@ -12169,7 +12169,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: LeaderBlue
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6279230715917337931, guid: ce50e5b06d65e464fb3bd87924cab863,
+        type: 3}
+      propertyPath: goal
+      value: 
+      objectReference: {fileID: 2024964344}
+    - target: {fileID: 6279230715917337931, guid: ce50e5b06d65e464fb3bd87924cab863,
+        type: 3}
+      propertyPath: secureZone
+      value: 
+      objectReference: {fileID: 933559420}
+    m_RemovedComponents:
+    - {fileID: 7369963866417318316, guid: ce50e5b06d65e464fb3bd87924cab863, type: 3}
+    - {fileID: 4915369040377653168, guid: ce50e5b06d65e464fb3bd87924cab863, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ce50e5b06d65e464fb3bd87924cab863, type: 3}
 --- !u!1001 &893240857
 PrefabInstance:
@@ -12953,6 +12965,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1765086996}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &933559419
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 933559420}
+  m_Layer: 0
+  m_Name: SecureZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &933559420
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933559419}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -85}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &935663422
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28935,8 +28977,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
+  maxHealth: 0
   speed: 16
   speedRot: 0.2
+  bullet: {fileID: 0}
+  cannon: {fileID: 0}
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 0
   meleeDamage: 0
   meleeRate: 0
   meleeDistance: 0
@@ -29054,6 +29102,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 4096
+  _distanceDetection: 0
   radius: 8
   offset: {x: 0, y: 0, z: 0}
 --- !u!114 &2021066890 stripped
@@ -29383,8 +29432,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
+  maxHealth: 0
   speed: 16
   speedRot: 0.2
+  bullet: {fileID: 0}
+  cannon: {fileID: 0}
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 0
   meleeDamage: 0
   meleeRate: 0
   meleeDistance: 0

@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 229940154947413593}
   - component: {fileID: 130743280457698158}
   - component: {fileID: 2309515943084878133}
+  - component: {fileID: 4514910851473218752}
+  - component: {fileID: -7128304112814132093}
   m_Layer: 0
   m_Name: Bullet1
   m_TagString: Untagged
@@ -93,3 +95,36 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &4514910851473218752
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9137830839948316275}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!114 &-7128304112814132093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9137830839948316275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b39db053f905a8545b381ccb42d164ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 40
+  damage: 10
+  lifeTime: 5
+  teamNumber: 0
+  friendlyFire: 0

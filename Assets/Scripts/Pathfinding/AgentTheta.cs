@@ -4,12 +4,11 @@ using UnityEngine;
 public class AgentTheta : MonoBehaviour
 {
 
-    [SerializeField]
     [Header("Pathfinding Settings")]
     [Tooltip("La máscara correspondiente al obstáculo")]
-    LayerMask mask;
+    [SerializeField] LayerMask mask;
     [Tooltip("La distancia maxima para detectar un nodo cercano a la propia posicion")]
-    float _distanceDetection;
+    [SerializeField] float _distanceDetection;
 
     [Header("Gizmos settings")]
     [SerializeField] float radius;

@@ -7,6 +7,7 @@ public class Model : MonoBehaviour, IHealth, ISpeed, IMelee, IShooter, IVision
     public virtual void Move(Vector3 dir) { }
     public virtual void LookAtDir(Vector3 dir) { }
     public virtual bool IsInSight(Transform target) { return false; }
+    public virtual bool CheckAndGetClosestEnemyInSight(int team, out Transform enemy) { enemy = null; return false; }
     public virtual void Shoot(Transform target, int teamNumber) { }
     public virtual void ApplyDamage(float amount) { }
 
