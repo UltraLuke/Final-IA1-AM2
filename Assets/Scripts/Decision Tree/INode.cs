@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IAController : Controller
+public interface INode
 {
-    [SerializeField] int team;
+    void Excecute();
 }
