@@ -50,6 +50,7 @@ public class LeaderController : Controller
         flee.AddTransitionState(States.Move, move);
         idle.AddTransitionState(States.Move, move);
         idle.AddTransitionState(States.Flee, flee);
+        idle.AddTransitionState(States.Attack, attack);
 
         _fsm.SetInit(move);
     }
