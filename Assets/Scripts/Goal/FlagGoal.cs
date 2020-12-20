@@ -15,7 +15,6 @@ public class FlagGoal : MonoBehaviour
     public float dominanceValue = 0;
     public float currTime = 0;
 
-    //Dictionary<GameObject, int> entities = new Dictionary<GameObject, int>();
     Dictionary<ITeam, int> entities = new Dictionary<ITeam, int>();
 
     private void Update()
@@ -34,6 +33,12 @@ public class FlagGoal : MonoBehaviour
                     iteracion++;
                 }
             }
+
+            if(dominanceValue >= rightValue)
+                EventsHandler.TriggerEvent("EVENT_TEAM1WINS");
+            else if (dominanceValue <= leftValue)
+                EventsHandler.TriggerEvent("EVENT_TEAM2WINS");
+
             currTime = addingInterval;
         }
         else

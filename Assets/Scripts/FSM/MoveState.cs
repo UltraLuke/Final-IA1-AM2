@@ -35,7 +35,7 @@ public class MoveState<T> : States<T>
     }
     public override void Execute()
     {
-        //MOVIMIENTO POR PATHFINDING
+        //MOVIMIENTO
         var dir = _goal.position - _model.transform.position;
         if (dir.magnitude >= _distToGoal)
             _controller.Run();

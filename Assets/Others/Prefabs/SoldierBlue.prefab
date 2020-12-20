@@ -237,17 +237,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30411a6fb59ce464d8f4827af281c8b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  health: 50
+  maxHealth: 50
   speed: 15
   speedRot: 0.2
-  meleeDamage: 0
-  meleeRate: 0
-  meleeDistance: 0
-  shootDamage: 0
-  shootRate: 0
-  shootDistance: 0
-  visionDistance: 0
-  visionAngle: 0
+  meleeDamage: 1
+  meleeRate: 1
+  meleeDistance: 1
+  shootDamage: 1
+  shootRate: 1
+  shootDistance: 1
+  visionDistance: 1
+  visionAngle: 1
 --- !u!114 &3479024761496517200
 MonoBehaviour:
   m_ObjectHideFlags: 0

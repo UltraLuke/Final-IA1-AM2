@@ -210,7 +210,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8192
   goal: {fileID: 0}
-  distToGoal: 10
+  distToGoal: 15
   secureZone: {fileID: 0}
   criticalHealthAmount: 25
   secureHealthAmount: 75
@@ -243,8 +243,8 @@ MonoBehaviour:
   shootDamage: 30
   shootRate: 1
   shootDistance: 30
-  visionDistance: 30
-  visionAngle: 90
+  visionDistance: 40
+  visionAngle: 150
   visionMask:
     serializedVersion: 2
     m_Bits: 4096

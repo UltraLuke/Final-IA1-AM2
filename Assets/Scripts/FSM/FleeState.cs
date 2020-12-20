@@ -35,7 +35,7 @@ public class FleeState<T> : States<T>
 
     public override void Execute()
     {
-        //MOVIMIENTO POR PATHFINDING
+        //MOVIMIENTO
         var dir = _secureZone.position - _model.transform.position;
         if (dir.magnitude >= _distToSecureZone)
             _iaController.Run();

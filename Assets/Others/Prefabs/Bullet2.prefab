@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 40
-  damage: 10
+  damage: 20
   lifeTime: 5
   teamNumber: 1
   friendlyFire: 0
