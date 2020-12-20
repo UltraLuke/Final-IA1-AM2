@@ -29,9 +29,6 @@ public class MoveState<T> : States<T>
     public override void Awake()
     {
         Debug.Log("MoveState");
-        //_state.onDominatingZone = false;
-        //_state.enemyOnSight = false;
-        //_state.lowHealth = false;
 
         _wpNodes = _theta.GetPathFinding(_model.transform.position, _goal.position);
         _controller.SetWayPoints(_wpNodes, _goal.position);
@@ -48,6 +45,7 @@ public class MoveState<T> : States<T>
         {
             _state.lowHealth = true;
             _node.Execute();
+            return;
         }
 
         //CHEQUEO SI VEO UN ENEMIGO
@@ -55,6 +53,7 @@ public class MoveState<T> : States<T>
         {
             _state.enemyOnSight = true;
             _node.Execute();
+            return;
         }
 
         //CHEQUEO SI ESTOY EN EL OBJETIVO

@@ -24,8 +24,6 @@ public class IdleState<T> : States<T>
     public override void Awake()
     {
         Debug.Log("IdleState");
-        //_state.enemyOnSight = false;
-        //_state.lowHealth = false;
     }
     public override void Execute()
     {
@@ -34,6 +32,7 @@ public class IdleState<T> : States<T>
         {
             _state.lowHealth = true;
             _node.Execute();
+            return;
         }
 
         //CHEQUEO SI VEO UN ENEMIGO
@@ -41,6 +40,7 @@ public class IdleState<T> : States<T>
         {
             _state.enemyOnSight = true;
             _node.Execute();
+            return;
         }
 
         //CHEQUEO SI ME ENCUENTRO AFUERA DEL PUNTO

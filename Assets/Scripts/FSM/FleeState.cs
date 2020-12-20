@@ -29,8 +29,6 @@ public class FleeState<T> : States<T>
     public override void Awake()
     {
         Debug.Log("FleeState");
-        //_state.enemyOnSight = false;
-        //_state.onDominatingZone = false;
         _wpNodes = _theta.GetPathFinding(_model.transform.position, _secureZone.position);
         _iaController.SetWayPoints(_wpNodes, _secureZone.position);
     }

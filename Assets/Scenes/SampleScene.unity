@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8028,6 +8028,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoldierBlue
       objectReference: {fileID: 0}
+    - target: {fileID: 3267957683340053303, guid: 23028cbff5e21914986f3cf12b226506,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23028cbff5e21914986f3cf12b226506, type: 3}
 --- !u!1001 &591120018
@@ -8785,6 +8790,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SoldierBlue
+      objectReference: {fileID: 0}
+    - target: {fileID: 3267957683340053303, guid: 23028cbff5e21914986f3cf12b226506,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23028cbff5e21914986f3cf12b226506, type: 3}
@@ -10134,6 +10144,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SoldierBlue
+      objectReference: {fileID: 0}
+    - target: {fileID: 3267957683340053303, guid: 23028cbff5e21914986f3cf12b226506,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23028cbff5e21914986f3cf12b226506, type: 3}
@@ -11884,6 +11899,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoldierBlue
       objectReference: {fileID: 0}
+    - target: {fileID: 3267957683340053303, guid: 23028cbff5e21914986f3cf12b226506,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23028cbff5e21914986f3cf12b226506, type: 3}
 --- !u!114 &861666318 stripped
@@ -13418,6 +13438,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SoldierBlue
+      objectReference: {fileID: 0}
+    - target: {fileID: 3267957683340053303, guid: 23028cbff5e21914986f3cf12b226506,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23028cbff5e21914986f3cf12b226506, type: 3}
@@ -21681,6 +21706,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoldierBlue
       objectReference: {fileID: 0}
+    - target: {fileID: 3267957683340053303, guid: 23028cbff5e21914986f3cf12b226506,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23028cbff5e21914986f3cf12b226506, type: 3}
 --- !u!114 &1465417840 stripped
@@ -25180,6 +25210,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoldierBlue
       objectReference: {fileID: 0}
+    - target: {fileID: 3267957683340053303, guid: 23028cbff5e21914986f3cf12b226506,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23028cbff5e21914986f3cf12b226506, type: 3}
 --- !u!1 &1743168029
@@ -27432,6 +27467,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SoldierBlue
+      objectReference: {fileID: 0}
+    - target: {fileID: 3267957683340053303, guid: 23028cbff5e21914986f3cf12b226506,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23028cbff5e21914986f3cf12b226506, type: 3}
@@ -30656,6 +30696,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SoldierBlue
+      objectReference: {fileID: 0}
+    - target: {fileID: 3267957683340053303, guid: 23028cbff5e21914986f3cf12b226506,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23028cbff5e21914986f3cf12b226506, type: 3}

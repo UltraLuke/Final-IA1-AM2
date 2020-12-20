@@ -25,8 +25,6 @@ public class AttackState<T> : States<T>
     {
         Debug.Log("AttackState");
         _target = _state.closestEnemyOnSight;
-        //_state.lowHealth = false;
-        //_state.onDominatingZone = false;
     }
     public override void Execute()
     {
@@ -35,6 +33,7 @@ public class AttackState<T> : States<T>
         {
             _state.lowHealth = true;
             _node.Execute();
+            return;
         }
 
         //SI TENGO UN ENEMIGO A LA VISTA, LO ATACO
@@ -56,7 +55,6 @@ public class AttackState<T> : States<T>
     {
         _state.enemyOnSight = false;
     }
-
     private void Shoot()
     {
         var dir = (_target.position - _model.transform.position).normalized;
