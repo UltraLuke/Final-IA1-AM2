@@ -30,6 +30,7 @@ public class LeaderModel : Model
     public LayerMask visionMask;
 
     Rigidbody _rb;
+    EnemyChecker _enemyChecker;
 
     private void OnValidate()
     {
@@ -38,8 +39,13 @@ public class LeaderModel : Model
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+        _enemyChecker = GetComponentInChildren<EnemyChecker>();
     }
-
+    private void Start()
+    {
+        if(_enemyChecker != null)
+            _enemyChecker.Range = visionDistance;
+    }
     public override void Move(Vector3 dir)
     {
         dir.y = 0;
@@ -62,25 +68,33 @@ public class LeaderModel : Model
     //Obtengo los enemigos (los que son de distinto equipo que el pasado por parámetro)
     public override bool CheckAndGetClosestEnemyInSight(int team, out Transform enemy)
     {
-        bool enemyInSight = false;
-        float distance = 0f;
-        ITeam teamComp;
         enemy = null;
-        Collider[] colliders = Physics.OverlapSphere(transform.position, visionDistance, enemyLayers);
-        for (int i = 0; i < colliders.Length; i++)
+        List<Controller> enemies = _enemyChecker.Enemies;
+        if (enemies == null || enemies.Count == 0) return false;
+
+        float distance = 0;
+        float currDistance;
+        bool enemyOnSight = false;
+        bool setCleanFlag = false;
+        for (int i = 0; i < enemies.Count; i++)
         {
-            if(IsInSight(colliders[i].transform) && colliders[i].TryGetComponent(out teamComp) && teamComp.GetTeamNumber() != team)
+            if (enemies[i] != null)
             {
-                float currDistance = (colliders[i].transform.position - transform.position).magnitude;
-                if (enemy == null || currDistance < distance)
+                if (IsInSight(enemies[i].transform))
                 {
-                    enemy = colliders[i].transform;
-                    distance = currDistance;
-                    enemyInSight = true;
+                    currDistance = (enemies[i].transform.position - transform.position).magnitude;
+                    if (enemy == null || currDistance < distance)
+                    {
+                        enemy = enemies[i].transform;
+                        distance = currDistance;
+                        enemyOnSight = true;
+                    }
                 }
             }
+            else setCleanFlag = true;
         }
-        return enemyInSight;
+        if (setCleanFlag) _enemyChecker.ClearNullElements();
+        return enemyOnSight;
     }
     public override void Shoot(Transform target, int teamNumber)
     {
