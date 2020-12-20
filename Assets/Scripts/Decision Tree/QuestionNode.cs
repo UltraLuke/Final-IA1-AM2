@@ -15,16 +15,16 @@ public class QuestionNode : INode
         this.question = question;
     }
 
-    public void Excecute()
+    public void Execute()
     {
         if (question())
         {
             //lo que debo hacer si es positivo 
-            trueNode.Excecute();
+            trueNode.Execute();
         }
         else
         {
-            falseNode.Excecute();
+            falseNode.Execute();
             //lo que debo hacer si es negativo
         }
     }

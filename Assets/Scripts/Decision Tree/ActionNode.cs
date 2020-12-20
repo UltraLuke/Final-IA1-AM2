@@ -15,7 +15,7 @@ public class ActionNode : INode
         this.action = action;
     }
 
-    public void Excecute()
+    public void Execute()
     {
         action();
     }

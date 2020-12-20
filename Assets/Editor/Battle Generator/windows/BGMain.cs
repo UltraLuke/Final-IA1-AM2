@@ -91,7 +91,6 @@ public class BGMain : EditorWindow
 
         if (container.Minions == null || container.Minions.Count < 2)
         {
-            if (container.Minions != null) Debug.Log(container.Minions.Count);
             container.Minions = minions = new List<List<GameObject>>() { new List<GameObject>(), new List<GameObject>() };
         }
         else

@@ -6,7 +6,9 @@ public class AgentTheta : MonoBehaviour
 
     [Header("Pathfinding Settings")]
     [Tooltip("La máscara correspondiente al obstáculo")]
-    [SerializeField] LayerMask mask;
+    [SerializeField] LayerMask obstacleMask;
+    [Tooltip("La máscara correspondiente al waypoint")]
+    [SerializeField] LayerMask nodeMask;
     [Tooltip("La distancia maxima para detectar un nodo cercano a la propia posicion")]
     [SerializeField] float _distanceDetection;
 
@@ -62,7 +64,7 @@ public class AgentTheta : MonoBehaviour
         while (list.Count > 2)
         {
             dir = list[1].transform.position - transform.position;
-            if (!Physics.Raycast(transform.position, dir.normalized, dir.magnitude, mask))
+            if (!Physics.Raycast(transform.position, dir.normalized, dir.magnitude, obstacleMask))
             {
                 //init = _list[1];
                 list.RemoveAt(0);
@@ -73,7 +75,7 @@ public class AgentTheta : MonoBehaviour
         for (int i = list.Count - 2; i >= 0; i--)
         {
             dir = finPos - list[i].transform.position;
-            if (!Physics.Raycast(list[i].transform.position, dir.normalized, dir.magnitude, mask))
+            if (!Physics.Raycast(list[i].transform.position, dir.normalized, dir.magnitude, obstacleMask))
                 list.RemoveAt(i + 1);
             else
                 break;
@@ -87,7 +89,7 @@ public class AgentTheta : MonoBehaviour
         float distance = 0f;
         Node closestNode = null;
 
-        Collider[] nodes = Physics.OverlapSphere(/*transform.position*/ start, _distanceDetection, mask);
+        Collider[] nodes = Physics.OverlapSphere(start, _distanceDetection, nodeMask);
 
         if (nodes == null) return null;
         for (int i = 0; i < nodes.Length; i++)
@@ -108,7 +110,7 @@ public class AgentTheta : MonoBehaviour
     bool InSight(Node gP, Node gC)
     {
         var dir = gC.transform.position - gP.transform.position;
-        if (Physics.Raycast(gP.transform.position, dir.normalized, dir.magnitude, mask))
+        if (Physics.Raycast(gP.transform.position, dir.normalized, dir.magnitude, obstacleMask))
         {
             return false;
         }

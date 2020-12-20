@@ -91,7 +91,7 @@ public class LeaderModel : Model
         else from = transform;
 
         var dir = target.position - from.position;
-        var newBullet = Instantiate(bullet);
+        var newBullet = Instantiate(bullet, from.position, Quaternion.identity);
         newBullet.Dir = dir.normalized;
         newBullet.teamNumber = teamNumber;
     }
@@ -102,7 +102,12 @@ public class LeaderModel : Model
         if (health <= 0)
             Die();
     }
-    void Die(){ Debug.Log(gameObject.name + " dice: Morí X_X"); }
+    void Die(){ /*Debug.Log(gameObject.name + " dice: Morí X_X");*/Destroy(gameObject); }
+    public override void Heal(float amount)
+    {
+        health += amount;
+        if (health > maxHealth) health = maxHealth;
+    }
 
     #region Interface methods
     public override Component HealthSettings(float health)

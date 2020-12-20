@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class SoldierModel : Model, IHealth, ISpeed, IMelee, IShooter, IVision
 {
-    public float health;
+    [Header("Health")]
+    [Tooltip("Vida actual")] public float health;
+    [Tooltip("Vida máxima")] public float maxHealth;
+    
+    [Header("Speed")]
     public float speed;
     public float speedRot = 0.2f;
 
@@ -19,6 +23,10 @@ public class SoldierModel : Model, IHealth, ISpeed, IMelee, IShooter, IVision
 
     Rigidbody _rb;
 
+    private void OnValidate()
+    {
+        health = Mathf.Clamp(health, 0, maxHealth);
+    }
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -29,53 +37,64 @@ public class SoldierModel : Model, IHealth, ISpeed, IMelee, IShooter, IVision
         _rb.velocity = dir * speed;
         transform.forward = Vector3.Lerp(transform.forward, dir, speedRot);
     }
-
+    public override void ApplyDamage(float amount)
+    {
+        health -= amount;
+        if (health <= 0)
+            Die();
+    }
+    void Die() { /*Debug.Log(gameObject.name + " dice: Morí X_X");*/Destroy(gameObject); }
+    public override void Heal(float amount)
+    {
+        health += amount;
+        if (health > maxHealth) health = maxHealth;
+    }
     #region method interfaces
-    public Component HealthSettings(float health)
+    public override Component HealthSettings(float health)
     {
         this.health = health;
         return this;
     }
-    public Component SpeedSettings(float speed)
+    public override Component SpeedSettings(float speed)
     {
         this.speed = speed;
         return this;
     }
-    public Component MeleeSettings(float damage, float rate, float distance)
+    public override Component MeleeSettings(float damage, float rate, float distance)
     {
         meleeDamage = damage;
         meleeRate = rate;
         meleeDistance = distance;
         return this;
     }
-    public Component ShootSettings(float damage, float rate, float distance)
+    public override Component ShootSettings(float damage, float rate, float distance)
     {
         shootDamage = damage;
         shootRate = rate;
         shootDistance = distance;
         return this;
     }
-    public Component VisionSettings(float distance, float angle)
+    public override Component VisionSettings(float distance, float angle)
     {
         visionDistance = distance;
         visionAngle = angle;
         return this;
     }
-    public float GetHealth() => health;
-    public float GetSpeed() => speed;
-    public void GetMeleeData(out float meleeDamage, out float meleeRate, out float meleeDistance)
+    public override float GetHealth() => health;
+    public override float GetSpeed() => speed;
+    public override void GetMeleeData(out float meleeDamage, out float meleeRate, out float meleeDistance)
     {
         meleeDamage = this.meleeDamage;
         meleeRate = this.meleeRate;
         meleeDistance = this.meleeDistance;
     }
-    public void GetShootData(out float shootDamage, out float shootRate, out float shootDistance)
+    public override void GetShootData(out float shootDamage, out float shootRate, out float shootDistance)
     {
         shootDamage = this.shootDamage;
         shootRate = this.shootRate;
         shootDistance = this.shootDistance;
     }
-    public void GetVisionData(out float visionDistance, out float visionRangeAngles)
+    public override void GetVisionData(out float visionDistance, out float visionRangeAngles)
     {
         visionDistance = this.visionDistance;
         visionRangeAngles = visionAngle;

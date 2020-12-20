@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface INode
 {
-    void Excecute();
+    void Execute();
 }

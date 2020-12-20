@@ -112,7 +112,6 @@ public class BGFlockingEditor : EditorWindow
             _ts.minionVisionRangeAngles = EditorGUILayout.FloatField("Minion Vision Range Angles", _ts.minionVisionRangeAngles).ClampMinValue(.1f);
 
             EditorGUILayout.LabelField("Flocking Settings", _headerlv1);
-            //Debug.Log((_ts.minionEntity == null) + "|" + _meetFlockingRequirements);
             if(_ts.minionEntity == null || !_meetFlockingRequirements)
             {
                 EditorGUILayout.HelpBox("Para operar variables de flocking, el GameObject debe contener los siguientes componentes:" +
@@ -143,7 +142,6 @@ public class BGFlockingEditor : EditorWindow
             _bGMainWindow.Container.flockingGroup[_index].quantityRow = _ts.minionsQuantityRow;
             _bGMainWindow.Container.flockingGroup[_index].quantityColumn = _ts.minionsQuantityColumn;
 
-            //Debug.Log(_minionSceneIndicators.Count);
             if (_minionSceneIndicators != null && _minionSceneIndicators.Count > 0)
             {
                 for (int i = 0; i < _minionSceneIndicators.Count; i++)

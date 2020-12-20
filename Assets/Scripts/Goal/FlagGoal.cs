@@ -47,17 +47,6 @@ public class FlagGoal : MonoBehaviour
             int team = entity.GetTeamNumber();
             entities[entity] = team;
         }
-
-        //if (entitiesTeam1.Contains(other.gameObject))
-        //{
-        //    entities[other.gameObject] = 0;
-        //    Debug.Log("entity team 1 asignado");
-        //}
-        //else if (entitiesTeam1.Contains(other.gameObject))
-        //{
-        //    entities[other.gameObject] = 1;
-        //    Debug.Log("entity team 2 asignado");
-        //}
     }
     private void OnTriggerExit(Collider other)
     {

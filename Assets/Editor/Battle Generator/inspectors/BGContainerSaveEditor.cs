@@ -71,12 +71,10 @@ public class BGContainerSaveEditor : Editor
         {
             TeamSettings ts = _ts[i];
             EditorGUILayout.LabelField("Minion group " + (i + 1), _headerlv2);
-            //Debug.Log(_minions[i].Count);
             for (int j = 0; j < _minions[i].Count; j++)
             {
                 EditorGUILayout.ObjectField("Minion " + (j + 1), _minions[i][j].minion, typeof(GameObject), false);
                 EditorGUILayout.Vector3Field("Position", _minions[i][j].position);
-                //VER TEMA POSICION
             }
 
             EditorGUILayout.Space();

@@ -10,6 +10,7 @@ public class Model : MonoBehaviour, IHealth, ISpeed, IMelee, IShooter, IVision
     public virtual bool CheckAndGetClosestEnemyInSight(int team, out Transform enemy) { enemy = null; return false; }
     public virtual void Shoot(Transform target, int teamNumber) { }
     public virtual void ApplyDamage(float amount) { }
+    public virtual void Heal(float amount) { }
 
     #region interfaces
     public virtual Component HealthSettings(float health) { return this; }

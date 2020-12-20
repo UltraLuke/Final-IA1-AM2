@@ -28,6 +28,7 @@ public class FleeState<T> : States<T>
 
     public override void Awake()
     {
+        Debug.Log("FleeState");
         _state.enemyOnSight = false;
         _state.onDominatingZone = false;
         _wpNodes = _theta.GetPathFinding(_model.transform.position, _secureZone.position);
@@ -38,15 +39,22 @@ public class FleeState<T> : States<T>
     {
         //MOVIMIENTO POR PATHFINDING
         var dir = _secureZone.position - _model.transform.position;
-        if (dir.magnitude <= _distToSecureZone)
+        if (dir.magnitude >= _distToSecureZone)
             _iaController.Run();
+        else
+            _model.Move(Vector3.zero);
 
         //CHEQUEO SI RECUPERE SUFICIENTE VIDA
-        if(_model.GetHealth() >= _minHealthTreshold)
+        if (_model.GetHealth() >= _minHealthTreshold)
         {
             _state.lowHealth = false;
-            //Cambio de estado
+            _node.Execute();
         }
+    }
+
+    public override void Exit()
+    {
+        _model.Move(Vector3.zero);
     }
 }
 

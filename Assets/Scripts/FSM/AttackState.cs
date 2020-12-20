@@ -12,17 +12,19 @@ public class AttackState<T> : States<T>
 
     private float _currentShootCD;
 
-    public AttackState(Model model, LeaderState state, Transform target, float shootCD, int teamNumber, float critHealthAmount, INode node)
+    public AttackState(Model model, LeaderState state, float shootCD, int teamNumber, float critHealthAmount, INode node)
     {
         _model = model;
         _state = state;
-        _target = target;
         _shootCD = shootCD;
         _teamNumber = teamNumber;
+        _critHealthAmount = critHealthAmount;
         _node = node;
     }
     public override void Awake()
     {
+        Debug.Log("AttackState");
+        _target = _state.closestEnemyOnSight;
         _state.lowHealth = false;
         _state.onDominatingZone = false;
     }
@@ -32,12 +34,12 @@ public class AttackState<T> : States<T>
         if (_model.GetHealth() <= _critHealthAmount)
         {
             _state.lowHealth = true;
-            //Cambio de estado
+            _node.Execute();
         }
 
         //SI TENGO UN ENEMIGO A LA VISTA, LO ATACO
         //SINO, PASO AL SIGUIENTE ESTADO
-        if(_target != null)
+        if (_target != null)
         {
             if (_currentShootCD <= 0)
                 Shoot();
@@ -47,14 +49,14 @@ public class AttackState<T> : States<T>
         else
         {
             _state.enemyOnSight = false;
-            //Cambio de estado
+            _node.Execute();
         }
     }
 
     private void Shoot()
     {
         var dir = (_target.position - _model.transform.position).normalized;
-        dir = new Vector3(dir.x, _model.transform.position.y, dir.z);
+        dir.y = 0;
         _model.LookAtDir(dir);
         _model.Shoot(_target, _teamNumber);
 

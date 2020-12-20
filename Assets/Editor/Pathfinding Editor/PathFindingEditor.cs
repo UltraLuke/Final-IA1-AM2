@@ -522,7 +522,6 @@ public class PathFindingEditor : EditorWindow
                     else if (Event.current.type == EventType.ContextClick)
                     {
                         Handles.SphereHandleCap(id, _waypointData[i].position, Quaternion.identity, .5f, EventType.ContextClick);
-                        Debug.Log("Clicked");
                     }
 
                     var nodesIDs = _waypointData[i].connectedNodesID;

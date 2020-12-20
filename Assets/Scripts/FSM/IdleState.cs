@@ -23,6 +23,7 @@ public class IdleState<T> : States<T>
 
     public override void Awake()
     {
+        Debug.Log("IdleState");
         _state.enemyOnSight = false;
         _state.lowHealth = false;
     }
@@ -32,14 +33,14 @@ public class IdleState<T> : States<T>
         if (_model.GetHealth() <= _critHealthAmount)
         {
             _state.lowHealth = true;
-            //Cambio de estado
+            _node.Execute();
         }
 
         //CHEQUEO SI VEO UN ENEMIGO
         if (_model.CheckAndGetClosestEnemyInSight(_team, out _state.closestEnemyOnSight))
         {
             _state.enemyOnSight = true;
-            //Cambio de estado
+            _node.Execute();
         }
 
         //CHEQUEO SI ME ENCUENTRO AFUERA DEL PUNTO
@@ -47,7 +48,7 @@ public class IdleState<T> : States<T>
         if (dir.magnitude >= _distToGoal)
         {
             _state.onDominatingZone = false;
-            //Cambio de estado
+            _node.Execute();
         }
     }
 }

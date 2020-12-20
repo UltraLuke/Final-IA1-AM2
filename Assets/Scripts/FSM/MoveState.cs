@@ -28,6 +28,7 @@ public class MoveState<T> : States<T>
     }
     public override void Awake()
     {
+        Debug.Log("MoveState");
         _state.onDominatingZone = false;
         _state.enemyOnSight = false;
         _state.lowHealth = false;
@@ -37,32 +38,36 @@ public class MoveState<T> : States<T>
     }
     public override void Execute()
     {
-        //bool blocked = true;
-
         //MOVIMIENTO POR PATHFINDING
-        _iAController.Run();
+        var dir = _goal.position - _model.transform.position;
+        if (dir.magnitude >= _distToGoal)
+            _iAController.Run();
 
         //CHEQUEO SI TENGO VIDA BAJA
-        if(_model.GetHealth() <= _critHealthAmount)
+        if (_model.GetHealth() <= _critHealthAmount)
         {
             _state.lowHealth = true;
-            //Cambio de estado
+            _node.Execute();
         }
 
         //CHEQUEO SI VEO UN ENEMIGO
         if (_model.CheckAndGetClosestEnemyInSight(_team, out _state.closestEnemyOnSight))
         {
             _state.enemyOnSight = true;
-            //Cambio de estado
+            _node.Execute();
         }
 
         //CHEQUEO SI ESTOY EN EL OBJETIVO
-        var dir = _goal.position - _model.transform.position;
         if (dir.magnitude < _distToGoal)
         {
             _state.onDominatingZone = true;
-            //Cambio de estado
+            _node.Execute();
         }
+    }
+
+    public override void Exit()
+    {
+        _model.Move(Vector3.zero);
     }
 }
 

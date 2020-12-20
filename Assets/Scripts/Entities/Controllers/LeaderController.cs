@@ -38,8 +38,8 @@ public class LeaderController : Controller
     {
         _fsm = new FSM<States>();
         var move = new MoveState<States>(this, _model, _leaderState, _agentTheta, goal, criticalHealthAmount, team, distToGoal, _root);
-        var attack = new AttackState<States>(_model, _leaderState, _leaderState.closestEnemyOnSight, shootCD, team, criticalHealthAmount, _root);
-        var flee = new FleeState<States>(this, _model, _leaderState, _agentTheta, secureZone, criticalHealthAmount, distToSecureZone, _root);
+        var attack = new AttackState<States>(_model, _leaderState, shootCD, team, criticalHealthAmount, _root);
+        var flee = new FleeState<States>(this, _model, _leaderState, _agentTheta, secureZone, secureHealthAmount, distToSecureZone, _root);
         var idle = new IdleState<States>(_model, _leaderState, goal, distToGoal, criticalHealthAmount, team, _root);
 
         move.AddTransitionState(States.Idle, idle);
@@ -53,6 +53,19 @@ public class LeaderController : Controller
 
         _fsm.SetInit(move);
     }
+    void TreeInit()
+    {
+        var move = new ActionNode(() => _fsm.Transition(States.Move));
+        var attack = new ActionNode(() => _fsm.Transition(States.Attack));
+        var flee = new ActionNode(() => _fsm.Transition(States.Flee));
+        var idle = new ActionNode(() => _fsm.Transition(States.Idle));
+
+        var questionOnGoalZone = new QuestionNode(() => _leaderState.onDominatingZone, idle, move);
+        var questionEnemyOnSight = new QuestionNode(() => _leaderState.enemyOnSight, attack, questionOnGoalZone);
+        var questionLowHealth = new QuestionNode(() => _leaderState.lowHealth, flee, questionEnemyOnSight);
+
+        _root = questionLowHealth;
+    }
 
     private void Awake()
     {
@@ -62,6 +75,7 @@ public class LeaderController : Controller
     }
     private void Start()
     {
+        TreeInit();
         FSMInit();
     }
     private void Update()
@@ -75,7 +89,7 @@ public class LeaderController : Controller
     private int _nextPoint;
     private ObstacleAvoidance _sb;
     private bool _lastConnection;
-    private bool _readyToMove;
+    //private bool _readyToMove;
 
     public override void SetWayPoints(List<Node> newPoints, Vector3 finalPos)
     {
@@ -90,7 +104,7 @@ public class LeaderController : Controller
         _sb = new ObstacleAvoidance(transform, _waypoints[_nextPoint].transform, obstacleDistance, avoidWeight, avoidLayer);
 
         _lastConnection = false;
-        _readyToMove = true;
+        //_readyToMove = true;
     }
 
     public void Run()
@@ -122,7 +136,6 @@ public class LeaderController : Controller
                 }
             }
         }
-
         _model.Move(dir.normalized + _sb.GetDir());
     }
     #endregion

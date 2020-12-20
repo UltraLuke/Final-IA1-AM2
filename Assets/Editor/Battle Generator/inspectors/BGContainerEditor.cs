@@ -146,14 +146,12 @@ public class BGContainerEditor : Editor
 
                 tsso[i] = currTs;
             }
-            //for (int i = 0; i < _bGContainer.minionGroups.Count; i++)
             for (int i = 0; i < _bGContainer.Minions.Count; i++)
             {
                 var minionGroup = _bGContainer.minionGroups[i];
                 var flockingGroup = _bGContainer.flockingGroup[i];
                 var currTs = tsso[i];
 
-                //Debug.Log(minionGroup.minions.Count);
                 for (int j = 0; j < minionGroup.minions.Count; j++)
                 {
                     var minionData = new MinionData
