@@ -37,9 +37,9 @@ public class LeaderController : Controller
     void FSMInit()
     {
         _fsm = new FSM<States>();
-        var move = new MoveState<States>(this, _model, _leaderState, _agentTheta, goal, criticalHealthAmount, team, distToGoal, _root);
+        var move = new MoveState<States>(SetupPathfinding, Run, _model, _leaderState, goal, criticalHealthAmount, team, distToGoal, _root);
         var attack = new AttackState<States>(_model, _leaderState, shootCD, team, criticalHealthAmount, _root);
-        var flee = new FleeState<States>(this, _model, _leaderState, _agentTheta, secureZone, secureHealthAmount, distToSecureZone, _root);
+        var flee = new FleeState<States>(SetupPathfinding, Run, _model, _leaderState, secureZone, secureHealthAmount, distToSecureZone, _root);
         var idle = new IdleState<States>(_model, _leaderState, goal, distToGoal, criticalHealthAmount, team, _root);
 
         move.AddTransitionState(States.Idle, idle);
@@ -90,8 +90,12 @@ public class LeaderController : Controller
     private int _nextPoint;
     private ObstacleAvoidance _sb;
     private bool _lastConnection;
-    //private bool _readyToMove;
 
+    public void SetupPathfinding(Transform target)
+    {
+        var wpNodes = _agentTheta.GetPathFinding(_model.transform.position, target.position);
+        SetWayPoints(wpNodes, target.position);
+    }
     public override void SetWayPoints(List<Node> newPoints, Vector3 finalPos)
     {
         if (newPoints.Count == 0) return;
@@ -107,7 +111,6 @@ public class LeaderController : Controller
         _lastConnection = false;
         //_readyToMove = true;
     }
-
     public override void Run()
     {
         var point = _waypoints[_nextPoint];

@@ -3,23 +3,23 @@ using UnityEngine;
 
 public class FleeState<T> : States<T>
 {
-    private LeaderController _iaController;
+    public delegate void MoveSetup(Transform target);
+    public delegate void MoveRun();
+    MoveSetup _moveSetup;
+    MoveRun _moveRun;
     private Model _model;
-    private LeaderState _state;
-    private AgentTheta _theta;
+    private DataState _state;
     private Transform _secureZone;
     private float _minHealthTreshold;
     private float _distToSecureZone;
     private INode _node;
 
-    private List<Node> _wpNodes;
-
-    public FleeState(LeaderController iaController, Model model, LeaderState state, AgentTheta theta, Transform secureZone, float minHealthTreshold, float distToSecureZone, INode node)
+    public FleeState(MoveSetup mS, MoveRun mR, Model model, DataState state, Transform secureZone, float minHealthTreshold, float distToSecureZone, INode node)
     {
-        _iaController = iaController;
+        _moveSetup += mS;
+        _moveRun += mR;
         _model = model;
         _state = state;
-        _theta = theta;
         _secureZone = secureZone;
         _minHealthTreshold = minHealthTreshold;
         _distToSecureZone = distToSecureZone;
@@ -29,8 +29,8 @@ public class FleeState<T> : States<T>
     public override void Awake()
     {
         Debug.Log("FleeState");
-        _wpNodes = _theta.GetPathFinding(_model.transform.position, _secureZone.position);
-        _iaController.SetWayPoints(_wpNodes, _secureZone.position);
+
+        _moveSetup(_secureZone);
     }
 
     public override void Execute()
@@ -38,7 +38,7 @@ public class FleeState<T> : States<T>
         //MOVIMIENTO
         var dir = _secureZone.position - _model.transform.position;
         if (dir.magnitude >= _distToSecureZone)
-            _iaController.Run();
+            _moveRun();
         else
             _model.Move(Vector3.zero);
 

@@ -3,7 +3,7 @@
 public class AttackState<T> : States<T>
 {
     private Model _model;
-    private LeaderState _state;
+    private DataState _state;
     private Transform _target;
     private float _shootCD;
     private int _teamNumber;
@@ -12,7 +12,7 @@ public class AttackState<T> : States<T>
 
     private float _currentShootCD;
 
-    public AttackState(Model model, LeaderState state, float shootCD, int teamNumber, float critHealthAmount, INode node)
+    public AttackState(Model model, DataState state, float shootCD, int teamNumber, float critHealthAmount, INode node)
     {
         _model = model;
         _state = state;
