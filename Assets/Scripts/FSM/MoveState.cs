@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MoveState<T> : States<T>
 {
-    private LeaderController _iAController;
+    private Controller _controller;
     private Model _model;
     private LeaderState _state;
     private AgentTheta _theta;
@@ -14,9 +14,9 @@ public class MoveState<T> : States<T>
     private float _distToGoal;
     private INode _node;
 
-    public MoveState(LeaderController iaController, Model model, LeaderState state, AgentTheta theta, Transform goal, float critHealthAmount, int team, float distToGoal, INode node)
+    public MoveState(Controller controller, Model model, LeaderState state, AgentTheta theta, Transform goal, float critHealthAmount, int team, float distToGoal, INode node)
     {
-        _iAController = iaController;
+        _controller = controller;
         _model = model;
         _state = state;
         _theta = theta;
@@ -29,19 +29,19 @@ public class MoveState<T> : States<T>
     public override void Awake()
     {
         Debug.Log("MoveState");
-        _state.onDominatingZone = false;
-        _state.enemyOnSight = false;
-        _state.lowHealth = false;
+        //_state.onDominatingZone = false;
+        //_state.enemyOnSight = false;
+        //_state.lowHealth = false;
 
         _wpNodes = _theta.GetPathFinding(_model.transform.position, _goal.position);
-        _iAController.SetWayPoints(_wpNodes, _goal.position);
+        _controller.SetWayPoints(_wpNodes, _goal.position);
     }
     public override void Execute()
     {
         //MOVIMIENTO POR PATHFINDING
         var dir = _goal.position - _model.transform.position;
         if (dir.magnitude >= _distToGoal)
-            _iAController.Run();
+            _controller.Run();
 
         //CHEQUEO SI TENGO VIDA BAJA
         if (_model.GetHealth() <= _critHealthAmount)

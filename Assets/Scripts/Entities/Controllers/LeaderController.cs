@@ -108,7 +108,7 @@ public class LeaderController : Controller
         //_readyToMove = true;
     }
 
-    public void Run()
+    public override void Run()
     {
         var point = _waypoints[_nextPoint];
         var posPoint = point.transform.position;

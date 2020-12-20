@@ -24,8 +24,8 @@ public class IdleState<T> : States<T>
     public override void Awake()
     {
         Debug.Log("IdleState");
-        _state.enemyOnSight = false;
-        _state.lowHealth = false;
+        //_state.enemyOnSight = false;
+        //_state.lowHealth = false;
     }
     public override void Execute()
     {
@@ -50,6 +50,11 @@ public class IdleState<T> : States<T>
             _state.onDominatingZone = false;
             _node.Execute();
         }
+    }
+
+    public override void Exit()
+    {
+        _state.onDominatingZone = false;
     }
 }
 

@@ -5077,7 +5077,7 @@ PrefabInstance:
     - target: {fileID: 5084593449808591181, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
         type: 3}
       propertyPath: health
-      value: 1
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5084593449808591181, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
         type: 3}
@@ -5118,6 +5118,11 @@ PrefabInstance:
         type: 3}
       propertyPath: visionAngle
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5084593449808591181, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
+        type: 3}
+      propertyPath: maxHealth
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7536286392752533729, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
         type: 3}
@@ -6880,7 +6885,7 @@ PrefabInstance:
     - target: {fileID: 5084593449808591181, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
         type: 3}
       propertyPath: health
-      value: 1
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5084593449808591181, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
         type: 3}
@@ -6921,6 +6926,11 @@ PrefabInstance:
         type: 3}
       propertyPath: visionAngle
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5084593449808591181, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
+        type: 3}
+      propertyPath: maxHealth
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7536286392752533729, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
         type: 3}
@@ -17167,7 +17177,7 @@ PrefabInstance:
     - target: {fileID: 5084593449808591181, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
         type: 3}
       propertyPath: health
-      value: 1
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5084593449808591181, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
         type: 3}
@@ -17208,6 +17218,11 @@ PrefabInstance:
         type: 3}
       propertyPath: visionAngle
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5084593449808591181, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
+        type: 3}
+      propertyPath: maxHealth
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7536286392752533729, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
         type: 3}
@@ -17517,7 +17532,7 @@ PrefabInstance:
     - target: {fileID: 5084593449808591181, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
         type: 3}
       propertyPath: health
-      value: 1
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5084593449808591181, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
         type: 3}
@@ -17558,6 +17573,11 @@ PrefabInstance:
         type: 3}
       propertyPath: visionAngle
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5084593449808591181, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
+        type: 3}
+      propertyPath: maxHealth
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7536286392752533729, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
         type: 3}
@@ -18015,7 +18035,7 @@ PrefabInstance:
     - target: {fileID: 5084593449808591181, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
         type: 3}
       propertyPath: health
-      value: 1
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5084593449808591181, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
         type: 3}
@@ -18056,6 +18076,11 @@ PrefabInstance:
         type: 3}
       propertyPath: visionAngle
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5084593449808591181, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
+        type: 3}
+      propertyPath: maxHealth
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7536286392752533729, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
         type: 3}
@@ -20997,7 +21022,7 @@ PrefabInstance:
     - target: {fileID: 5084593449808591181, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
         type: 3}
       propertyPath: health
-      value: 1
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5084593449808591181, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
         type: 3}
@@ -21038,6 +21063,11 @@ PrefabInstance:
         type: 3}
       propertyPath: visionAngle
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5084593449808591181, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
+        type: 3}
+      propertyPath: maxHealth
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7536286392752533729, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
         type: 3}
@@ -25495,7 +25525,7 @@ PrefabInstance:
     - target: {fileID: 5084593449808591181, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
         type: 3}
       propertyPath: health
-      value: 1
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5084593449808591181, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
         type: 3}
@@ -25536,6 +25566,11 @@ PrefabInstance:
         type: 3}
       propertyPath: visionAngle
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5084593449808591181, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
+        type: 3}
+      propertyPath: maxHealth
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7536286392752533729, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
         type: 3}
@@ -29197,7 +29232,7 @@ PrefabInstance:
     - target: {fileID: 5084593449808591181, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
         type: 3}
       propertyPath: health
-      value: 1
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5084593449808591181, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
         type: 3}
@@ -29238,6 +29273,11 @@ PrefabInstance:
         type: 3}
       propertyPath: visionAngle
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5084593449808591181, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
+        type: 3}
+      propertyPath: maxHealth
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7536286392752533729, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
         type: 3}
@@ -29696,6 +29736,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3740418758326311012, guid: 3abe584a82528cf46bf76036497ffcac,
+        type: 3}
+      propertyPath: obstacleMask.m_Bits
+      value: 4096
+      objectReference: {fileID: 0}
+    - target: {fileID: 3740418758326311012, guid: 3abe584a82528cf46bf76036497ffcac,
+        type: 3}
+      propertyPath: nodeMask.m_Bits
+      value: 2048
+      objectReference: {fileID: 0}
+    - target: {fileID: 3740418758326311012, guid: 3abe584a82528cf46bf76036497ffcac,
+        type: 3}
+      propertyPath: _distanceDetection
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7125753328308916370, guid: 3abe584a82528cf46bf76036497ffcac,
+        type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7125753328308916370, guid: 3abe584a82528cf46bf76036497ffcac,
+        type: 3}
+      propertyPath: health
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3abe584a82528cf46bf76036497ffcac, type: 3}
@@ -31323,7 +31388,7 @@ PrefabInstance:
     - target: {fileID: 5084593449808591181, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
         type: 3}
       propertyPath: health
-      value: 1
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5084593449808591181, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
         type: 3}
@@ -31364,6 +31429,11 @@ PrefabInstance:
         type: 3}
       propertyPath: visionAngle
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5084593449808591181, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
+        type: 3}
+      propertyPath: maxHealth
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7536286392752533729, guid: 1a4ced0a4f9639c458e02b3c57c929fa,
         type: 3}
