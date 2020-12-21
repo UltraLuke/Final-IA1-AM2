@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class GameManager : MonoBehaviour
     public string textT2Win;
     public Color team1Color;
     public Color team2Color;
+
+    private bool _winTriggered = false;
 
     private void Start()
     {
@@ -32,14 +35,33 @@ public class GameManager : MonoBehaviour
 
     private void LitTeam1Win()
     {
-        winContainer.SetActive(true);
-        textTeam.text = textT1Win;
-        textTeam.color = team1Color;
+        if (_winTriggered) return;
+        if(winContainer != null)
+        {
+            winContainer.SetActive(true);
+            textTeam.text = textT1Win;
+            textTeam.color = team1Color;
+            _winTriggered = true;
+        }
     }
     private void LitTeam2Win()
     {
-        winContainer.SetActive(true);
-        textTeam.text = textT2Win;
-        textTeam.color = team2Color;
+        if (_winTriggered) return;
+        if (winContainer != null)
+        {
+            winContainer.SetActive(true);
+            textTeam.text = textT2Win;
+            textTeam.color = team2Color;
+            _winTriggered = true;
+        }
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

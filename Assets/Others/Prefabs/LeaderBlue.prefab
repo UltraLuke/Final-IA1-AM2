@@ -212,7 +212,7 @@ MonoBehaviour:
   goal: {fileID: 0}
   distToGoal: 15
   secureZone: {fileID: 0}
-  criticalHealthAmount: 25
+  criticalHealthAmount: 15
   secureHealthAmount: 75
   distToSecureZone: 10
   shootCD: 1
@@ -274,8 +274,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lowHealth: 0
   enemyOnSight: 0
-  onDominatingZone: 0
   closestEnemyOnSight: {fileID: 0}
+  onDominatingZone: 0
 --- !u!114 &30007947662406765
 MonoBehaviour:
   m_ObjectHideFlags: 0

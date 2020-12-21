@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class LeaderModel : Model
@@ -116,7 +115,11 @@ public class LeaderModel : Model
         if (health <= 0)
             Die();
     }
-    void Die(){ /*Debug.Log(gameObject.name + " dice: Morí X_X");*/Destroy(gameObject); }
+    void Die()
+    {
+        Destroy(gameObject);
+    }
+
     public override void Heal(float amount)
     {
         health += amount;

@@ -53,5 +53,10 @@ public class Bullet : MonoBehaviour
 
             Destroy(gameObject);
         }
+
+        if(other.gameObject.layer == 12)
+        {
+            Destroy(gameObject);
+        }
     }
 }

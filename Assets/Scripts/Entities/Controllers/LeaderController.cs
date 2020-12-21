@@ -83,6 +83,12 @@ public class LeaderController : Controller
     {
         _fsm.OnUpdate();
     }
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        if (team == 0) EventsHandler.TriggerEvent("EVENT_TEAM2WINS");
+        else if (team == 1) EventsHandler.TriggerEvent("EVENT_TEAM1WINS");
+    }
 
     #region Pathfinding Move
     private List<Node> _waypoints;
@@ -109,7 +115,6 @@ public class LeaderController : Controller
         _sb = new ObstacleAvoidance(transform, _waypoints[_nextPoint].transform, obstacleDistance, avoidWeight, avoidLayer);
 
         _lastConnection = false;
-        //_readyToMove = true;
     }
     public override void Run()
     {

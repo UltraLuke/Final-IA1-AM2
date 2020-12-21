@@ -12,16 +12,25 @@ public class SoldierModel : Model, IHealth, ISpeed, IMelee, IShooter, IVision
     public float speed;
     public float speedRot = 0.2f;
 
-    public float meleeDamage;
-    public float meleeRate;
-    public float meleeDistance;
-    public float shootDamage;
-    public float shootRate;
-    public float shootDistance;
+    [Header("Attack")]
+    public Bullet bullet;
+    public Transform cannon;
+    public LayerMask enemyLayers;
+
+    [HideInInspector] public float meleeDamage;
+    [HideInInspector] public float meleeRate;
+    [HideInInspector] public float meleeDistance;
+    [HideInInspector] public float shootDamage;
+    [HideInInspector] public float shootRate;
+    [HideInInspector] public float shootDistance;
+
+    [Header("Vision")]
     public float visionDistance;
     public float visionAngle;
+    public LayerMask visionMask;
 
     Rigidbody _rb;
+    EnemyChecker _enemyChecker;
 
     private void OnValidate()
     {
@@ -30,6 +39,12 @@ public class SoldierModel : Model, IHealth, ISpeed, IMelee, IShooter, IVision
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+        _enemyChecker = GetComponentInChildren<EnemyChecker>();
+    }
+    private void Start()
+    {
+        if (_enemyChecker != null)
+            _enemyChecker.Range = visionDistance;
     }
     public override void Move(Vector3 dir)
     {
@@ -37,18 +52,75 @@ public class SoldierModel : Model, IHealth, ISpeed, IMelee, IShooter, IVision
         _rb.velocity = dir * speed;
         transform.forward = Vector3.Lerp(transform.forward, dir, speedRot);
     }
+    public override void LookAtDir(Vector3 dir) => transform.forward = dir;
+    public override bool IsInSight(Transform target)
+    {
+        if (target == null) return false;
+        Vector3 diff = (target.position - transform.position);
+        //A--->B
+        //B-A
+        float distance = diff.magnitude;
+        if (distance > visionDistance) return false;
+        if (Vector3.Angle(transform.forward, diff) > visionAngle / 2) return false;
+        if (Physics.Raycast(transform.position, diff.normalized, distance, visionMask)) return false;
+        return true;
+    }
+    public override bool CheckAndGetClosestEnemyInSight(int team, out Transform enemy)
+    {
+        enemy = null;
+        List<Controller> enemies = _enemyChecker.Enemies;
+        if (enemies == null || enemies.Count == 0) return false;
+
+        float distance = 0;
+        float currDistance;
+        bool enemyOnSight = false;
+        bool setCleanFlag = false;
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            if (enemies[i] != null)
+            {
+                if (IsInSight(enemies[i].transform))
+                {
+                    currDistance = (enemies[i].transform.position - transform.position).magnitude;
+                    if (enemy == null || currDistance < distance)
+                    {
+                        enemy = enemies[i].transform;
+                        distance = currDistance;
+                        enemyOnSight = true;
+                    }
+                }
+            }
+            else setCleanFlag = true;
+        }
+        if (setCleanFlag) _enemyChecker.ClearNullElements();
+        return enemyOnSight;
+    }
+    public override void Shoot(Transform target, int teamNumber)
+    {
+        if (bullet == null) return;
+        Transform from;
+
+        if (cannon != null) from = cannon;
+        else from = transform;
+
+        var dir = target.position - from.position;
+        var newBullet = Instantiate(bullet, from.position, Quaternion.identity);
+        newBullet.Dir = dir.normalized;
+        newBullet.teamNumber = teamNumber;
+    }
     public override void ApplyDamage(float amount)
     {
         health -= amount;
         if (health <= 0)
             Die();
     }
-    void Die() { /*Debug.Log(gameObject.name + " dice: Morí X_X");*/Destroy(gameObject); }
+    void Die() => Destroy(gameObject);
     public override void Heal(float amount)
     {
         health += amount;
         if (health > maxHealth) health = maxHealth;
     }
+
     #region method interfaces
     public override Component HealthSettings(float health)
     {
@@ -100,4 +172,13 @@ public class SoldierModel : Model, IHealth, ISpeed, IMelee, IShooter, IVision
         visionRangeAngles = visionAngle;
     }
     #endregion
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(transform.position, transform.forward * visionDistance);
+        Gizmos.DrawWireSphere(transform.position, visionDistance);
+        Gizmos.DrawRay(transform.position, Quaternion.Euler(0, visionAngle / 2, 0) * transform.forward * visionDistance);
+        Gizmos.DrawRay(transform.position, Quaternion.Euler(0, -visionAngle / 2, 0) * transform.forward * visionDistance);
+    }
 }
