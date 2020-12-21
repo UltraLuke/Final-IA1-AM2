@@ -67,7 +67,7 @@ public class PlayerController : Controller
         _lastConnection = false;
         _readyToMove = true;
     }
-    public void Run()
+    public override void Run()
     {
         var point = waypoints[_nextPoint];
         var posPoint = point.transform.position;

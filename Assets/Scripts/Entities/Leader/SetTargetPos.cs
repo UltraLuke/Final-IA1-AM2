@@ -9,17 +9,15 @@ public class SetTargetPos : MonoBehaviour
     [SerializeField] [Range(0, 20)] float _areaDetection;
     [SerializeField] LayerMask _layerToDetect;
     Plane _plane;
-    bool _clicked = false;
 
     Camera _cmra;
     AgentTheta _agentTheta;
-
-    Node initNode;
-    Node finitNode;
+    Controller _controller;
 
     private void Awake()
     {
         _agentTheta = GetComponent<AgentTheta>();
+        _controller = GetComponent<Controller>();
     }
     private void Start()
     {
@@ -29,59 +27,17 @@ public class SetTargetPos : MonoBehaviour
 
     private void Update()
     {
-        if (_clicked)
+        if (Input.GetMouseButtonUp(0))
         {
-            _agentTheta.PathFindingTheta();
-            _clicked = false;
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            bool validateClick = false;
             Ray ray = _cmra.ScreenPointToRay(Input.mousePosition);
 
             if (_plane.Raycast(ray, out float enter))
             {
                 var hitPoint = ray.GetPoint(enter);
-
-                if((initNode = GetNearestNodeToTarget(transform.position, hitPoint)) &&
-                   (finitNode = GetNearestNodeToTarget(hitPoint, transform.position)))
-                {
-                    validateClick = true;
-                }
-
-                if (validateClick)
-                {
-                    _agentTheta.Init = initNode;
-                    _agentTheta.Finit = finitNode;
-                    _agentTheta.FinPos = hitPoint;
-                    _clicked = true;
-                }
+                var nodes = _agentTheta.GetPathFinding(transform.position, hitPoint);
+                _controller.SetWayPoints(nodes, hitPoint);
             }
         }
-    }
-
-    private Node GetNearestNodeToTarget(Vector3 start, Vector3 target)
-    {
-        float distance = 0f;
-        Node closestNode = null;
-
-        Collider[] nodes = Physics.OverlapSphere(/*transform.position*/ start, _areaDetection, _layerToDetect);
-
-        if (nodes == null) return null;
-        for (int i = 0; i < nodes.Length; i++)
-        {
-            float newDistance = Vector3.Distance(nodes[i].transform.position, target);
-
-            //Si initNode es nulo, lo asigno directamente
-            //Si la distancia entre el punto y el nodo es menor que el que tengo guardado, lo asigno tambien
-            if (closestNode == null || newDistance < distance)
-            {
-                closestNode = nodes[i].GetComponent<Node>();
-                distance = newDistance;
-            }
-        }
-
-        return closestNode;
     }
 
     private void OnDrawGizmosSelected()

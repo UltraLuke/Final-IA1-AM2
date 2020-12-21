@@ -100,6 +100,8 @@ GameObject:
   - component: {fileID: 6508861125898087221}
   - component: {fileID: 1340476162386552372}
   - component: {fileID: 5383744572780361162}
+  - component: {fileID: 8474644985483960841}
+  - component: {fileID: 7247945824430615393}
   - component: {fileID: 6279230715917337931}
   - component: {fileID: 3119580280790998224}
   - component: {fileID: 5127737937559542030}
@@ -190,7 +192,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6279230715917337931
+--- !u!114 &8474644985483960841
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -198,6 +200,46 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6143828930694095902}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78b0e5dca412dec4f82f060f10a30518, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clickPlaneReference: {x: 0, y: 0, z: 0}
+  _areaDetection: 10
+  _layerToDetect:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &7247945824430615393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6143828930694095902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 935fd945662fe4340b3383b346bc3c53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  team: 0
+  useMouse: 1
+  _obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  nextWaypointDistance: 1
+  _avoidLayer:
+    serializedVersion: 2
+    m_Bits: 8192
+  obstacleDistance: 10
+  avoidWeight: 10
+--- !u!114 &6279230715917337931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6143828930694095902}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e02c0238177eca14ba99327a4c9ff9e5, type: 3}
   m_Name: 
@@ -212,8 +254,8 @@ MonoBehaviour:
   goal: {fileID: 0}
   distToGoal: 15
   secureZone: {fileID: 0}
-  criticalHealthAmount: 15
-  secureHealthAmount: 75
+  criticalHealthAmount: 30
+  secureHealthAmount: 90
   distToSecureZone: 10
   shootCD: 1
 --- !u!114 &3119580280790998224

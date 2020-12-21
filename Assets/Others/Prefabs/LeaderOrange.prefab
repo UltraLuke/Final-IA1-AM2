@@ -124,8 +124,8 @@ MonoBehaviour:
   goal: {fileID: 0}
   distToGoal: 15
   secureZone: {fileID: 0}
-  criticalHealthAmount: 15
-  secureHealthAmount: 75
+  criticalHealthAmount: 30
+  secureHealthAmount: 90
   distToSecureZone: 10
   shootCD: 1
 --- !u!114 &7125753328308916370

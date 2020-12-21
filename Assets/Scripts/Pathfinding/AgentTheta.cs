@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 public class AgentTheta : MonoBehaviour
 {
-
     [Header("Pathfinding Settings")]
     [Tooltip("La máscara correspondiente al obstáculo")]
     [SerializeField] LayerMask obstacleMask;
@@ -15,35 +14,16 @@ public class AgentTheta : MonoBehaviour
     [Header("Gizmos settings")]
     [SerializeField] float radius;
     [SerializeField] Vector3 offset;
-    //public float distanceMax;
 
     private Node init;
     private Node finit;
     private Vector3 finPos;
-    private Controller controller;
-    List<Node> _list;
-    List<Vector3> _listVector;
-    Theta<Node> _theta = new Theta<Node>();
+    private List<Node> _list;
+    private Theta<Node> _theta = new Theta<Node>();
 
-    //QUITAR SI NO SE USAN!!
-    public Node Init { get => init; set => init = value; }
-    public Node Finit { get => finit; set => finit = value; }
-    public Vector3 FinPos { get => finPos; set => finPos = value; }
-
-    private void Awake()
-    {
-        controller = GetComponent<Controller>();
-    }
-
-    //QUITAR SI NO SE USA!!!!
-    public void PathFindingTheta()
-    {
-        _list = _theta.Run(init, Satisfies, GetNeighbours, GetCost, Heuristic, InSight);
-        _list = FilterStartAndEndPoints(_list, finPos);
-        controller.SetWayPoints(_list, finPos);
-    }
     public List<Node> GetPathFinding(Node init, Node finit)
     {
+        this.init = init;
         this.finit = finit;
         this.finPos = finit.transform.position;
         return _theta.Run(init, Satisfies, GetNeighbours, GetCost, Heuristic, InSight);
@@ -66,7 +46,6 @@ public class AgentTheta : MonoBehaviour
             dir = list[1].transform.position - transform.position;
             if (!Physics.Raycast(transform.position, dir.normalized, dir.magnitude, obstacleMask))
             {
-                //init = _list[1];
                 list.RemoveAt(0);
             }
             else
