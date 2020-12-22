@@ -45,6 +45,8 @@ public class SoldierModel : Model, IHealth, ISpeed, IMelee, IShooter, IVision
     {
         if (_enemyChecker != null)
             _enemyChecker.Range = visionDistance;
+
+        //EventsHandler.SubscribeToEvent("EVENT_START", () => _rb.isKinematic = false);
     }
     public override void Move(Vector3 dir)
     {

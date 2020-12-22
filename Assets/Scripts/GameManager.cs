@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour
     public Color team1Color;
     public Color team2Color;
 
+    [Header("Screens")]
+    public GameObject setupScreen;
+    public GameObject gameScreen;
+
     private bool _winTriggered = false;
 
     private void Start()
@@ -26,11 +30,13 @@ public class GameManager : MonoBehaviour
     {
         EventsHandler.SubscribeToEvent("EVENT_TEAM1WINS", LitTeam1Win);
         EventsHandler.SubscribeToEvent("EVENT_TEAM2WINS", LitTeam2Win);
+        EventsHandler.SubscribeToEvent("EVENT_START", StartGameScreen);
     }
     void UnsubscribeEvents()
     {
         EventsHandler.UnsubscribeToEvent("EVENT_TEAM1WINS", LitTeam1Win);
         EventsHandler.UnsubscribeToEvent("EVENT_TEAM2WINS", LitTeam2Win);
+        EventsHandler.UnsubscribeToEvent("EVENT_START", StartGameScreen);
     }
 
     private void LitTeam1Win()
@@ -55,13 +61,23 @@ public class GameManager : MonoBehaviour
             _winTriggered = true;
         }
     }
-
-    public void Quit()
+    private void StartGameScreen()
     {
-        Application.Quit();
+        setupScreen.SetActive(false);
+        gameScreen.SetActive(true);
+    }
+
+    public void StartGame()
+    {
+        EventsHandler.TriggerEvent("EVENT_START");
     }
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
 }

@@ -29,7 +29,6 @@ public class MoveState<T> : States<T>
     }
     public override void Awake()
     {
-        Debug.Log("MoveState");
         _moveSetup(_goal);
     }
     public override void Execute()

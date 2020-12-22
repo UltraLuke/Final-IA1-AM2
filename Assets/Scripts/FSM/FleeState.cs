@@ -28,8 +28,6 @@ public class FleeState<T> : States<T>
 
     public override void Awake()
     {
-        Debug.Log("FleeState");
-
         _moveSetup(_secureZone);
     }
 

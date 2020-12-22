@@ -54,6 +54,7 @@ public class MinionController : Controller
 
         _root = questionLowHealth;
     }
+    
     private void Awake()
     {
         _model = GetComponent<Model>();
@@ -62,14 +63,16 @@ public class MinionController : Controller
         _flock = GetComponent<FlockEntity>();
         _model = GetComponent<Model>();
     }
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         TreeInit();
         FSMInit();
     }
     private void Update()
     {
-        _fsm.OnUpdate();
+        if(_updateEnabled)
+            _fsm.OnUpdate();
     }
 
     #region Pathfinding Move

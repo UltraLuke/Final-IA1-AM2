@@ -74,14 +74,16 @@ public class LeaderController : Controller
         _leaderState = GetComponent<LeaderState>();
         _agentTheta = GetComponent<AgentTheta>();
     }
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         TreeInit();
         FSMInit();
     }
     private void Update()
     {
-        _fsm.OnUpdate();
+        if(_updateEnabled)
+            _fsm.OnUpdate();
     }
     protected override void OnDestroy()
     {

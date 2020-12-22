@@ -21,10 +21,6 @@ public class IdleState<T> : States<T>
         _node = node;
     }
 
-    public override void Awake()
-    {
-        Debug.Log("IdleState");
-    }
     public override void Execute()
     {
         //CHEQUEO SI TENGO VIDA BAJA

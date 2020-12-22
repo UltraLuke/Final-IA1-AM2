@@ -23,7 +23,6 @@ public class AttackState<T> : States<T>
     }
     public override void Awake()
     {
-        Debug.Log("AttackState");
         _target = _state.closestEnemyOnSight;
     }
     public override void Execute()
