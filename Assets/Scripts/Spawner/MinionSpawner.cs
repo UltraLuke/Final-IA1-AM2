@@ -121,7 +121,6 @@ public class MinionSpawner : MonoBehaviour
         int rows = rowQuantity;
         int columns = columnQuantity;
         Vector3 originPoint = transform.position - new Vector3(area.x / 2, 0, area.y / 2);
-        Debug.Log(originPoint);
         var rowDivision = area.y / (rows + 1);
         var columnDivision = area.x / (columns + 1);
 

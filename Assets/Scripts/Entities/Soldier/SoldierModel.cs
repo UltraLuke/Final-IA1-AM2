@@ -46,8 +46,15 @@ public class SoldierModel : Model, IHealth, ISpeed, IMelee, IShooter, IVision
         if (_enemyChecker != null)
             _enemyChecker.Range = visionDistance;
 
-        //EventsHandler.SubscribeToEvent("EVENT_START", () => _rb.isKinematic = false);
+        EventsHandler.SubscribeToEvent("EVENT_START", SubscribeToLifeBar);
     }
+    private void OnDestroy()
+    {
+        EventsHandler.UnsubscribeToEvent("EVENT_START", SubscribeToLifeBar);
+    }
+
+    void SubscribeToLifeBar() => HealthBarsHandler.Instance.SubscribeHPListener(transform, 0, maxHealth, GetHealth, true);
+
     public override void Move(Vector3 dir)
     {
         dir.y = 0;
@@ -116,13 +123,16 @@ public class SoldierModel : Model, IHealth, ISpeed, IMelee, IShooter, IVision
         if (health <= 0)
             Die();
     }
-    void Die() => Destroy(gameObject);
+    void Die()
+    {
+        HealthBarsHandler.Instance.UnsubscribeHPListener(transform);
+        Destroy(gameObject);
+    }
     public override void Heal(float amount)
     {
         health += amount;
         if (health > maxHealth) health = maxHealth;
     }
-
     #region method interfaces
     public override Component HealthSettings(float health)
     {

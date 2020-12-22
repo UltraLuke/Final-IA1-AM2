@@ -44,7 +44,14 @@ public class LeaderModel : Model
     {
         if(_enemyChecker != null)
             _enemyChecker.Range = visionDistance;
+
+        EventsHandler.SubscribeToEvent("EVENT_START", SubscribeToLifeBar);
     }
+    private void OnDestroy()
+    {
+        EventsHandler.UnsubscribeToEvent("EVENT_START", SubscribeToLifeBar);
+    }
+    void SubscribeToLifeBar() => HealthBarsHandler.Instance.SubscribeHPListener(transform, 0, maxHealth, GetHealth);
     public override void Move(Vector3 dir)
     {
         dir.y = 0;
@@ -117,6 +124,7 @@ public class LeaderModel : Model
     }
     void Die()
     {
+        HealthBarsHandler.Instance.UnsubscribeHPListener(transform);
         Destroy(gameObject);
     }
 
